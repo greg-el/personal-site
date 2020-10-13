@@ -1,0 +1,37 @@
+@font-face {
+  font-family: "MS Dos";
+  src: url("./font/DOS-VGA-437.ttf");
+  }
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+}
+
+#boot-wrapper {
+  z-index: 99;
+  font-family: "MS Dos";
+  font-size: 32px;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  background-color: black;
+  color: white;
+}
+
+#desktop-wrapper {
+  z-index: 0;
+  background-color: #008484;
+}
+
+.bootText {
+  height: 50px;
+}
+
+.bootVisible {
+  display: flex;
+}
+
+.bootHidden {
+  display: none;
+}
