@@ -6,9 +6,7 @@ interface IState {
 
 interface IProps {
   startMouseDown: boolean;
-  onStartMouseDown: any;
   desktopMouseDown: boolean;
-  onDesktopMouseDown: any;
 }
 
 class StartMenu extends React.Component<IProps, IState> {

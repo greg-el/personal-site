@@ -4,12 +4,15 @@ import StartMenu from "./StartMenu";
 import StartButton from "./StartButton";
 import Desktop from "./Desktop";
 import Icon from "./Icon";
+import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
+import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
 
 interface IState {
   startMouseDown: boolean;
   startMouseUp: boolean;
   desktopMouseDown: boolean;
   desktopMouseUp: boolean;
+  focusedElement: any;
 }
 
 interface IProps {}
@@ -22,65 +25,57 @@ class ScreenHandler extends React.Component<IProps, IState> {
       startMouseUp: false,
       desktopMouseDown: false,
       desktopMouseUp: false,
+      focusedElement: null,
     };
-    this.startMouseDown = this.startMouseDown.bind(this);
-    this.startMouseUp = this.startMouseUp.bind(this);
-    this.desktopMouseDown = this.desktopMouseDown.bind(this);
-    this.desktopMouseUp = this.desktopMouseUp.bind(this);
   }
 
-  startMouseDown(event: any) {
-    this.setState({
-      startMouseDown: true,
-      startMouseUp: false,
-    });
-  }
-
-  startMouseUp(event: any) {
-    this.setState({
-      startMouseDown: false,
-      startMouseUp: true,
-    });
-  }
-
-  desktopMouseDown(event: any) {
-    this.setState({
-      desktopMouseDown: true,
-      desktopMouseUp: false,
-    });
-  }
-
-  desktopMouseUp(event: any) {
-    this.setState({
-      desktopMouseDown: false,
-      desktopMouseUp: true,
-    });
-  }
+  setFocusedElement = (val: any) => {
+    this.setState(
+      {
+        focusedElement: val,
+      },
+      () => console.log(this.state.focusedElement)
+    );
+  };
 
   render() {
     return (
       <div id="screen-container">
         <Desktop
-          desktopMouseDown={this.state.desktopMouseDown}
-          onDesktopMouseDown={this.desktopMouseDown}
-          desktopMouseUp={this.state.desktopMouseUp}
-          onDesktopMouseUp={this.desktopMouseUp}
-        />
+          setFocusedElement={this.setFocusedElement}
+          focusedElement={this.state.focusedElement}
+        >
+          <Icon
+            style={{ backgroundImage: `url( ${GitLabLogo})` }}
+            label="GitLab"
+            url="https://gitlab.com/greg-el"
+            id="gitlab-icon"
+            focusedElement={this.state.focusedElement}
+            setFocusedElement={this.setFocusedElement}
+          />
+          <Icon
+            style={{ backgroundImage: `url( ${GitHubLogo})` }}
+            label="GitHub"
+            url="https://github.com/greg-el"
+            id="github-icon"
+            focusedElement={this.state.focusedElement}
+            setFocusedElement={this.setFocusedElement}
+          />
+        </Desktop>
         <div id="taskbar-wrapper">
-          <Taskbar>
+          <Taskbar
+            focusedElement={this.state.focusedElement}
+            setFocusedElement={this.setFocusedElement}
+          >
             <StartButton
               startMouseDown={this.state.startMouseDown}
               startMouseUp={this.state.startMouseUp}
-              onMouseDown={this.startMouseDown}
-              onMouseUp={this.startMouseUp}
             />
           </Taskbar>
         </div>
         <StartMenu
           startMouseDown={this.state.startMouseDown}
-          onStartMouseDown={this.startMouseDown}
           desktopMouseDown={this.state.desktopMouseDown}
-          onDesktopMouseDown={this.desktopMouseDown}
         />
       </div>
     );

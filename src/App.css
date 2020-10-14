@@ -76,11 +76,10 @@ body {
   border-left: 1px solid #ffffff;
   border-bottom: 2px solid #6d6d6d;
   border-right: 2px solid #6d6d6d;
-  font-family: 'MS Dos';
+  font-family: "MS Dos";
   color: black;
   font-size: 16px;
 }
-
 
 .start-not-clicked {
   background-color: #c3c7cb;
@@ -89,7 +88,6 @@ body {
 .start-clicked {
   background-color: #00207d !important;
 }
-
 
 #start-menu-wrapper {
   display: flex;
@@ -140,10 +138,14 @@ body {
 }
 
 .icon-label {
-  font-family: 'MS Dos';
+  font-family: "MS Dos";
   color: white;
 }
 
 .icon-focused {
   outline: darkgray dashed thin;
+}
+
+.icon-not-focused {
+  outline: none;
 }

@@ -1,15 +1,12 @@
 import React from "react";
-import Icon from "./Icon";
-import GitLabLogo from "../image/GitLabLogoPixelShortcut.png"
-import GitHubLogo from "../image/GitHubLogoPixelShortcut.png"
 
-interface IState {}
+interface IState {
+  focusedElement: any;
+}
 
 interface IProps {
-  desktopMouseDown: boolean;
-  onDesktopMouseDown: any;
-  desktopMouseUp: boolean;
-  onDesktopMouseUp: any;
+  setFocusedElement: any;
+  focusedElement: any;
 }
 
 class Desktop extends React.Component<IProps, IState> {
@@ -22,11 +19,9 @@ class Desktop extends React.Component<IProps, IState> {
       <div id="desktop-wrapper">
         <div
           id="desktop"
-          onMouseDown={this.props.onDesktopMouseDown}
-          onMouseUp={this.props.onDesktopMouseUp}
+          onClick={(e) => this.props.setFocusedElement(e.currentTarget)}
         >
-          <Icon style={{ backgroundImage: `url( ${GitLabLogo})` }} label="GitLab" />
-          <Icon style={{ backgroundImage: `url( ${GitHubLogo})` }} label="GitHub"/>
+          {this.props.children}
         </div>
       </div>
     );
