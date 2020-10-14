@@ -1,5 +1,4 @@
 import React from "react";
-import { ReactComponent as StartButtonLogo } from "../image/start.svg";
 
 interface IState {}
 
@@ -28,7 +27,8 @@ class StartButton extends React.Component<IProps, IState> {
           onMouseUp={() => this.props.onMouseUp()}
           className={buttonClass}
         >
-          <StartButtonLogo />
+          <div id="start-label"></div>
+          Start
         </button>
       </div>
     );

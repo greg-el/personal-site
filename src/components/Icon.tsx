@@ -4,6 +4,7 @@ interface IState {}
 
 interface IProps {
   style: React.CSSProperties;
+  label: string;
 }
 
 class Icon extends React.Component<IProps, IState> {
@@ -15,6 +16,7 @@ class Icon extends React.Component<IProps, IState> {
     return (
       <div className="icon-wrapper">
         <div className="icon" style={this.props.style}></div>
+        <div className="icon-label">{this.props.label}</div>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import Icon from "./Icon";
-import { ReactComponent as GitLabIcon } from "../image/GitLabLogo.svg";
+import GitLabLogo from "../image/GitLabLogoPixelShortcut.png"
+import GitHubLogo from "../image/GitHubLogoPixelShortcut.png"
 
 interface IState {}
 
@@ -24,7 +25,8 @@ class Desktop extends React.Component<IProps, IState> {
           onMouseDown={this.props.onDesktopMouseDown}
           onMouseUp={this.props.onDesktopMouseUp}
         >
-          <Icon style={{ backgroundImage: `url(${GitLabIcon})` }} />
+          <Icon style={{ backgroundImage: `url( ${GitLabLogo})` }} label="GitLab" />
+          <Icon style={{ backgroundImage: `url( ${GitHubLogo})` }} label="GitHub"/>
         </div>
       </div>
     );
