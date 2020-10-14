@@ -1,15 +1,17 @@
 @font-face {
   font-family: "MS Dos";
   src: url("./font/DOS-VGA-437.ttf");
-  }
+}
 
-html, body {
+html,
+body {
   width: 100vw;
   height: 100vh;
 }
 
 #boot-wrapper {
-  z-index: 99;
+  box-sizing: border-box;
+  padding: 2%;
   font-family: "MS Dos";
   font-size: 32px;
   width: 100vw;
@@ -19,19 +21,96 @@ html, body {
   color: white;
 }
 
-#desktop-wrapper {
-  z-index: 0;
-  background-color: #008484;
-}
-
 .bootText {
   height: 50px;
 }
 
-.bootVisible {
+#screen-container {
   display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }
 
-.bootHidden {
-  display: none;
+#desktop-wrapper {
+  width: 100vw;
+  background-color: #008484;
+  flex-grow: 1;
+}
+
+#desktop {
+  height: 100%;
+  width: 100%;
+}
+
+#taskbar-wrapper {
+  display: flex;
+  width: 100%;
+  height: 40px;
+}
+
+#taskbar {
+  width: 100%;
+  background-color: #c3c7cb;
+  border-top: 1px solid #ffffff;
+  outline: 1px solid #c3c7cb;
+}
+
+#start-button-wrapper {
+  display: flex;
+  height: 100%;
+  width: 80px;
+  align-items: center;
+}
+
+#start-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5%;
+  height: 80%;
+  width: 90%;
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-bottom: 2px solid #6d6d6d;
+  border-right: 2px solid #6d6d6d;
+}
+
+.start-not-clicked {
+  background-color: #c3c7cb;
+}
+
+.start-clicked {
+  background-color: #00207d !important;
+}
+
+#start-menu-wrapper {
+  display: flex;
+  position: absolute;
+  bottom: 40px;
+  left: 5px;
+  height: 450px;
+  width: 300px;
+}
+
+#start-menu {
+  display: flex;
+  flex-direction: column;
+  background-color: #c0c0c0;
+  width: 100%;
+  height: 100%;
+  border-right: 2px solid #6d6d6d;
+  border-bottom: 2px solid #6d6d6d;
+  border-left: 2px solid #eef0ea;
+  border-top: 2px solid #eef0ea;
+}
+
+.icon-wrapper {
+  height: 50px;
+  width: 50px;
+}
+
+.icon {
+  height: 100%;
+  width: 100%;
 }

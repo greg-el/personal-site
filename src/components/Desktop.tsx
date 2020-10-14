@@ -1,27 +1,34 @@
-import React from 'react';
+import React from "react";
+import Icon from "./Icon";
+import { ReactComponent as GitLabIcon } from "../image/GitLabLogo.svg";
 
+interface IState {}
 
-interface DesktopProps {
+interface IProps {
+  desktopMouseDown: boolean;
+  onDesktopMouseDown: any;
+  desktopMouseUp: boolean;
+  onDesktopMouseUp: any;
 }
 
-interface DesktopState {
+class Desktop extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div id="desktop-wrapper">
+        <div
+          id="desktop"
+          onMouseDown={this.props.onDesktopMouseDown}
+          onMouseUp={this.props.onDesktopMouseUp}
+        >
+          <Icon style={{ backgroundImage: `url(${GitLabIcon})` }} />
+        </div>
+      </div>
+    );
+  }
 }
-
-class DesktopHandler extends React.Component<DesktopState, DesktopProps> {
-    constructor(props: DesktopProps) {
-        super(props);
-    }
-
-
-    render() {
-        return (
-            <div id="desktop-wrapper">
-                <div id="desktop"></div>
-            </div>
-        )
-    }
-}
-
-const Desktop = <DesktopHandler />
 
 export default Desktop;
