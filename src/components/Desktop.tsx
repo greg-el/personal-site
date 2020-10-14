@@ -1,27 +1,32 @@
-import React from 'react';
+import React from "react";
 
-
-interface DesktopProps {
+interface IState {
+  focusedElement: any;
 }
 
-interface DesktopState {
+interface IProps {
+  setFocusedElement: any;
+  focusedElement: any;
+  id: string;
 }
 
-class DesktopHandler extends React.Component<DesktopState, DesktopProps> {
-    constructor(props: DesktopProps) {
-        super(props);
-    }
+class Desktop extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+  }
 
-
-    render() {
-        return (
-            <div id="desktop-wrapper">
-                <div id="desktop"></div>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div id="desktop-wrapper">
+        <div
+          id={this.props.id}
+          onClick={(e) => this.props.setFocusedElement(e.currentTarget)}
+        >
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
 }
-
-const Desktop = <DesktopHandler />
 
 export default Desktop;
