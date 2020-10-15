@@ -21,8 +21,11 @@ class Icon extends React.Component<IProps, IState> {
     };
   }
 
-  componentDidUpdate(prevProps: IProps) {
-    if (prevProps.focusedElement !== this.props.focusedElement) {
+  componentDidUpdate() {
+    if (
+      this.props.focusedElement !== this.props.id &&
+      this.state.focused === true
+    ) {
       this.setState({
         focused: false,
       });
@@ -30,14 +33,11 @@ class Icon extends React.Component<IProps, IState> {
   }
 
   _handleSingleClick(event: any) {
-    this.props.setFocusedElement(event.currentTarget);
+    let target = event.currentTarget;
+    this.props.setFocusedElement(target);
     event.stopPropagation();
-    let state = true;
-    if (this.props.focusedElement !== event.currentTarget) {
-      state = false;
-    }
     this.setState({
-      focused: state,
+      focused: true,
     });
   }
 

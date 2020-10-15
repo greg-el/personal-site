@@ -32,7 +32,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
   setFocusedElement = (val: any) => {
     this.setState(
       {
-        focusedElement: val,
+        focusedElement: val.id,
       },
       () => console.log(this.state.focusedElement)
     );
