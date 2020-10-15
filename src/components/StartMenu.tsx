@@ -1,46 +1,46 @@
 import React from "react";
 
 interface IState {
-  display: boolean;
+  focused: boolean;
 }
 
 interface IProps {
-  startMouseDown: boolean;
-  desktopMouseDown: boolean;
+  focusedElement: any;
+  setFocusedElement: any;
+  id: string;
 }
 
 class StartMenu extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      display: false,
+      focused: false,
     };
   }
 
-  componentDidUpdate(prevProps: IProps) {
+  componentDidUpdate() {
     if (
-      this.state.display === false &&
-      prevProps.startMouseDown !== this.props.startMouseDown
+      this.state.focused === false &&
+      this.props.focusedElement === "start-button"
     ) {
       this.setState({
-        display: true,
+        focused: true,
       });
-    }
-    if (
-      this.state.display === true &&
-      prevProps.desktopMouseDown !== this.props.desktopMouseDown
+    } else if (
+      this.state.focused === true &&
+      this.props.focusedElement !== "start-button"
     ) {
       this.setState({
-        display: false,
+        focused: false,
       });
     }
   }
 
   render() {
-    if (this.state.display === true) {
+    if (this.state.focused === true) {
       return (
         <div id="start-menu-wrapper">
-          <div id="start-menu"></div>
+          <div id={this.props.id}></div>
         </div>
       );
     } else {

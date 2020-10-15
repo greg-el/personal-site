@@ -7,6 +7,7 @@ interface IState {
 interface IProps {
   setFocusedElement: any;
   focusedElement: any;
+  id: string;
 }
 
 class Desktop extends React.Component<IProps, IState> {
@@ -18,7 +19,7 @@ class Desktop extends React.Component<IProps, IState> {
     return (
       <div id="desktop-wrapper">
         <div
-          id="desktop"
+          id={this.props.id}
           onClick={(e) => this.props.setFocusedElement(e.currentTarget)}
         >
           {this.props.children}

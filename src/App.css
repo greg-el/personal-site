@@ -52,6 +52,9 @@ body {
 }
 
 #taskbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
   background-color: #c3c7cb;
   border-top: 1px solid #ffffff;
@@ -78,15 +81,16 @@ body {
   border-right: 2px solid #6d6d6d;
   font-family: "MS Dos";
   color: black;
+  background-color: #c3c7cb;
   font-size: 16px;
 }
 
-.start-not-clicked {
-  background-color: #c3c7cb;
-}
-
-.start-clicked {
-  background-color: #00207d !important;
+#start-button:active {
+  background-color: #babfc3;
+  border-bottom: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  border-top: 2px solid #6d6d6d;
+  border-left: 2px solid #6d6d6d;
 }
 
 #start-menu-wrapper {
@@ -148,4 +152,19 @@ body {
 
 .icon-not-focused {
   outline: none;
+}
+
+#system-tray-wrapper {
+  height: 100%;
+  width: 10%;
+}
+
+#system-tray {
+  background-color: #c3c7cb;
+  border-top: 1px solid #868a8e;
+  border-left: 1px solid #868a8e;
+  border-bottom: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  height: 80%;
+  width: 100%;
 }

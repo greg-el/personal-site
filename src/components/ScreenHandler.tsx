@@ -4,6 +4,7 @@ import StartMenu from "./StartMenu";
 import StartButton from "./StartButton";
 import Desktop from "./Desktop";
 import Icon from "./Icon";
+import SystemTray from "./SystemTray";
 import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
 import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
 
@@ -44,6 +45,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         <Desktop
           setFocusedElement={this.setFocusedElement}
           focusedElement={this.state.focusedElement}
+          id="desktop"
         >
           <Icon
             style={{ backgroundImage: `url( ${GitLabLogo})` }}
@@ -66,17 +68,21 @@ class ScreenHandler extends React.Component<IProps, IState> {
           <Taskbar
             focusedElement={this.state.focusedElement}
             setFocusedElement={this.setFocusedElement}
+            id="taskbar"
           >
             <StartButton
-              startMouseDown={this.state.startMouseDown}
-              startMouseUp={this.state.startMouseUp}
+              focusedElement={this.state.focusedElement}
+              setFocusedElement={this.setFocusedElement}
+              id="start-button"
             />
+            <SystemTray />
           </Taskbar>
         </div>
         <StartMenu
-          startMouseDown={this.state.startMouseDown}
-          desktopMouseDown={this.state.desktopMouseDown}
-        />
+          focusedElement={this.state.focusedElement}
+          setFocusedElement={this.setFocusedElement}
+          id="start-menu"
+        ></StartMenu>
       </div>
     );
   }

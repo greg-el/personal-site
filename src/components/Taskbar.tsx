@@ -5,6 +5,7 @@ interface IState {}
 interface IProps {
   focusedElement: any;
   setFocusedElement: any;
+  id: string;
 }
 
 class Taskbar extends React.Component<IProps, IState> {
@@ -15,7 +16,7 @@ class Taskbar extends React.Component<IProps, IState> {
   render() {
     return (
       <div
-        id="taskbar"
+        id={this.props.id}
         onClick={(e) => this.props.setFocusedElement(e.currentTarget)}
       >
         {this.props.children}
