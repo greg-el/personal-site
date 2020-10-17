@@ -5,6 +5,7 @@
 
 html,
 body {
+  font-family: "MS Dos";
   width: 100vw;
   height: 100vh;
   font-size: 16px;
@@ -100,6 +101,9 @@ body {
   left: 5px;
   height: 450px;
   width: 300px;
+  border-right: 2px solid #6d6d6d;
+  border-bottom: 2px solid #6d6d6d;
+  border-top: 2px solid #eef0ea;
 }
 
 #start-menu {
@@ -108,10 +112,21 @@ body {
   background-color: #c0c0c0;
   width: 100%;
   height: 100%;
-  border-right: 2px solid #6d6d6d;
+}
+
+#start-menu-panel-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
   border-bottom: 2px solid #6d6d6d;
   border-left: 2px solid #eef0ea;
-  border-top: 2px solid #eef0ea;
+}
+
+#start-menu-logo {
+  width: 20%;
+  height: 100%;
+  background-color: #4d4d4d;
 }
 
 .icon-wrapper {
@@ -142,7 +157,6 @@ body {
 }
 
 .icon-label {
-  font-family: "MS Dos";
   color: white;
 }
 
@@ -156,7 +170,10 @@ body {
 
 #system-tray-wrapper {
   height: 100%;
-  width: 10%;
+  width: 80px;
+  display: flex;
+  margin-left: auto;
+  align-items: center;
 }
 
 #system-tray {
@@ -167,4 +184,45 @@ body {
   border-right: 1px solid #ffffff;
   height: 80%;
   width: 100%;
+  margin-right: 5%;
+}
+
+#clock-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.start-menu-item-wrapper {
+  width: 100%;
+  height: 80px;
+  color: black;
+  font-size: 150%;
+  display: flex;
+}
+
+.start-menu-item-wrapper:hover {
+  color: white;
+  background-color: #010479;
+}
+
+.start-menu-item {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 98%;
+  width: 98%;
+  margin: 1% 0 0 1%;
+}
+
+.start-menu-item-image {
+  height: 80%;
+  width: 80px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: crisp-edges;
 }

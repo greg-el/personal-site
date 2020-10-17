@@ -1,11 +1,12 @@
 import React from "react";
+import Draggable from "react-draggable";
 
 interface IState {
   focused: boolean;
 }
 
 interface IProps {
-  style: React.CSSProperties;
+  iconStyle: React.CSSProperties;
   label: string;
   url: string;
   id: string;
@@ -19,6 +20,8 @@ class Icon extends React.Component<IProps, IState> {
     this.state = {
       focused: false,
     };
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
   }
 
   componentDidUpdate() {
@@ -32,28 +35,30 @@ class Icon extends React.Component<IProps, IState> {
     }
   }
 
-  _handleSingleClick(event: any) {
-    let target = event.currentTarget;
-    this.props.setFocusedElement(target);
-    event.stopPropagation();
-    this.setState({
-      focused: true,
-    });
+  onMouseDown(event: any) {
+    this.props.setFocusedElement(event.currentTarget);
+  }
+
+  onMouseUp(event: any) {
+    this.setState({ focused: false });
   }
 
   render() {
     let setClassName =
       this.state.focused === true ? "icon-focused" : "icon-not-focused";
     return (
-      <div
-        id={this.props.id}
-        className={"icon-wrapper " + setClassName}
-        onDoubleClick={() => window.open(this.props.url, "_blank")}
-        onClick={(e) => this._handleSingleClick(e)}
-      >
-        <div className="icon" style={this.props.style}></div>
-        <div className="icon-label">{this.props.label}</div>
-      </div>
+      <Draggable bounds="parent">
+        <div
+          id={this.props.id}
+          className={"icon-wrapper " + setClassName}
+          onDoubleClick={() => window.open(this.props.url, "_blank")}
+          onMouseDown={(e) => this.onMouseDown(e)}
+          onMouseUp={(e) => this.onMouseUp(e)}
+        >
+          <div className="icon" style={this.props.iconStyle}></div>
+          <div className="icon-label">{this.props.label}</div>
+        </div>
+      </Draggable>
     );
   }
 }

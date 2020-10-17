@@ -5,8 +5,15 @@ import StartButton from "./StartButton";
 import Desktop from "./Desktop";
 import Icon from "./Icon";
 import SystemTray from "./SystemTray";
+import StartMenuItem from "./StartMenuItem";
 import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
 import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
+import MulticolouredLogo from "../image/multicoloured-logo.png";
+
+type Pos = {
+  x: number;
+  y: number;
+};
 
 interface IState {
   startMouseDown: boolean;
@@ -14,6 +21,7 @@ interface IState {
   desktopMouseDown: boolean;
   desktopMouseUp: boolean;
   focusedElement: any;
+  mousePos: Pos;
 }
 
 interface IProps {}
@@ -27,6 +35,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
       desktopMouseDown: false,
       desktopMouseUp: false,
       focusedElement: null,
+      mousePos: { x: 0, y: 0 },
     };
   }
 
@@ -48,7 +57,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
           id="desktop"
         >
           <Icon
-            style={{ backgroundImage: `url( ${GitLabLogo})` }}
+            iconStyle={{ backgroundImage: `url( ${GitLabLogo})` }}
             label="GitLab"
             url="https://gitlab.com/greg-el"
             id="gitlab-icon"
@@ -56,7 +65,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             setFocusedElement={this.setFocusedElement}
           />
           <Icon
-            style={{ backgroundImage: `url( ${GitHubLogo})` }}
+            iconStyle={{ backgroundImage: `url( ${GitHubLogo})` }}
             label="GitHub"
             url="https://github.com/greg-el"
             id="github-icon"
@@ -82,7 +91,12 @@ class ScreenHandler extends React.Component<IProps, IState> {
           focusedElement={this.state.focusedElement}
           setFocusedElement={this.setFocusedElement}
           id="start-menu"
-        ></StartMenu>
+        >
+          <StartMenuItem
+            image={{ backgroundImage: `url( ${MulticolouredLogo})` }}
+            label="About Me"
+          ></StartMenuItem>
+        </StartMenu>
       </div>
     );
   }
