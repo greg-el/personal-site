@@ -1,27 +1,22 @@
-image: ruby:2.3
+image: node:10.16.3 # change to match your project's node version
 
-variables:
-  JEKYLL_ENV: production
+cache:
+  paths:
+    - node_modules/
 
 before_script:
-  - bundle install
-
-test:
-  stage: test
-  script:
-  - bundle exec jekyll build -d test
-  artifacts:
-    paths:
-    - test
-  except:
-  - master
+  - rm -rf build
+  - CI=false npm install
 
 pages:
   stage: deploy
   script:
-  - bundle exec jekyll build -d public
+    - CI=false npm run build
+    - rm -rf public
+    - cp build/index.html build/404.html
+    - mv build public
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - master
+    - master
