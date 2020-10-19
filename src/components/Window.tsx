@@ -1,10 +1,6 @@
 import React from "react";
 import Draggable from "react-draggable";
-<<<<<<< HEAD
-import { Resizable, ResizableBox } from "react-resizable";
-=======
 import { ResizableBox } from "react-resizable";
->>>>>>> c4881b96d987562e99e61aa8cc90254213dfdf75
 
 class Window extends React.Component {
   render() {
