@@ -1,85 +1,72 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
+import { WindowStateEnum, WindowStateObject } from "../constants/index";
 
-class Window extends React.Component {
+interface IProps {
+  id: string;
+  titlebarIcon?: ReactElement;
+  titlebarLabel: ReactElement;
+  close: ReactElement;
+  minimise?: React.Component;
+  maximise?: React.Component;
+  toolbar?: React.Component;
+  fileContainer?: React.Component;
+  detailsPane?: React.Component;
+  windowState: WindowStateObject;
+}
+
+interface IState {
+  focused: boolean;
+}
+
+class Window extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+
+    this.state = {
+      focused: true,
+    };
+  }
+
   render() {
-    return (
-      <Draggable handle=".window-title-bar-draggable" bounds="parent">
-        <ResizableBox
-          className="window-wrapper"
-          width={300}
-          height={300}
-          handle={(h) => <span className={"resize-handle"} />}
-          handleSize={[35, 35]}
-          minConstraints={[300, 300]}
-          resizeHandles={["se"]}
-        >
-          <div className="window">
-            <div className="window-resize-handle"></div>
-
-            <div className="window-title-bar-container">
-              <div className="title-bar">
-                <div className="window-title-bar-draggable">
-                  <div className="title-bar-icon-wrapper">
-                    <div className="title-bar-icon"></div>
+    if (this.props.windowState.state === WindowStateEnum.OPEN) {
+      return (
+        <Draggable handle=".window-title-bar-draggable" bounds="parent">
+          <ResizableBox
+            className="window-wrapper"
+            width={300}
+            height={300}
+            handle={(h) => <span className={"resize-handle"} />}
+            handleSize={[35, 35]}
+            minConstraints={[300, 300]}
+            resizeHandles={["se"]}
+          >
+            <div id={this.props.id} className="window">
+              <div className="window-resize-handle"></div>
+              <div className="window-title-bar-container">
+                <div className="title-bar">
+                  <div className="window-title-bar-draggable">
+                    {this.props.titlebarIcon}
+                    {this.props.titlebarLabel}
                   </div>
-                  <div className="title-bar-label-wrapper">
-                    <div className="title-bar-label"></div>
-                  </div>
-                </div>
-                <div className="window-controls-container">
-                  <div className="window-control-wrapper window-min-wrapper">
-                    <button className="window-control window-min"></button>
-                  </div>
-                  <div className="window-control-wrapper window-max-wrapper">
-                    <button className="window-control window-max"></button>
-                  </div>
-                  <div className="window-control-wrapper window-close-wrapper">
-                    <button className="window-control window-close"></button>
+                  <div className="window-controls-container">
+                    {this.props.minimise}
+                    {this.props.maximise}
+                    {this.props.close}
                   </div>
                 </div>
               </div>
+              {this.props.toolbar}
+              {this.props.fileContainer}
+              {this.props.detailsPane}
             </div>
-            <div className="window-toolbar-wrapper">
-              <div className="window-toolbar">
-                <div className="window-toolbar-item toolbar-file-wrapper">
-                  <div className="toolbar-file">
-                    <u>F</u>ile
-                  </div>
-                </div>
-                <div className="window-toolbar-item toolbar-edit-wrapper">
-                  <div className="toolbar-edit">
-                    <u>E</u>dit
-                  </div>
-                </div>
-                <div className="window-toolbar-item toolbar-view-wrapper">
-                  <div className="toolbar-view">
-                    <u>V</u>iew
-                  </div>
-                </div>
-                <div className="window-toolbar-item toolbar-help-wrapper">
-                  <div className="toolbar-help">
-                    <u>H</u>elp
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="window-file-container-wrapper">
-              <div className="window-file-container"></div>
-            </div>
-            <div className="window-details-panes-container">
-              <div className="window-detail-pane-wrapper window-detail-pane-left-wrapper">
-                <div className="window-detail-pane window-detail-pane-left"></div>
-              </div>
-              <div className="window-detail-pane-wrapper window-detail-pane-right-wrapper">
-                <div className="window-detail-pane window-detail-pane-right"></div>
-              </div>
-            </div>
-          </div>
-        </ResizableBox>
-      </Draggable>
-    );
+          </ResizableBox>
+        </Draggable>
+      );
+    } else if (this.props.windowState.state === WindowStateEnum.CLOSED) {
+      return "";
+    }
   }
 }
 

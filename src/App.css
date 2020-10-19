@@ -282,7 +282,7 @@ button {
 
 .window-title-bar-draggable {
   display: flex;
-  flex: 1;
+  flex: 1 1 auto;
 }
 
 .title-bar-icon-wrapper {
@@ -290,20 +290,32 @@ button {
   height: 30px;
 }
 
+.title-bar-label-wrapper {
+  margin-left: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 140%;
+}
+
+.title-bar-label {
+  color: white;
+}
+
 .window-controls-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-end;
   height: 30px;
   width: 90px;
   align-items: center;
-  justify-self: flex-end;
 }
 
 .window-control-wrapper {
   display: flex;
   height: 24px;
   width: 24px;
+  margin: 0 4px 0 4px;
 }
 
 .window-control {
