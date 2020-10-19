@@ -11,9 +11,6 @@ interface IProps {
 }
 
 class Desktop extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-  }
 
   render() {
     return (

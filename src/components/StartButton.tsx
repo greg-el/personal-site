@@ -9,9 +9,6 @@ interface IProps {
 }
 
 class StartButton extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-  }
 
   _handleSingleClick(event: SyntheticEvent) {
     let target = event.currentTarget;
