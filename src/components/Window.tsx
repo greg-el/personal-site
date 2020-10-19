@@ -1,10 +1,10 @@
 import React, { ReactElement } from "react";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
-import { WindowStateEnum, WindowStateObject } from "../constants/index";
+import { WindowStateEnum } from "../constants/index";
 
 interface IProps {
-  id: string;
+  name: string;
   titlebarIcon?: ReactElement;
   titlebarLabel: ReactElement;
   close: ReactElement;
@@ -13,7 +13,7 @@ interface IProps {
   toolbar?: React.Component;
   fileContainer?: React.Component;
   detailsPane?: React.Component;
-  windowState: WindowStateObject;
+  windowState: WindowStateEnum;
 }
 
 interface IState {
@@ -30,9 +30,9 @@ class Window extends React.Component<IProps, IState> {
   }
 
   render() {
-    if (this.props.windowState.state === WindowStateEnum.OPEN) {
+    if (this.props.windowState === WindowStateEnum.OPEN) {
       return (
-        <Draggable handle=".window-title-bar-draggable" bounds="parent">
+        <Draggable handle=".window-title-bar-draggable" bounds="#desktop">
           <ResizableBox
             className="window-wrapper"
             width={300}
@@ -42,7 +42,7 @@ class Window extends React.Component<IProps, IState> {
             minConstraints={[300, 300]}
             resizeHandles={["se"]}
           >
-            <div id={this.props.id} className="window">
+            <div id={this.props.name} className="window">
               <div className="window-resize-handle"></div>
               <div className="window-title-bar-container">
                 <div className="title-bar">
@@ -64,7 +64,7 @@ class Window extends React.Component<IProps, IState> {
           </ResizableBox>
         </Draggable>
       );
-    } else if (this.props.windowState.state === WindowStateEnum.CLOSED) {
+    } else if (this.props.windowState === WindowStateEnum.CLOSED) {
       return "";
     }
   }

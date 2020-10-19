@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Taskbar from "./Taskbar";
 import StartMenu from "./StartMenu";
 import StartButton from "./StartButton";
@@ -18,7 +18,7 @@ import TitlebarLabel from "./Window/TitlebarLabel";
 import Minimise from "./Window/Minimise";
 import Maximise from "./Window/Maximise";
 import Close from "./Window/Close";
-import { WindowStateEnum, WindowStateObject } from "../constants/index";
+import { WindowStateEnum } from "../constants/index";
 
 interface IState {
   startMouseDown: boolean;
@@ -26,8 +26,9 @@ interface IState {
   desktopMouseDown: boolean;
   desktopMouseUp: boolean;
   focusedElement: any;
-  windowStates: Array<WindowStateObject>;
   indexer: WindowIndexGenerator;
+  welcomeWindowState: WindowStateEnum;
+  welcomeWindow?: ReactElement;
 }
 
 interface IProps {}
@@ -37,9 +38,11 @@ class WindowIndexGenerator {
 
   constructor() {
     this.index = 0;
+    this.getIndex = this.getIndex.bind(this);
   }
 
   getIndex() {
+    console.log(this.index);
     let out = this.index;
     this.index++;
     return out;
@@ -55,11 +58,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
       desktopMouseDown: false,
       desktopMouseUp: false,
       focusedElement: null,
-      windowStates: [],
       indexer: new WindowIndexGenerator(),
+      welcomeWindowState: WindowStateEnum.CLOSED,
     };
-
-    this.changeWindowState = this.changeWindowState.bind(this);
+    this.setWelcomeWindowState = this.setWelcomeWindowState.bind(this);
   }
 
   setFocusedElement = (val: any) => {
@@ -71,41 +73,19 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
   };
 
-  changeWindowState(windowState: WindowStateObject) {
-    let windowStates = [...this.state.windowStates];
-    let index = windowStates.findIndex((el) => el.index === windowState.index);
-    windowStates[index] = windowState;
-    this.setState({ windowStates });
+  setWelcomeWindowState(state: WindowStateEnum) {
+    this.setState({ welcomeWindowState: state });
   }
 
-  addWindowState(name: string) {
-    let newWindowState = new WindowStateObject(
-      this.state.indexer.getIndex(),
-      name,
-      WindowStateEnum.OPEN
+  WelcomeWindow() {
+    return (
+      <Window
+        name={"Welcome"}
+        titlebarLabel={<TitlebarLabel labelText="Welcome" />}
+        close={<Close setWindowState={this.setWelcomeWindowState} />}
+        windowState={this.state.welcomeWindowState}
+      ></Window>
     );
-    this.setState((prevState) => ({
-      windowStates: [...prevState.windowStates, newWindowState],
-    }));
-    return newWindowState;
-  }
-
-  createOrOpenWindow(name: string) {
-    for (let window of this.state.windowStates) {
-      if (window.name === name) {
-        return window;
-      }
-    }
-    return this.createWindow(name);
-  }
-
-  createWindow(name: string) {
-    let newWindowState = new WindowStateObject(
-      this.state.indexer.getIndex(),
-      name,
-      WindowStateEnum.OPEN
-    );
-    return newWindowState;
   }
 
   render() {
@@ -132,14 +112,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             focusedElement={this.state.focusedElement}
             setFocusedElement={this.setFocusedElement}
           />
-          <Window
-            id="welcome"
-            windowState={this.addWindowState("welcome")}
-            close={
-              <Close id="welcome" setWindowState={this.changeWindowState} />
-            }
-            titlebarLabel={<TitlebarLabel labelText="Welcome" />}
-          ></Window>
+          {this.WelcomeWindow()}
         </Desktop>
         <div id="taskbar-wrapper">
           <Taskbar
@@ -161,9 +134,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
           id="start-menu"
         >
           <StartMenuItem
-            onClickHandler={this.createOrOpenWindow}
             image={{ backgroundImage: `url( ${Logo})` }}
             label="Welcome"
+            setWindowState={this.setWelcomeWindowState}
           ></StartMenuItem>
         </StartMenu>
       </div>

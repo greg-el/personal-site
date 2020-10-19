@@ -39,7 +39,10 @@ class StartMenu extends React.Component<IProps, IState> {
   render() {
     if (this.state.focused === true) {
       return (
-        <div id="start-menu-wrapper">
+        <div
+          id="start-menu-wrapper"
+          onClick={(e) => this.props.setFocusedElement(e.currentTarget)}
+        >
           <div id="start-menu-panel-container">
             <div id="start-menu-logo"></div>
             <div id={this.props.id}>{this.props.children}</div>

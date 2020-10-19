@@ -1,18 +1,27 @@
 import React from "react";
+import { WindowStateEnum } from "../constants";
 
 interface IProps {
-  onClickHandler: Function;
   image: React.CSSProperties;
   label: string;
+  setWindowState: Function;
 }
 
-interface IState {}
+interface IState {
+  windowExists: boolean;
+}
 
 class StartMenuItem extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+
+    this.state = { windowExists: false };
+  }
+
   render() {
     return (
       <div
-        onClick={() => this.props.onClickHandler(this.props.label)}
+        onClick={() => this.props.setWindowState(WindowStateEnum.OPEN)}
         className="start-menu-item-wrapper"
       >
         <div className="start-menu-item">
