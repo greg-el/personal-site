@@ -6,6 +6,7 @@ import Desktop from "./Desktop";
 import Icon from "./Icon";
 import SystemTray from "./SystemTray";
 import StartMenuItem from "./StartMenuItem";
+import Window from "./Window";
 import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
 import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
 import MulticolouredLogo from "../image/multicoloured-logo.png";
@@ -72,6 +73,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             focusedElement={this.state.focusedElement}
             setFocusedElement={this.setFocusedElement}
           />
+          <Window></Window>
         </Desktop>
         <div id="taskbar-wrapper">
           <Taskbar

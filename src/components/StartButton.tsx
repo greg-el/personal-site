@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 
 interface IState {}
 
@@ -13,7 +13,7 @@ class StartButton extends React.Component<IProps, IState> {
     super(props);
   }
 
-  _handleSingleClick(event: any) {
+  _handleSingleClick(event: SyntheticEvent) {
     let target = event.currentTarget;
     this.props.setFocusedElement(target);
     event.stopPropagation();

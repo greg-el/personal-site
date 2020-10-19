@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import Draggable from "react-draggable";
 
 interface IState {
@@ -35,11 +35,11 @@ class Icon extends React.Component<IProps, IState> {
     }
   }
 
-  onMouseDown(event: any) {
+  onMouseDown(event: SyntheticEvent) {
     this.props.setFocusedElement(event.currentTarget);
   }
 
-  onMouseUp(event: any) {
+  onMouseUp(event: SyntheticEvent) {
     this.setState({ focused: false });
   }
 
