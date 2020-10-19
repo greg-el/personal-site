@@ -1,0 +1,15 @@
+<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="12" height="12" fill="#C3C7CB"/>
+<path d="M0 10.5H1M1 9.5H2M2 8.5H3M3 7.5H4M4 6.5H5M5 5.5H6M6 4.5H7M7 3.5H8" stroke="#EBEBEB"/>
+<path d="M8 2.5H9M9 1.5H10M10 0.5H11" stroke="#EBEBEB"/>
+<path d="M1.5 11V12M2.5 10V11M3.5 9V10M4.5 8V9M5.5 7V8" stroke="#6F6F6F"/>
+<path d="M6.5 6V7M7.5 5V6M8.5 4V5M9.5 3V4M10.5 2V3M11.5 1V2" stroke="#6F6F6F"/>
+<path d="M5.5 12V11M6.5 11V10M7.5 10V9M8.5 9V8M9.5 8V7M10.5 7V6M11.5 6V5" stroke="#6F6F6F"/>
+<path d="M10.5 4V5M9.5 5V6M8.5 6V7M7.5 7V8M6.5 8V9M5.5 9V10M4.5 10V11M3.5 11V12" stroke="#EBEBEB"/>
+<path d="M11.5 3V4" stroke="#EBEBEB"/>
+<path d="M10.5 8V9M9.5 9V10M8.5 10V11M7.5 11V12" stroke="#EBEBEB"/>
+<path d="M10.5 10V11M9.5 11V12" stroke="#6F6F6F"/>
+<path d="M11.5 7V8" stroke="#EBEBEB"/>
+<path d="M11.5 9V10" stroke="#6F6F6F"/>
+<path d="M11.5 11V12" stroke="#989898"/>
+</svg>
