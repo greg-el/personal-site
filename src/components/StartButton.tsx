@@ -9,13 +9,6 @@ interface IProps {
 }
 
 class StartButton extends React.Component<IProps, IState> {
-<<<<<<< HEAD
-  constructor(props: IProps) {
-    super(props);
-  }
-=======
->>>>>>> c4881b96d987562e99e61aa8cc90254213dfdf75
-
   _handleSingleClick(event: SyntheticEvent) {
     let target = event.currentTarget;
     this.props.setFocusedElement(target);
