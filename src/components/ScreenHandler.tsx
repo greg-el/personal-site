@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Taskbar from "./Taskbar";
 import StartMenu from "./StartMenu";
 import StartButton from "./StartButton";
@@ -9,12 +9,16 @@ import StartMenuItem from "./StartMenuItem";
 import Window from "./Window";
 import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
 import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
-import MulticolouredLogo from "../image/multicoloured-logo.png";
-
-type Pos = {
-  x: number;
-  y: number;
-};
+import Logo from "../image/logo.png";
+import TitlebarIcon from "./Window/TitlebarIcon";
+import Toolbar from "./Window/Toolbar";
+import FileContainer from "./Window/FileContainer";
+import DetailsPane from "./Window/DetailsPane";
+import TitlebarLabel from "./Window/TitlebarLabel";
+import Minimise from "./Window/Minimise";
+import Maximise from "./Window/Maximise";
+import Close from "./Window/Close";
+import { WindowStateEnum } from "../constants/index";
 
 interface IState {
   startMouseDown: boolean;
@@ -22,10 +26,28 @@ interface IState {
   desktopMouseDown: boolean;
   desktopMouseUp: boolean;
   focusedElement: any;
-  mousePos: Pos;
+  indexer: WindowIndexGenerator;
+  welcomeWindowState: WindowStateEnum;
+  welcomeWindow?: ReactElement;
 }
 
 interface IProps {}
+
+class WindowIndexGenerator {
+  index: number;
+
+  constructor() {
+    this.index = 0;
+    this.getIndex = this.getIndex.bind(this);
+  }
+
+  getIndex() {
+    console.log(this.index);
+    let out = this.index;
+    this.index++;
+    return out;
+  }
+}
 
 class ScreenHandler extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -36,8 +58,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
       desktopMouseDown: false,
       desktopMouseUp: false,
       focusedElement: null,
-      mousePos: { x: 0, y: 0 },
+      indexer: new WindowIndexGenerator(),
+      welcomeWindowState: WindowStateEnum.CLOSED,
     };
+    this.setWelcomeWindowState = this.setWelcomeWindowState.bind(this);
   }
 
   setFocusedElement = (val: any) => {
@@ -48,6 +72,21 @@ class ScreenHandler extends React.Component<IProps, IState> {
       () => console.log(this.state.focusedElement)
     );
   };
+
+  setWelcomeWindowState(state: WindowStateEnum) {
+    this.setState({ welcomeWindowState: state });
+  }
+
+  WelcomeWindow() {
+    return (
+      <Window
+        name={"Welcome"}
+        titlebarLabel={<TitlebarLabel labelText="Welcome" />}
+        close={<Close setWindowState={this.setWelcomeWindowState} />}
+        windowState={this.state.welcomeWindowState}
+      ></Window>
+    );
+  }
 
   render() {
     return (
@@ -73,7 +112,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             focusedElement={this.state.focusedElement}
             setFocusedElement={this.setFocusedElement}
           />
-          <Window></Window>
+          {this.WelcomeWindow()}
         </Desktop>
         <div id="taskbar-wrapper">
           <Taskbar
@@ -95,8 +134,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
           id="start-menu"
         >
           <StartMenuItem
-            image={{ backgroundImage: `url( ${MulticolouredLogo})` }}
-            label="About Me"
+            image={{ backgroundImage: `url( ${Logo})` }}
+            label="Welcome"
+            setWindowState={this.setWelcomeWindowState}
           ></StartMenuItem>
         </StartMenu>
       </div>
