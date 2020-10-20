@@ -10,13 +10,7 @@ import Window from "./Window";
 import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
 import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
 import Logo from "../image/logo.png";
-import TitlebarIcon from "./Window/TitlebarIcon";
-import Toolbar from "./Window/Toolbar";
-import FileContainer from "./Window/FileContainer";
-import DetailsPane from "./Window/DetailsPane";
 import TitlebarLabel from "./Window/TitlebarLabel";
-import Minimise from "./Window/Minimise";
-import Maximise from "./Window/Maximise";
 import Close from "./Window/Close";
 import { WindowStateEnum } from "../constants/index";
 
