@@ -28,7 +28,7 @@ class TaskbarWindow extends React.Component<IProps, IState> {
             WindowStateEnum.OPEN
           )
         }>
-          <div className={"taskbar-window" + " " + style}>
+          <div className={"taskbar-window " + style}>
             <div className="taskbar-window-label-wrapper">
               <div className="taskbar-window-label">{this.props.label}</div>
             </div>
