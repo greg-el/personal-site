@@ -25,14 +25,12 @@ export class WindowObject {
   }
 }
 
-/*
-interface WindowProps {
-  index: number;
-  name: string;
-  windowState: WindowStateEnum;
+export interface ResizeProps {
+  width: number;
+  height: number;
+  handleSize: [number, number];
+  minConstraints: [number, number];
+  resizeHandles: Array<any>;
+  className: string;
+  handle: Function;
 }
-
-export const WindowObject = (props: WindowProps) => {
-  const { index, name, windowState } = props;
-};
-*/
