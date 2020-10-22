@@ -25,14 +25,14 @@ class StartButton extends React.Component<IProps, IState> {
         : "start-not-clicked";
     return (
       <div id="start-button-wrapper">
-        <button
+        <div
           id={this.props.id}
           onClick={(e) => this._handleSingleClick(e)}
           className={buttonClass}
         >
           <div id="start-label"></div>
           Start
-        </button>
+        </div>
       </div>
     );
   }
