@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
-import { WindowStateEnum, ResizeProps } from "../constants/index";
+import { WindowStateEnum } from "../constants/index";
 
 interface IProps {
   name: string;

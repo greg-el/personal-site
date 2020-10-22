@@ -24,13 +24,3 @@ export class WindowObject {
     this.element = element;
   }
 }
-
-export interface ResizeProps {
-  width: number;
-  height: number;
-  handleSize: [number, number];
-  minConstraints: [number, number];
-  resizeHandles: Array<any>;
-  className: string;
-  handle: Function;
-}
