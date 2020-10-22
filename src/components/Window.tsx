@@ -30,11 +30,12 @@ class Window extends React.Component<IProps, IState> {
   }
 
   render() {
-    if (this.props.windowState === WindowStateEnum.OPEN) {
+    if (this.props.windowState !== WindowStateEnum.CLOSED) {
+      let style = this.props.windowState === WindowStateEnum.OPEN ? "window-open" : "window-minimised"
       return (
         <Draggable handle=".window-title-bar-draggable" bounds="#desktop">
           <ResizableBox
-            className="window-wrapper"
+            className={"window-wrapper " + style}
             width={300}
             height={300}
             handle={(h) => <span className={"resize-handle"} />}
@@ -64,10 +65,8 @@ class Window extends React.Component<IProps, IState> {
           </ResizableBox>
         </Draggable>
       );
-    } else if (
-      this.props.windowState === WindowStateEnum.CLOSED ||
-      this.props.windowState === WindowStateEnum.MINIMISED
-    ) {
+    } else if (this.props.windowState === WindowStateEnum.CLOSED) 
+    {
       return "";
     }
   }

@@ -62,6 +62,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
       welcomeWindowState: WindowStateEnum.CLOSED,
       welcomeTaskbarState: WindowStateEnum.CLOSED,
       aboutMeWindowState: WindowStateEnum.CLOSED,
+      aboutMeTaskbarState: WindowStateEnum.CLOSED,
     };
     this.setWindowState = this.setWindowState.bind(this);
   }
@@ -172,6 +173,14 @@ class ScreenHandler extends React.Component<IProps, IState> {
               label="Welcome"
               taskbarStateName="welcomeTaskbarState"
               windowStateName="welcomeWindowState"
+              setWindowState={this.setWindowState}
+            ></TaskbarWindow>
+                        <TaskbarWindow
+              state={this.state.aboutMeTaskbarState}
+              focused={false}
+              label="About Me"
+              taskbarStateName="aboutMeTaskbarState"
+              windowStateName="aboutMeWindowState"
               setWindowState={this.setWindowState}
             ></TaskbarWindow>
             <SystemTray />
