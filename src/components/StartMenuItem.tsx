@@ -5,6 +5,8 @@ interface IProps {
   image: React.CSSProperties;
   label: string;
   setWindowState: Function;
+  windowStateName: string;
+  taskbarStateName: string;
 }
 
 interface IState {
@@ -21,7 +23,13 @@ class StartMenuItem extends React.Component<IProps, IState> {
   render() {
     return (
       <div
-        onClick={() => this.props.setWindowState(WindowStateEnum.OPEN)}
+        onClick={() =>
+          this.props.setWindowState(
+            this.props.taskbarStateName,
+            this.props.windowStateName,
+            WindowStateEnum.OPEN
+          )
+        }
         className="start-menu-item-wrapper"
       >
         <div className="start-menu-item">

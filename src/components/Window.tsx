@@ -8,7 +8,7 @@ interface IProps {
   titlebarIcon?: ReactElement;
   titlebarLabel: ReactElement;
   close: ReactElement;
-  minimise?: React.Component;
+  minimise?: ReactElement;
   maximise?: React.Component;
   toolbar?: React.Component;
   fileContainer?: React.Component;
@@ -64,7 +64,10 @@ class Window extends React.Component<IProps, IState> {
           </ResizableBox>
         </Draggable>
       );
-    } else if (this.props.windowState === WindowStateEnum.CLOSED) {
+    } else if (
+      this.props.windowState === WindowStateEnum.CLOSED ||
+      this.props.windowState === WindowStateEnum.MINIMISED
+    ) {
       return "";
     }
   }

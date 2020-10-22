@@ -1,9 +1,27 @@
 import React from "react";
+import { WindowStateEnum } from "../../constants/index";
 
-class Minimise extends React.Component {
+interface IProps {
+  setWindowState: Function;
+  windowStateName: string;
+  taskbarStateName: string;
+}
+
+interface IState {}
+
+class Minimise extends React.Component<IProps, IState> {
   render() {
     return (
-      <div className="window-control-wrapper window-min-wrapper">
+      <div
+        onClick={() =>
+          this.props.setWindowState(
+            this.props.taskbarStateName,
+            this.props.windowStateName,
+            WindowStateEnum.MINIMISED
+          )
+        }
+        className="window-control-wrapper window-min-wrapper"
+      >
         <button className="window-control window-min"></button>
       </div>
     );

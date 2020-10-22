@@ -92,6 +92,7 @@ button {
   align-items: center;
   justify-content: center;
   margin-left: 5%;
+  margin-right: 5%;
   height: 80%;
   width: 90%;
   border-top: 1px solid var(--border-light);
@@ -188,7 +189,7 @@ button {
 
 #system-tray-wrapper {
   height: 100%;
-  width: 80px;
+  width: 90px;
   display: flex;
   margin-left: auto;
   align-items: center;
@@ -307,7 +308,6 @@ button {
   flex-direction: row;
   justify-content: flex-end;
   height: 30px;
-  width: 90px;
   align-items: center;
 }
 
@@ -455,4 +455,48 @@ button {
 
 .resize-handle:hover {
   cursor: url("./image/resize-cursor.svg"), auto;
+}
+
+.taskbar-window-wrapper {
+  height: 100%;
+  width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.taskbar-window {
+  font-size: 16px;
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.taskbar-window-open {
+  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light);
+  border-top: 2px solid var(--border-dark);
+  border-left: 2px solid var(--border-dark);
+}
+
+.taskbar-window-minimised {
+  border-top: 1px solid var(--border-light);
+  border-left: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-dark);
+  border-right: 2px solid var(--border-dark);
+}
+
+.taskbar-window-icon-wrapper {
+  height: 100%;
+  width: 20%;
+}
+
+.taskbar-window-label-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.taskbar-window-label {
+  margin-left: 5%;
 }
