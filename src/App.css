@@ -247,8 +247,7 @@ button {
 }
 
 .window-wrapper {
-  height: 100%;
-  width: 100%;
+  position: absolute;
   flex-direction: column;
   padding: 4px;
   background-color: var(--windows-grey);
