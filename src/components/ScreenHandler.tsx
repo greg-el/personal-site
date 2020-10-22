@@ -170,6 +170,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
               state={this.state.welcomeTaskbarState}
               focused={false}
               label="Welcome"
+              taskbarStateName="welcomeTaskbarState"
+              windowStateName="welcomeWindowState"
+              setWindowState={this.setWindowState}
             ></TaskbarWindow>
             <SystemTray />
           </Taskbar>

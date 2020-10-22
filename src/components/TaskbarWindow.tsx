@@ -6,6 +6,9 @@ interface IProps {
   state: WindowStateEnum;
   label: string;
   icon?: ReactElement;
+  setWindowState: Function;
+  windowStateName: string;
+  taskbarStateName: string;
 }
 
 interface IState {}
@@ -18,7 +21,13 @@ class TaskbarWindow extends React.Component<IProps, IState> {
           ? "taskbar-window-open"
           : "taskbar-window-minimised";
       return (
-        <div className="taskbar-window-wrapper">
+        <div className="taskbar-window-wrapper"onClick={() =>
+          this.props.setWindowState(
+            this.props.taskbarStateName,
+            this.props.windowStateName,
+            WindowStateEnum.OPEN
+          )
+        }>
           <div className={"taskbar-window" + " " + style}>
             <div className="taskbar-window-label-wrapper">
               <div className="taskbar-window-label">{this.props.label}</div>
