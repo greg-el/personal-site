@@ -2,11 +2,15 @@ import React from "react";
 import { WindowStateEnum } from "../constants";
 
 interface IProps {
+  id: string;
   image: React.CSSProperties;
   label: string;
   setWindowState: Function;
   windowStateName: string;
   taskbarStateName: string;
+  addToStack: Function;
+  removeFromStack: Function;
+  moveToFront: Function;
 }
 
 interface IState {
@@ -23,13 +27,14 @@ class StartMenuItem extends React.Component<IProps, IState> {
   render() {
     return (
       <div
-        onClick={() =>
+        onClick={() => {
+          this.props.addToStack(this.props.id);
           this.props.setWindowState(
             this.props.taskbarStateName,
             this.props.windowStateName,
             WindowStateEnum.OPEN
-          )
-        }
+          );
+        }}
         className="start-menu-item-wrapper"
       >
         <div className="start-menu-item">

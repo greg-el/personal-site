@@ -126,6 +126,7 @@ button {
 }
 
 #start-menu {
+  z-index: 100;
   display: flex;
   flex-direction: column;
   background-color: #c0c0c0;
@@ -283,8 +284,17 @@ button {
 .title-bar {
   display: flex;
   flex-direction: row;
-  background-color: var(--menubar-blue);
   width: 100%;
+}
+
+.title-bar-focused {
+  color: white;
+  background-color: var(--menubar-blue);
+}
+
+.title-bar-unfocused {
+  color: #bfb8bf;
+  background-color: #7f787f;
 }
 
 .window-title-bar-draggable {
@@ -303,10 +313,6 @@ button {
   display: flex;
   align-items: center;
   font-size: 140%;
-}
-
-.title-bar-label {
-  color: white;
 }
 
 .window-controls-container {

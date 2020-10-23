@@ -22,7 +22,6 @@ interface IState {
   desktopMouseDown: boolean;
   desktopMouseUp: boolean;
   focusedElement: any;
-  indexer: WindowIndexGenerator;
   welcomeWindowState: WindowStateEnum;
   welcomeTaskbarState: WindowStateEnum;
   welcomeWindow?: ReactElement;
@@ -34,22 +33,7 @@ interface IState {
   [key: string]: any;
 }
 
-interface IProps {}
-
-class WindowIndexGenerator {
-  index: number;
-
-  constructor() {
-    this.index = 0;
-    this.getIndex = this.getIndex.bind(this);
-  }
-
-  getIndex() {
-    let out = this.index;
-    this.index++;
-    return out;
-  }
-}
+interface IProps { }
 
 class ScreenHandler extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -60,28 +44,36 @@ class ScreenHandler extends React.Component<IProps, IState> {
       desktopMouseDown: false,
       desktopMouseUp: false,
       focusedElement: null,
-      indexer: new WindowIndexGenerator(),
       welcomeWindowState: WindowStateEnum.CLOSED,
       welcomeTaskbarState: WindowStateEnum.CLOSED,
       welcomeWindowZIndex: 0,
       aboutMeWindowState: WindowStateEnum.CLOSED,
       aboutMeTaskbarState: WindowStateEnum.CLOSED,
       aboutMeWindowZIndex: 0,
-      windowStack: ["welcome", "aboutMe"],
+      windowStack: [],
     };
     this.setWindowState = this.setWindowState.bind(this);
     this.getWindowZIndex = this.getWindowZIndex.bind(this);
     this.moveWindowToFront = this.moveWindowToFront.bind(this);
+    this.getTopWindowId = this.getTopWindowId.bind(this);
+    this.addToWindowStack = this.addToWindowStack.bind(this);
+    this.removeFromWindowStack = this.removeFromWindowStack.bind(this);
   }
 
   setFocusedElement = (val: any) => {
-    this.setState(
-      {
-        focusedElement: val.id,
-      },
-      () => console.log(this.state.focusedElement)
-    );
+    if (val.id !== "desktop") {
+      this.setState(
+        {
+          focusedElement: val.id,
+        },
+        () => console.log(this.state.focusedElement)
+      );
+    }
   };
+
+  getTopWindowId() {
+    return this.state.windowStack[this.state.windowStack.length - 1];
+  }
 
   setWindowState(taskbar: string, window: string, state: WindowStateEnum) {
     this.setState({ [window]: state });
@@ -96,11 +88,15 @@ class ScreenHandler extends React.Component<IProps, IState> {
         titlebarLabel={<TitlebarLabel labelText="Welcome" />}
         moveToFront={() => this.moveWindowToFront("welcome")}
         zIndex={this.state.welcomeWindowZIndex}
+        setFocusedElement={this.setFocusedElement}
+        windowStackLength={this.state.windowStack.length}
         close={
           <Close
+            id="welcome"
             taskbarStateName="welcomeTaskbarState"
             windowStateName="welcomeWindowState"
             setWindowState={this.setWindowState}
+            removeWindowFromStack={this.removeFromWindowStack}
           />
         }
         minimise={
@@ -115,6 +111,31 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
   }
 
+  addToWindowStack(window_id: string) {
+    if (this.state.windowStack.indexOf(window_id) === -1) {
+      this.setState({
+        windowStack: [...this.state.windowStack, window_id]
+      },() => {
+        // Callback neccecary to immediatly update the zindex props, otherwise
+        // zindex doesn't update until next refresh and stacking is incorrect
+        let array = this.state.windowStack;
+        for (let i = 0; i < array.length; i++) {
+          this.setState({ [array[i] + "WindowZIndex"]: this.getWindowZIndex(array[i]) })
+        }
+      })
+    }
+
+  }
+
+  removeFromWindowStack(window_id: string) {
+    let array = Array.from(this.state.windowStack);
+    let index = array.indexOf(window_id)
+    if (index !== -1) {
+      array.splice(index, 1);
+      this.setState({ windowStack: array });
+    };
+  }
+
   getWindowZIndex(window_id: string) {
     return this.state.windowStack.indexOf(window_id);
   }
@@ -122,8 +143,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
   moveWindowToFront(window_id: string) {
     let array = this.state.windowStack;
     array.push(array.splice(array.indexOf(window_id), 1)[0]);
-    for (let i=0; i<array.length; i++) {
-      this.setState({[array[i]+"WindowZIndex"]: this.getWindowZIndex(array[i])})
+    for (let i = 0; i < array.length; i++) {
+      this.setState({ [array[i] + "WindowZIndex"]: this.getWindowZIndex(array[i]) })
     }
   }
 
@@ -135,11 +156,15 @@ class ScreenHandler extends React.Component<IProps, IState> {
         titlebarLabel={<TitlebarLabel labelText="About Me" />}
         moveToFront={() => this.moveWindowToFront("aboutMe")}
         zIndex={this.state.aboutMeWindowZIndex}
+        setFocusedElement={this.setFocusedElement}
+        windowStackLength={this.state.windowStack.length}
         close={
           <Close
+            id="aboutMe"
             taskbarStateName="aboutMeTaskbarState"
             windowStateName="aboutMeWindowState"
             setWindowState={this.setWindowState}
+            removeWindowFromStack={this.removeFromWindowStack}
           />
         }
         minimise={
@@ -155,6 +180,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
   }
 
   render() {
+    console.log(this.state.windowStack)
+    console.log(this.getTopWindowId())
     return (
       <div id="screen-container">
         <Desktop
@@ -193,20 +220,26 @@ class ScreenHandler extends React.Component<IProps, IState> {
               id="start-button"
             />
             <TaskbarWindow
+              id="welcome"
               state={this.state.welcomeTaskbarState}
-              focused={false}
+              focusedElement={this.state.focusedElement}
               label="Welcome"
               taskbarStateName="welcomeTaskbarState"
               windowStateName="welcomeWindowState"
               setWindowState={this.setWindowState}
+              getTopWindowId={this.getTopWindowId}
+              moveToFront={this.moveWindowToFront}
             ></TaskbarWindow>
             <TaskbarWindow
+              id="aboutMe"
               state={this.state.aboutMeTaskbarState}
-              focused={false}
+              focusedElement={this.state.focusedElement}
               label="About Me"
               taskbarStateName="aboutMeTaskbarState"
               windowStateName="aboutMeWindowState"
               setWindowState={this.setWindowState}
+              getTopWindowId={this.getTopWindowId}
+              moveToFront={this.moveWindowToFront}
             ></TaskbarWindow>
             <SystemTray />
           </Taskbar>
@@ -217,18 +250,26 @@ class ScreenHandler extends React.Component<IProps, IState> {
           id="start-menu"
         >
           <StartMenuItem
+            id="welcome"
             image={{ backgroundImage: `url( ${Logo})` }}
             label="Welcome"
             setWindowState={this.setWindowState}
             windowStateName="welcomeWindowState"
             taskbarStateName="welcomeTaskbarState"
+            addToStack={this.addToWindowStack}
+            removeFromStack={this.removeFromWindowStack}
+            moveToFront={this.moveWindowToFront}
           ></StartMenuItem>
           <StartMenuItem
+            id="aboutMe"
             image={{ backgroundImage: `url( ${Logo})` }}
             label="About Me"
             setWindowState={this.setWindowState}
             windowStateName="aboutMeWindowState"
             taskbarStateName="aboutMeTaskbarState"
+            addToStack={this.addToWindowStack}
+            removeFromStack={this.removeFromWindowStack}
+            moveToFront={this.moveWindowToFront}
           ></StartMenuItem>
         </StartMenu>
       </div>
