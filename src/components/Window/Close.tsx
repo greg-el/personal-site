@@ -6,11 +6,11 @@ interface IProps {
   setWindowState: Function;
   windowStateName: string;
   taskbarStateName: string;
-  removeWindowFromStack: Function
-
+  removeWindowFromStack: Function;
+  removeFromTaskbarStack: Function;
 }
 
-interface IState { }
+interface IState {}
 
 class Close extends React.Component<IProps, IState> {
   render() {
@@ -18,14 +18,13 @@ class Close extends React.Component<IProps, IState> {
       <div
         onClick={() => {
           this.props.removeWindowFromStack(this.props.id);
-
+          this.props.removeFromTaskbarStack(this.props.id);
           this.props.setWindowState(
             this.props.taskbarStateName,
             this.props.windowStateName,
             WindowStateEnum.CLOSED
           );
-        }
-        }
+        }}
         className="window-control-wrapper window-close-wrapper"
       >
         <button className="window-control window-close"></button>

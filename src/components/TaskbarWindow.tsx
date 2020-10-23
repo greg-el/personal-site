@@ -12,6 +12,7 @@ interface IProps {
   taskbarStateName: string;
   getTopWindowId: Function;
   moveToFront: Function;
+  order: Function;
 }
 
 interface IState {}
@@ -27,6 +28,7 @@ class TaskbarWindow extends React.Component<IProps, IState> {
           : "taskbar-window-minimised";
       return (
         <div
+          style={{ order: this.props.order(this.props.id) }}
           className="taskbar-window-wrapper"
           onClick={() => {
             if (this.props.state === WindowStateEnum.MINIMISED) {

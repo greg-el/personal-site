@@ -11,6 +11,7 @@ interface IProps {
   addToStack: Function;
   removeFromStack: Function;
   moveToFront: Function;
+  addToTaskbarStack: Function;
 }
 
 interface IState {
@@ -29,6 +30,7 @@ class StartMenuItem extends React.Component<IProps, IState> {
       <div
         onClick={() => {
           this.props.addToStack(this.props.id);
+          this.props.addToTaskbarStack(this.props.id);
           this.props.setWindowState(
             this.props.taskbarStateName,
             this.props.windowStateName,
