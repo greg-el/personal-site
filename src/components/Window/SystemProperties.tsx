@@ -52,6 +52,16 @@ function SystemProperties() {
                 </a>
               </div>
             </div>
+            <div className="sp-list-item-wrapper">
+              <div className="sp-list-label-wrapper">
+                <a
+                  className="sp-list-label"
+                  href="https://github.com/Pomax/react-onclickoutside"
+                >
+                  react-onclickoutside
+                </a>
+              </div>
+            </div>
           </div>
         </div>
         <div className="sp-section-container">

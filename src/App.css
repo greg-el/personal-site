@@ -29,6 +29,10 @@ button {
   cursor: url("./image/cursor.svg"), auto;
 }
 
+a:visited {
+  color: #0000ee;
+}
+
 #boot-wrapper {
   box-sizing: border-box;
   padding: 2%;
