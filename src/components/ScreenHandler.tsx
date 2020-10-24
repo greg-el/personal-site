@@ -9,12 +9,17 @@ import StartMenuItem from "./StartMenuItem";
 import Window from "./Window";
 import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
 import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
-import Logo from "../image/logo.png";
+import UserWithComputerIcon from "../image/icons/user-with-computer.png";
+import Book4Icon from "../image/icons/Book-4.png";
+import SettingsIcon from "../image/icons/settings.png";
 import TitlebarLabel from "./Window/TitlebarLabel";
 import Close from "./Window/Close";
 import Minimise from "./Window/Minimise";
 import TaskbarWindow from "./TaskbarWindow";
 import { WindowStateEnum } from "../constants/index";
+import TitlebarIcon from "./Window/TitlebarIcon";
+import DidYouKnow from "./Window/DidYouKnow";
+import SystemProperties from "./Window/SystemProperties";
 
 interface IState {
   startMouseDown: boolean;
@@ -29,6 +34,9 @@ interface IState {
   aboutMeWindowState: WindowStateEnum;
   aboutMeWindow?: ReactElement;
   aboutMeWindowZIndex: number;
+  systemPropertiesWindowState: WindowStateEnum;
+  systemPropertiesWindow?: ReactElement;
+  systemPropertiesWindowZIndex: number;
   windowStack: Array<string>;
   taskbarStack: Array<string>;
   [key: string]: any;
@@ -51,6 +59,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
       aboutMeWindowState: WindowStateEnum.CLOSED,
       aboutMeTaskbarState: WindowStateEnum.CLOSED,
       aboutMeWindowZIndex: 0,
+      systemPropertiesWindowState: WindowStateEnum.CLOSED,
+      systemPropertiesTaskbarState: WindowStateEnum.CLOSED,
+      systemPropertiesWindowZIndex: 0,
       windowStack: [],
       taskbarStack: [],
     };
@@ -156,11 +167,16 @@ class ScreenHandler extends React.Component<IProps, IState> {
       <Window
         id="welcome"
         name={"Welcome"}
+        titlebarIcon={
+          <TitlebarIcon icon={{ backgroundImage: `url( ${Book4Icon})` }} />
+        }
         titlebarLabel={<TitlebarLabel labelText="Welcome" />}
         moveToFront={() => this.moveWindowToFront("welcome")}
         zIndex={this.state.welcomeWindowZIndex}
         setFocusedElement={this.setFocusedElement}
         windowStackLength={this.state.windowStack.length}
+        didYouKnow={<DidYouKnow />}
+        resize={false}
         close={
           <Close
             id="welcome"
@@ -188,11 +204,17 @@ class ScreenHandler extends React.Component<IProps, IState> {
       <Window
         id="aboutMe"
         name={"About Me"}
+        titlebarIcon={
+          <TitlebarIcon
+            icon={{ backgroundImage: `url( ${UserWithComputerIcon})` }}
+          />
+        }
         titlebarLabel={<TitlebarLabel labelText="About Me" />}
         moveToFront={() => this.moveWindowToFront("aboutMe")}
         zIndex={this.state.aboutMeWindowZIndex}
         setFocusedElement={this.setFocusedElement}
         windowStackLength={this.state.windowStack.length}
+        resize={true}
         close={
           <Close
             id="aboutMe"
@@ -211,6 +233,43 @@ class ScreenHandler extends React.Component<IProps, IState> {
           />
         }
         windowState={this.state.aboutMeWindowState}
+      ></Window>
+    );
+  }
+
+  SystemProperties() {
+    return (
+      <Window
+        id="systemProperties"
+        name={"System Properties"}
+        titlebarIcon={
+          <TitlebarIcon icon={{ backgroundImage: `url( ${SettingsIcon})` }} />
+        }
+        titlebarLabel={<TitlebarLabel labelText="System Properties" />}
+        moveToFront={() => this.moveWindowToFront("systemProperties")}
+        zIndex={this.state.systemPropertiesWindowZIndex}
+        setFocusedElement={this.setFocusedElement}
+        windowStackLength={this.state.windowStack.length}
+        systemProperties={<SystemProperties />}
+        resize={true}
+        close={
+          <Close
+            id="systemProperties"
+            taskbarStateName="systemPropertiesTaskbarState"
+            windowStateName="systemPropertiesWindowState"
+            setWindowState={this.setWindowState}
+            removeWindowFromStack={this.removeFromWindowStack}
+            removeFromTaskbarStack={this.removeFromTaskbarStack}
+          />
+        }
+        minimise={
+          <Minimise
+            taskbarStateName="systemPropertiesTaskbarState"
+            windowStateName="systemPropertiesWindowState"
+            setWindowState={this.setWindowState}
+          />
+        }
+        windowState={this.state.systemPropertiesWindowState}
       ></Window>
     );
   }
@@ -242,6 +301,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
           />
           {this.AboutMeWindow()}
           {this.WelcomeWindow()}
+          {this.SystemProperties()}
         </Desktop>
         <div id="taskbar-wrapper">
           <Taskbar
@@ -279,6 +339,18 @@ class ScreenHandler extends React.Component<IProps, IState> {
                 moveToFront={this.moveWindowToFront}
                 order={this.getTaskbarElementStackOrder}
               ></TaskbarWindow>
+              <TaskbarWindow
+                id="systemProperties"
+                state={this.state.systemPropertiesTaskbarState}
+                focusedElement={this.state.focusedElement}
+                label="System Properties"
+                taskbarStateName="systemPropertiesTaskbarState"
+                windowStateName="systemPropertiesWindowState"
+                setWindowState={this.setWindowState}
+                getTopWindowId={this.getTopWindowId}
+                moveToFront={this.moveWindowToFront}
+                order={this.getTaskbarElementStackOrder}
+              ></TaskbarWindow>
             </div>
             <SystemTray />
           </Taskbar>
@@ -290,7 +362,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         >
           <StartMenuItem
             id="welcome"
-            image={{ backgroundImage: `url( ${Logo})` }}
+            image={{ backgroundImage: `url( ${Book4Icon})` }}
             label="Welcome"
             setWindowState={this.setWindowState}
             windowStateName="welcomeWindowState"
@@ -302,11 +374,23 @@ class ScreenHandler extends React.Component<IProps, IState> {
           ></StartMenuItem>
           <StartMenuItem
             id="aboutMe"
-            image={{ backgroundImage: `url( ${Logo})` }}
+            image={{ backgroundImage: `url( ${UserWithComputerIcon})` }}
             label="About Me"
             setWindowState={this.setWindowState}
             windowStateName="aboutMeWindowState"
             taskbarStateName="aboutMeTaskbarState"
+            addToStack={this.addToWindowStack}
+            removeFromStack={this.removeFromWindowStack}
+            moveToFront={this.moveWindowToFront}
+            addToTaskbarStack={this.addToTaskbarStack}
+          ></StartMenuItem>
+          <StartMenuItem
+            id="systemProperties"
+            image={{ backgroundImage: `url( ${SettingsIcon})` }}
+            label="System Properties"
+            setWindowState={this.setWindowState}
+            windowStateName="systemPropertiesWindowState"
+            taskbarStateName="systemPropertiesTaskbarState"
             addToStack={this.addToWindowStack}
             removeFromStack={this.removeFromWindowStack}
             moveToFront={this.moveWindowToFront}

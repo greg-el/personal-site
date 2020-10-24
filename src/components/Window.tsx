@@ -10,15 +10,18 @@ interface IProps {
   titlebarLabel: ReactElement;
   close: ReactElement;
   minimise?: ReactElement;
-  maximise?: React.Component;
-  toolbar?: React.Component;
-  fileContainer?: React.Component;
-  detailsPane?: React.Component;
+  maximise?: ReactElement;
+  toolbar?: ReactElement;
+  fileContainer?: ReactElement;
+  detailsPane?: ReactElement;
+  didYouKnow?: ReactElement;
+  systemProperties?: ReactElement;
   windowState: WindowStateEnum;
   moveToFront: Function;
   zIndex: number;
   windowStackLength: number;
   setFocusedElement: Function;
+  resize: boolean;
 }
 
 interface IState {
@@ -51,9 +54,12 @@ class Window extends React.Component<IProps, IState> {
           ? "title-bar-focused"
           : "title-bar-unfocused";
 
-      /* let resizeProps: 
-     };
-     */
+      let resizeHandle = <div></div>;
+      let handleElement = <span></span>;
+      if (this.props.resize === true) {
+        handleElement = <span className={"resize-handle"} />;
+        resizeHandle = <div className="window-resize-handle"></div>;
+      }
 
       return (
         <Draggable
@@ -65,14 +71,14 @@ class Window extends React.Component<IProps, IState> {
         >
           <ResizableBox
             {...{
-              width: 300,
-              height: 300,
+              width: 700,
+              height: 700,
               handleSize: [35, 35],
-              minConstraints: [300, 300],
+              minConstraints: [700, 700],
               resizeHandles: ["se"],
               className: "window-wrapper " + windowClass,
               style: { zIndex: this.props.zIndex },
-              handle: (h: any) => <span className={"resize-handle"} />,
+              handle: (h: any) => handleElement,
             }}
           >
             <div
@@ -83,7 +89,7 @@ class Window extends React.Component<IProps, IState> {
                 this._handleSingleClick(e);
               }}
             >
-              <div className="window-resize-handle"></div>
+              {resizeHandle}
               <div className="window-title-bar-container">
                 <div className={"title-bar " + focusedClass}>
                   <div className="window-title-bar-draggable">
@@ -97,6 +103,8 @@ class Window extends React.Component<IProps, IState> {
                   </div>
                 </div>
               </div>
+              {this.props.systemProperties}
+              {this.props.didYouKnow}
               {this.props.toolbar}
               {this.props.fileContainer}
               {this.props.detailsPane}

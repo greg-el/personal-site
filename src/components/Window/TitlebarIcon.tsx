@@ -1,9 +1,13 @@
 import React from "react";
 
-function TitlebarIcon() {
+interface IProps {
+  icon: React.CSSProperties;
+}
+
+function TitlebarIcon(props: IProps) {
   return (
     <div className="title-bar-icon-wrapper">
-      <div className="title-bar-icon"></div>
+      <div style={props.icon} className="title-bar-icon"></div>
     </div>
   );
 }

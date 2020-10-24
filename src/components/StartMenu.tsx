@@ -44,7 +44,9 @@ class StartMenu extends React.Component<IProps, IState> {
           onClick={(e) => this.props.setFocusedElement(e.currentTarget)}
         >
           <div id="start-menu-panel-container">
-            <div id="start-menu-logo"></div>
+            <div id="start-menu-logo-wrapper">
+              <div id="start-menu-logo"></div>
+            </div>
             <div id={this.props.id}>{this.props.children}</div>
           </div>
         </div>

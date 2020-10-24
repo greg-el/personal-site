@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { WindowStateEnum } from "../constants";
 
 interface IProps {
@@ -16,13 +16,26 @@ interface IProps {
 
 interface IState {
   windowExists: boolean;
+  underlinedLabel: ReactElement;
 }
 
 class StartMenuItem extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
-    this.state = { windowExists: false };
+    this.state = {
+      windowExists: false,
+      underlinedLabel: this.underlineFirstLetter(),
+    };
+  }
+
+  underlineFirstLetter() {
+    return (
+      <span>
+        <u>{this.props.label.slice(0, 1)}</u>
+        {this.props.label.slice(1)}
+      </span>
+    );
   }
 
   render() {
@@ -41,7 +54,9 @@ class StartMenuItem extends React.Component<IProps, IState> {
       >
         <div className="start-menu-item">
           <div style={this.props.image} className="start-menu-item-image"></div>
-          <div className="start-menu-item-label">{this.props.label}</div>
+          <div className="start-menu-item-label">
+            {this.state.underlinedLabel}
+          </div>
         </div>
       </div>
     );
