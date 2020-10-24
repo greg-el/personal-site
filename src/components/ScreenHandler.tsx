@@ -79,14 +79,14 @@ class ScreenHandler extends React.Component<IProps, IState> {
   }
 
   setFocusedElement = (val: any) => {
-    if (val.id !== "desktop") {
-      this.setState(
-        {
-          focusedElement: val.id,
-        },
-        () => console.log(this.state.focusedElement)
-      );
-    }
+    //if (val.id !== "desktop") {
+    this.setState(
+      {
+        focusedElement: val.id,
+      },
+      () => console.log(this.state.focusedElement)
+    );
+    //}
   };
 
   getTopWindowId() {

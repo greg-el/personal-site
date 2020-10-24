@@ -95,22 +95,46 @@ button {
   margin-right: 5%;
   height: 80%;
   width: 90%;
-  border-top: 1px solid var(--border-light);
-  border-left: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-dark);
-  border-right: 2px solid var(--border-dark);
+
   font-family: "MS Dos";
+  letter-spacing: -1px;
   color: black;
   background-color: var(--windows-grey);
   font-size: 16px;
 }
 
-#start-button:active {
+.start-button-focused {
   background-color: #babfc3;
   border-bottom: 1px solid var(--border-light);
   border-right: 1px solid var(--border-light);
   border-top: 2px solid var(--border-dark);
   border-left: 2px solid var(--border-dark);
+}
+
+.start-button-unfocused {
+  border-top: 1px solid var(--border-light);
+  border-left: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-dark);
+  border-right: 2px solid var(--border-dark);
+}
+
+#start-button-icon-wrapper {
+  height: 100%;
+  width: 40%;
+}
+
+#start-button-icon {
+  width: 100%;
+  height: 100%;
+  background-image: url(./image/icons/windows-logo.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#start-button-label {
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 #start-menu-wrapper {

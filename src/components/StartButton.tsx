@@ -21,17 +21,21 @@ class StartButton extends React.Component<IProps, IState> {
   render() {
     let buttonClass =
       this.props.focusedElement === this.props.id
-        ? "start-clicked"
-        : "start-not-clicked";
+        ? "start-button-focused"
+        : "start-button-unfocused";
     return (
       <div id="start-button-wrapper">
         <div
-          id={this.props.id}
-          onClick={(e) => this._handleSingleClick(e)}
+          id="start-button"
           className={buttonClass}
+          onClick={(e) => this._handleSingleClick(e)}
         >
-          <div id="start-label"></div>
-          Start
+          <div id="start-button-icon-wrapper">
+            <div id="start-button-icon"></div>
+          </div>
+          <div id="start-button-label-wrapper">
+            <div id="start-button-label">Start</div>
+          </div>
         </div>
       </div>
     );
