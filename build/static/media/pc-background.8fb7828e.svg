@@ -1,0 +1,19 @@
+<svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="4" height="4" fill="white"/>
+<rect width="1" height="1" fill="#EAEAC4"/>
+<rect x="1" width="1" height="1" fill="#FFFDE9"/>
+<rect x="2" width="1" height="1" fill="#FFFFE7"/>
+<rect x="3" width="1" height="1" fill="#FFFFD7"/>
+<rect y="1" width="1" height="1" fill="#FFFDE6"/>
+<rect x="1" y="1" width="1" height="1" fill="#FFFFD9"/>
+<rect x="2" y="1" width="1" height="1" fill="#F8F8D4"/>
+<rect x="3" y="1" width="1" height="1" fill="#FFFDEA"/>
+<rect y="2" width="1" height="1" fill="#F8F7DB"/>
+<rect x="1" y="2" width="1" height="1" fill="#FFFFDC"/>
+<rect x="2" y="2" width="1" height="1" fill="#F0F1C9"/>
+<rect x="3" y="2" width="1" height="1" fill="#FBFBD9"/>
+<rect y="3" width="1" height="1" fill="#FFFFD9"/>
+<rect x="1" y="3" width="1" height="1" fill="#FFFDEA"/>
+<rect x="2" y="3" width="1" height="1" fill="#FFFEE7"/>
+<rect x="3" y="3" width="1" height="1" fill="#FFFFD9"/>
+</svg>
