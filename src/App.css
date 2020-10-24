@@ -83,7 +83,7 @@ button {
 #start-button-wrapper {
   display: flex;
   height: 100%;
-  width: 80px;
+  width: 100px;
   align-items: center;
 }
 
@@ -95,12 +95,19 @@ button {
   margin-right: 5%;
   height: 80%;
   width: 90%;
-
   font-family: "MS Dos";
   letter-spacing: -1px;
   color: black;
   background-color: var(--windows-grey);
   font-size: 16px;
+}
+
+#start-button-logo-container {
+  height: 80%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .start-button-focused {
@@ -120,7 +127,7 @@ button {
 
 #start-button-icon-wrapper {
   height: 100%;
-  width: 40%;
+  width: 60%;
 }
 
 #start-button-icon {
@@ -130,6 +137,11 @@ button {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+#start-menu-label-wrapper {
+  height: 100%;
+  width: 60%;
 }
 
 #start-button-label {

@@ -22,11 +22,7 @@ import DidYouKnow from "./Window/DidYouKnow";
 import SystemProperties from "./Window/SystemProperties";
 
 interface IState {
-  startMouseDown: boolean;
-  startMouseUp: boolean;
-  desktopMouseDown: boolean;
-  desktopMouseUp: boolean;
-  focusedElement: any;
+  isStartMenuOpen: boolean;
   welcomeWindowState: WindowStateEnum;
   welcomeTaskbarState: WindowStateEnum;
   welcomeWindow?: ReactElement;
@@ -48,11 +44,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      startMouseDown: false,
-      startMouseUp: false,
-      desktopMouseDown: false,
-      desktopMouseUp: false,
-      focusedElement: null,
+      isStartMenuOpen: false,
       welcomeWindowState: WindowStateEnum.CLOSED,
       welcomeTaskbarState: WindowStateEnum.CLOSED,
       welcomeWindowZIndex: 0,
@@ -65,6 +57,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
       windowStack: [],
       taskbarStack: [],
     };
+    this.setMenuOpen = this.setMenuOpen.bind(this);
+    this.setMenuClosed = this.setMenuClosed.bind(this);
     this.setWindowState = this.setWindowState.bind(this);
     this.getWindowZIndex = this.getWindowZIndex.bind(this);
     this.moveWindowToFront = this.moveWindowToFront.bind(this);
@@ -77,17 +71,6 @@ class ScreenHandler extends React.Component<IProps, IState> {
       this
     );
   }
-
-  setFocusedElement = (val: any) => {
-    //if (val.id !== "desktop") {
-    this.setState(
-      {
-        focusedElement: val.id,
-      },
-      () => console.log(this.state.focusedElement)
-    );
-    //}
-  };
 
   getTopWindowId() {
     return this.state.windowStack[this.state.windowStack.length - 1];
@@ -162,6 +145,14 @@ class ScreenHandler extends React.Component<IProps, IState> {
     }
   }
 
+  setMenuOpen() {
+    this.setState({ isStartMenuOpen: true });
+  }
+
+  setMenuClosed() {
+    this.setState({ isStartMenuOpen: false });
+  }
+
   WelcomeWindow() {
     return (
       <Window
@@ -173,7 +164,6 @@ class ScreenHandler extends React.Component<IProps, IState> {
         titlebarLabel={<TitlebarLabel labelText="Welcome" />}
         moveToFront={() => this.moveWindowToFront("welcome")}
         zIndex={this.state.welcomeWindowZIndex}
-        setFocusedElement={this.setFocusedElement}
         windowStackLength={this.state.windowStack.length}
         didYouKnow={<DidYouKnow />}
         resize={false}
@@ -212,7 +202,6 @@ class ScreenHandler extends React.Component<IProps, IState> {
         titlebarLabel={<TitlebarLabel labelText="About Me" />}
         moveToFront={() => this.moveWindowToFront("aboutMe")}
         zIndex={this.state.aboutMeWindowZIndex}
-        setFocusedElement={this.setFocusedElement}
         windowStackLength={this.state.windowStack.length}
         resize={true}
         close={
@@ -248,7 +237,6 @@ class ScreenHandler extends React.Component<IProps, IState> {
         titlebarLabel={<TitlebarLabel labelText="System Properties" />}
         moveToFront={() => this.moveWindowToFront("systemProperties")}
         zIndex={this.state.systemPropertiesWindowZIndex}
-        setFocusedElement={this.setFocusedElement}
         windowStackLength={this.state.windowStack.length}
         systemProperties={<SystemProperties />}
         resize={true}
@@ -275,50 +263,37 @@ class ScreenHandler extends React.Component<IProps, IState> {
   }
 
   render() {
-    console.log(this.state.taskbarStack);
     return (
       <div id="screen-container">
-        <Desktop
-          setFocusedElement={this.setFocusedElement}
-          focusedElement={this.state.focusedElement}
-          id="desktop"
-        >
+        <Desktop>
           <Icon
             iconStyle={{ backgroundImage: `url( ${GitLabLogo})` }}
             label="GitLab"
             url="https://gitlab.com/greg-el"
             id="gitlab-icon"
-            focusedElement={this.state.focusedElement}
-            setFocusedElement={this.setFocusedElement}
           />
           <Icon
             iconStyle={{ backgroundImage: `url( ${GitHubLogo})` }}
             label="GitHub"
             url="https://github.com/greg-el"
             id="github-icon"
-            focusedElement={this.state.focusedElement}
-            setFocusedElement={this.setFocusedElement}
           />
           {this.AboutMeWindow()}
           {this.WelcomeWindow()}
           {this.SystemProperties()}
         </Desktop>
         <div id="taskbar-wrapper">
-          <Taskbar
-            focusedElement={this.state.focusedElement}
-            setFocusedElement={this.setFocusedElement}
-            id="taskbar"
-          >
+          <Taskbar>
             <StartButton
-              focusedElement={this.state.focusedElement}
-              setFocusedElement={this.setFocusedElement}
-              id="start-button"
+              isStartMenuOpen={this.state.isStartMenuOpen}
+              setStartMenuOpen={this.setMenuOpen}
+              setStartMenuClosed={this.setMenuClosed}
+              outsideClickIgnoreClass={"start-menu-item-wrapper"}
             />
             <div id="taskbar-windows-container">
               <TaskbarWindow
                 id="welcome"
                 state={this.state.welcomeTaskbarState}
-                focusedElement={this.state.focusedElement}
                 label="Welcome"
                 taskbarStateName="welcomeTaskbarState"
                 windowStateName="welcomeWindowState"
@@ -330,7 +305,6 @@ class ScreenHandler extends React.Component<IProps, IState> {
               <TaskbarWindow
                 id="aboutMe"
                 state={this.state.aboutMeTaskbarState}
-                focusedElement={this.state.focusedElement}
                 label="About Me"
                 taskbarStateName="aboutMeTaskbarState"
                 windowStateName="aboutMeWindowState"
@@ -342,7 +316,6 @@ class ScreenHandler extends React.Component<IProps, IState> {
               <TaskbarWindow
                 id="systemProperties"
                 state={this.state.systemPropertiesTaskbarState}
-                focusedElement={this.state.focusedElement}
                 label="System Properties"
                 taskbarStateName="systemPropertiesTaskbarState"
                 windowStateName="systemPropertiesWindowState"
@@ -355,11 +328,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             <SystemTray />
           </Taskbar>
         </div>
-        <StartMenu
-          focusedElement={this.state.focusedElement}
-          setFocusedElement={this.setFocusedElement}
-          id="start-menu"
-        >
+        <StartMenu startMenuOpen={this.state.isStartMenuOpen}>
           <StartMenuItem
             id="welcome"
             image={{ backgroundImage: `url( ${Book4Icon})` }}
@@ -371,6 +340,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             removeFromStack={this.removeFromWindowStack}
             moveToFront={this.moveWindowToFront}
             addToTaskbarStack={this.addToTaskbarStack}
+            setMenuClosed={this.setMenuClosed}
           ></StartMenuItem>
           <StartMenuItem
             id="aboutMe"
@@ -383,6 +353,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             removeFromStack={this.removeFromWindowStack}
             moveToFront={this.moveWindowToFront}
             addToTaskbarStack={this.addToTaskbarStack}
+            setMenuClosed={this.setMenuClosed}
           ></StartMenuItem>
           <StartMenuItem
             id="systemProperties"
@@ -395,6 +366,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             removeFromStack={this.removeFromWindowStack}
             moveToFront={this.moveWindowToFront}
             addToTaskbarStack={this.addToTaskbarStack}
+            setMenuClosed={this.setMenuClosed}
           ></StartMenuItem>
         </StartMenu>
       </div>

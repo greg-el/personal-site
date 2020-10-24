@@ -3,7 +3,6 @@ import { WindowStateEnum } from "../constants/index";
 
 interface IProps {
   id: string;
-  focusedElement: string;
   state: WindowStateEnum;
   label: string;
   icon?: ReactElement;
@@ -22,8 +21,7 @@ class TaskbarWindow extends React.Component<IProps, IState> {
     if (this.props.state !== WindowStateEnum.CLOSED) {
       let style =
         this.props.id === this.props.getTopWindowId() &&
-        this.props.state === WindowStateEnum.OPEN &&
-        this.props.focusedElement !== "desktop"
+        this.props.state === WindowStateEnum.OPEN
           ? "taskbar-window-open"
           : "taskbar-window-minimised";
       return (

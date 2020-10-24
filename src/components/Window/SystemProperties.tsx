@@ -1,7 +1,6 @@
 import React from "react";
 
 function SystemProperties() {
-  console.log("hi");
   return (
     <div id="sp-container">
       <div id="sp-pc-wrapper">

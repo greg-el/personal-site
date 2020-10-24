@@ -1,5 +1,6 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
 import Draggable from "react-draggable";
+import onClickOutside from "react-onclickoutside";
 
 interface IState {
   focused: boolean;
@@ -10,8 +11,6 @@ interface IProps {
   label: string;
   url: string;
   id: string;
-  focusedElement: any;
-  setFocusedElement: any;
 }
 
 class Icon extends React.Component<IProps, IState> {
@@ -20,27 +19,14 @@ class Icon extends React.Component<IProps, IState> {
     this.state = {
       focused: false,
     };
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
   }
 
-  componentDidUpdate() {
-    if (
-      this.props.focusedElement !== this.props.id &&
-      this.state.focused === true
-    ) {
-      this.setState({
-        focused: false,
-      });
-    }
-  }
-
-  onMouseDown(event: SyntheticEvent) {
-    this.props.setFocusedElement(event.currentTarget);
-  }
-
-  onMouseUp(event: SyntheticEvent) {
+  handleClickOutside() {
     this.setState({ focused: false });
+  }
+
+  handleClick() {
+    this.setState({ focused: true });
   }
 
   render() {
@@ -52,8 +38,7 @@ class Icon extends React.Component<IProps, IState> {
           id={this.props.id}
           className={"icon-wrapper " + setClassName}
           onDoubleClick={() => window.open(this.props.url, "_blank")}
-          onMouseDown={(e) => this.onMouseDown(e)}
-          onMouseUp={(e) => this.onMouseUp(e)}
+          onClick={() => this.handleClick()}
         >
           <div className="icon" style={this.props.iconStyle}></div>
           <div className="icon-label">{this.props.label}</div>
@@ -63,4 +48,4 @@ class Icon extends React.Component<IProps, IState> {
   }
 }
 
-export default Icon;
+export default onClickOutside(Icon);

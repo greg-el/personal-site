@@ -12,6 +12,7 @@ interface IProps {
   removeFromStack: Function;
   moveToFront: Function;
   addToTaskbarStack: Function;
+  setMenuClosed: Function;
 }
 
 interface IState {
@@ -49,6 +50,7 @@ class StartMenuItem extends React.Component<IProps, IState> {
             this.props.windowStateName,
             WindowStateEnum.OPEN
           );
+          this.props.setMenuClosed();
         }}
         className="start-menu-item-wrapper"
       >

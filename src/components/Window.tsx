@@ -20,7 +20,6 @@ interface IProps {
   moveToFront: Function;
   zIndex: number;
   windowStackLength: number;
-  setFocusedElement: Function;
   resize: boolean;
 }
 
@@ -35,11 +34,6 @@ class Window extends React.Component<IProps, IState> {
     this.state = {
       focused: true,
     };
-  }
-
-  _handleSingleClick(event: React.SyntheticEvent) {
-    let target = event.currentTarget;
-    this.props.setFocusedElement(target);
   }
 
   render() {
@@ -72,9 +66,9 @@ class Window extends React.Component<IProps, IState> {
           <ResizableBox
             {...{
               width: 700,
-              height: 700,
+              height: 650,
               handleSize: [35, 35],
-              minConstraints: [700, 700],
+              minConstraints: [700, 650],
               resizeHandles: ["se"],
               className: "window-wrapper " + windowClass,
               style: { zIndex: this.props.zIndex },
@@ -86,7 +80,6 @@ class Window extends React.Component<IProps, IState> {
               className="window"
               onMouseDown={(e) => {
                 this.props.moveToFront();
-                this._handleSingleClick(e);
               }}
             >
               {resizeHandle}
