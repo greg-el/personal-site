@@ -9,7 +9,7 @@ import StartMenuItem from "./StartMenuItem";
 import Window from "./Window";
 import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
 import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
-import UserWithComputerIcon from "../image/icons/user-with-computer.png";
+import UserWithComputerIcon from "../image/icons/User-with-computer.png";
 import Book4Icon from "../image/icons/Book-4.png";
 import SettingsIcon from "../image/icons/settings.png";
 import TitlebarLabel from "./Window/TitlebarLabel";
