@@ -694,3 +694,17 @@ a:visited {
   flex-direction: row;
   margin-left: 20px;
 }
+
+.shut-down-button-wrapper {
+  width: 60px;
+  height: 20px;
+}
+
+.shut-down-button {
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light);
+  border-top: 2px solid var(--border-dark);
+  border-left: 2px solid var(--border-dark);
+}

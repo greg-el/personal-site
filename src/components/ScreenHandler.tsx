@@ -20,6 +20,7 @@ import { WindowStateEnum } from "../constants/index";
 import TitlebarIcon from "./Window/TitlebarIcon";
 import DidYouKnow from "./Window/DidYouKnow";
 import SystemProperties from "./Window/SystemProperties";
+import ShutDown from "./Window/ShutDown";
 
 interface IState {
   isStartMenuOpen: boolean;
@@ -33,6 +34,9 @@ interface IState {
   systemPropertiesWindowState: WindowStateEnum;
   systemPropertiesWindow?: ReactElement;
   systemPropertiesWindowZIndex: number;
+  shutDownWindowState: WindowStateEnum;
+  shutDownTaskbarState: WindowStateEnum;
+  shutDownWindowZIndex: number;
   windowStack: Array<string>;
   taskbarStack: Array<string>;
   [key: string]: any;
@@ -54,6 +58,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
       systemPropertiesWindowState: WindowStateEnum.CLOSED,
       systemPropertiesTaskbarState: WindowStateEnum.CLOSED,
       systemPropertiesWindowZIndex: 0,
+      shutDownWindowState: WindowStateEnum.OPEN,
+      shutDownTaskbarState: WindowStateEnum.OPEN,
+      shutDownWindowZIndex: 0,
       windowStack: [],
       taskbarStack: [],
     };
@@ -165,7 +172,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         moveToFront={() => this.moveWindowToFront("welcome")}
         zIndex={this.state.welcomeWindowZIndex}
         windowStackLength={this.state.windowStack.length}
-        didYouKnow={<DidYouKnow />}
+        insideElement={<DidYouKnow />}
         resize={false}
         close={
           <Close
@@ -238,7 +245,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         moveToFront={() => this.moveWindowToFront("systemProperties")}
         zIndex={this.state.systemPropertiesWindowZIndex}
         windowStackLength={this.state.windowStack.length}
-        systemProperties={<SystemProperties />}
+        insideElement={<SystemProperties />}
         resize={true}
         close={
           <Close
@@ -262,6 +269,35 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
   }
 
+  shutDown() {
+    return (
+      <Window
+        id="shutDown"
+        name={"shutDown"}
+        titlebarIcon={
+          <TitlebarIcon icon={{ backgroundImage: `url( ${SettingsIcon})` }} />
+        }
+        titlebarLabel={<TitlebarLabel labelText="Shut Down Windows" />}
+        moveToFront={() => this.moveWindowToFront("shutDown")}
+        zIndex={this.state.shutDownWindowZIndex}
+        windowStackLength={this.state.windowStack.length}
+        insideElement={<ShutDown />}
+        resize={false}
+        close={
+          <Close
+            id="shutDown"
+            taskbarStateName="shutDownTaskbarState"
+            windowStateName="shutDownWindowState"
+            setWindowState={this.setWindowState}
+            removeWindowFromStack={this.removeFromWindowStack}
+            removeFromTaskbarStack={this.removeFromTaskbarStack}
+          />
+        }
+        windowState={this.state.shutDownWindowState}
+      ></Window>
+    );
+  }
+
   render() {
     return (
       <div id="screen-container">
@@ -281,6 +317,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
           {this.AboutMeWindow()}
           {this.WelcomeWindow()}
           {this.SystemProperties()}
+          {this.shutDown()}
         </Desktop>
         <div id="taskbar-wrapper">
           <Taskbar>

@@ -14,8 +14,7 @@ interface IProps {
   toolbar?: ReactElement;
   fileContainer?: ReactElement;
   detailsPane?: ReactElement;
-  didYouKnow?: ReactElement;
-  systemProperties?: ReactElement;
+  insideElement?: ReactElement;
   windowState: WindowStateEnum;
   moveToFront: Function;
   zIndex: number;
@@ -96,8 +95,7 @@ class Window extends React.Component<IProps, IState> {
                   </div>
                 </div>
               </div>
-              {this.props.systemProperties}
-              {this.props.didYouKnow}
+              {this.props.insideElement}
               {this.props.toolbar}
               {this.props.fileContainer}
               {this.props.detailsPane}
