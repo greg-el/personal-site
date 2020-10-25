@@ -40,9 +40,10 @@ interface IState {
   windowStack: Array<string>;
   taskbarStack: Array<string>;
   [key: string]: any;
+  shutdown: boolean;
 }
 
-interface IProps {}
+interface IProps { }
 
 class ScreenHandler extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -63,6 +64,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
       shutDownWindowZIndex: 0,
       windowStack: [],
       taskbarStack: [],
+      shutdown: false,
     };
     this.setMenuOpen = this.setMenuOpen.bind(this);
     this.setMenuClosed = this.setMenuClosed.bind(this);
@@ -77,6 +79,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
     this.getTaskbarElementStackOrder = this.getTaskbarElementStackOrder.bind(
       this
     );
+    this.setShutDownTrue = this.setShutDownTrue.bind(this);
   }
 
   getTopWindowId() {
@@ -158,6 +161,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
 
   setMenuClosed() {
     this.setState({ isStartMenuOpen: false });
+  }
+
+  setShutDownTrue() {
+    this.setState({ shutdown: true })
   }
 
   WelcomeWindow() {
@@ -281,8 +288,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
         moveToFront={() => this.moveWindowToFront("shutDown")}
         zIndex={this.state.shutDownWindowZIndex}
         windowStackLength={this.state.windowStack.length}
-        insideElement={<ShutDown />}
+        insideElement={<ShutDown shutDownSystem={this.setShutDownTrue} />}
         resize={false}
+        size={[450, 250]}
         close={
           <Close
             id="shutDown"
@@ -299,115 +307,119 @@ class ScreenHandler extends React.Component<IProps, IState> {
   }
 
   render() {
-    return (
-      <div id="screen-container">
-        <Desktop>
-          <Icon
-            iconStyle={{ backgroundImage: `url( ${GitLabLogo})` }}
-            label="GitLab"
-            url="https://gitlab.com/greg-el"
-            id="gitlab-icon"
-          />
-          <Icon
-            iconStyle={{ backgroundImage: `url( ${GitHubLogo})` }}
-            label="GitHub"
-            url="https://github.com/greg-el"
-            id="github-icon"
-          />
-          {this.AboutMeWindow()}
-          {this.WelcomeWindow()}
-          {this.SystemProperties()}
-          {this.shutDown()}
-        </Desktop>
-        <div id="taskbar-wrapper">
-          <Taskbar>
-            <StartButton
-              isStartMenuOpen={this.state.isStartMenuOpen}
-              setStartMenuOpen={this.setMenuOpen}
-              setStartMenuClosed={this.setMenuClosed}
-              outsideClickIgnoreClass={"start-menu-item-wrapper"}
+    if (this.state.shutdown === false) {
+      return (
+        <div id="screen-container">
+          <Desktop>
+            <Icon
+              iconStyle={{ backgroundImage: `url( ${GitLabLogo})` }}
+              label="GitLab"
+              url="https://gitlab.com/greg-el"
+              id="gitlab-icon"
             />
-            <div id="taskbar-windows-container">
-              <TaskbarWindow
-                id="welcome"
-                state={this.state.welcomeTaskbarState}
-                label="Welcome"
-                taskbarStateName="welcomeTaskbarState"
-                windowStateName="welcomeWindowState"
-                setWindowState={this.setWindowState}
-                getTopWindowId={this.getTopWindowId}
-                moveToFront={this.moveWindowToFront}
-                order={this.getTaskbarElementStackOrder}
-              ></TaskbarWindow>
-              <TaskbarWindow
-                id="aboutMe"
-                state={this.state.aboutMeTaskbarState}
-                label="About Me"
-                taskbarStateName="aboutMeTaskbarState"
-                windowStateName="aboutMeWindowState"
-                setWindowState={this.setWindowState}
-                getTopWindowId={this.getTopWindowId}
-                moveToFront={this.moveWindowToFront}
-                order={this.getTaskbarElementStackOrder}
-              ></TaskbarWindow>
-              <TaskbarWindow
-                id="systemProperties"
-                state={this.state.systemPropertiesTaskbarState}
-                label="System Properties"
-                taskbarStateName="systemPropertiesTaskbarState"
-                windowStateName="systemPropertiesWindowState"
-                setWindowState={this.setWindowState}
-                getTopWindowId={this.getTopWindowId}
-                moveToFront={this.moveWindowToFront}
-                order={this.getTaskbarElementStackOrder}
-              ></TaskbarWindow>
-            </div>
-            <SystemTray />
-          </Taskbar>
+            <Icon
+              iconStyle={{ backgroundImage: `url( ${GitHubLogo})` }}
+              label="GitHub"
+              url="https://github.com/greg-el"
+              id="github-icon"
+            />
+            {this.AboutMeWindow()}
+            {this.WelcomeWindow()}
+            {this.SystemProperties()}
+            {this.shutDown()}
+          </Desktop>
+          <div id="taskbar-wrapper">
+            <Taskbar>
+              <StartButton
+                isStartMenuOpen={this.state.isStartMenuOpen}
+                setStartMenuOpen={this.setMenuOpen}
+                setStartMenuClosed={this.setMenuClosed}
+                outsideClickIgnoreClass={"start-menu-item-wrapper"}
+              />
+              <div id="taskbar-windows-container">
+                <TaskbarWindow
+                  id="welcome"
+                  state={this.state.welcomeTaskbarState}
+                  label="Welcome"
+                  taskbarStateName="welcomeTaskbarState"
+                  windowStateName="welcomeWindowState"
+                  setWindowState={this.setWindowState}
+                  getTopWindowId={this.getTopWindowId}
+                  moveToFront={this.moveWindowToFront}
+                  order={this.getTaskbarElementStackOrder}
+                ></TaskbarWindow>
+                <TaskbarWindow
+                  id="aboutMe"
+                  state={this.state.aboutMeTaskbarState}
+                  label="About Me"
+                  taskbarStateName="aboutMeTaskbarState"
+                  windowStateName="aboutMeWindowState"
+                  setWindowState={this.setWindowState}
+                  getTopWindowId={this.getTopWindowId}
+                  moveToFront={this.moveWindowToFront}
+                  order={this.getTaskbarElementStackOrder}
+                ></TaskbarWindow>
+                <TaskbarWindow
+                  id="systemProperties"
+                  state={this.state.systemPropertiesTaskbarState}
+                  label="System Properties"
+                  taskbarStateName="systemPropertiesTaskbarState"
+                  windowStateName="systemPropertiesWindowState"
+                  setWindowState={this.setWindowState}
+                  getTopWindowId={this.getTopWindowId}
+                  moveToFront={this.moveWindowToFront}
+                  order={this.getTaskbarElementStackOrder}
+                ></TaskbarWindow>
+              </div>
+              <SystemTray />
+            </Taskbar>
+          </div>
+          <StartMenu startMenuOpen={this.state.isStartMenuOpen}>
+            <StartMenuItem
+              id="welcome"
+              image={{ backgroundImage: `url( ${Book4Icon})` }}
+              label="Welcome"
+              setWindowState={this.setWindowState}
+              windowStateName="welcomeWindowState"
+              taskbarStateName="welcomeTaskbarState"
+              addToStack={this.addToWindowStack}
+              removeFromStack={this.removeFromWindowStack}
+              moveToFront={this.moveWindowToFront}
+              addToTaskbarStack={this.addToTaskbarStack}
+              setMenuClosed={this.setMenuClosed}
+            ></StartMenuItem>
+            <StartMenuItem
+              id="aboutMe"
+              image={{ backgroundImage: `url( ${UserWithComputerIcon})` }}
+              label="About Me"
+              setWindowState={this.setWindowState}
+              windowStateName="aboutMeWindowState"
+              taskbarStateName="aboutMeTaskbarState"
+              addToStack={this.addToWindowStack}
+              removeFromStack={this.removeFromWindowStack}
+              moveToFront={this.moveWindowToFront}
+              addToTaskbarStack={this.addToTaskbarStack}
+              setMenuClosed={this.setMenuClosed}
+            ></StartMenuItem>
+            <StartMenuItem
+              id="systemProperties"
+              image={{ backgroundImage: `url( ${SettingsIcon})` }}
+              label="System Properties"
+              setWindowState={this.setWindowState}
+              windowStateName="systemPropertiesWindowState"
+              taskbarStateName="systemPropertiesTaskbarState"
+              addToStack={this.addToWindowStack}
+              removeFromStack={this.removeFromWindowStack}
+              moveToFront={this.moveWindowToFront}
+              addToTaskbarStack={this.addToTaskbarStack}
+              setMenuClosed={this.setMenuClosed}
+            ></StartMenuItem>
+          </StartMenu>
         </div>
-        <StartMenu startMenuOpen={this.state.isStartMenuOpen}>
-          <StartMenuItem
-            id="welcome"
-            image={{ backgroundImage: `url( ${Book4Icon})` }}
-            label="Welcome"
-            setWindowState={this.setWindowState}
-            windowStateName="welcomeWindowState"
-            taskbarStateName="welcomeTaskbarState"
-            addToStack={this.addToWindowStack}
-            removeFromStack={this.removeFromWindowStack}
-            moveToFront={this.moveWindowToFront}
-            addToTaskbarStack={this.addToTaskbarStack}
-            setMenuClosed={this.setMenuClosed}
-          ></StartMenuItem>
-          <StartMenuItem
-            id="aboutMe"
-            image={{ backgroundImage: `url( ${UserWithComputerIcon})` }}
-            label="About Me"
-            setWindowState={this.setWindowState}
-            windowStateName="aboutMeWindowState"
-            taskbarStateName="aboutMeTaskbarState"
-            addToStack={this.addToWindowStack}
-            removeFromStack={this.removeFromWindowStack}
-            moveToFront={this.moveWindowToFront}
-            addToTaskbarStack={this.addToTaskbarStack}
-            setMenuClosed={this.setMenuClosed}
-          ></StartMenuItem>
-          <StartMenuItem
-            id="systemProperties"
-            image={{ backgroundImage: `url( ${SettingsIcon})` }}
-            label="System Properties"
-            setWindowState={this.setWindowState}
-            windowStateName="systemPropertiesWindowState"
-            taskbarStateName="systemPropertiesTaskbarState"
-            addToStack={this.addToWindowStack}
-            removeFromStack={this.removeFromWindowStack}
-            moveToFront={this.moveWindowToFront}
-            addToTaskbarStack={this.addToTaskbarStack}
-            setMenuClosed={this.setMenuClosed}
-          ></StartMenuItem>
-        </StartMenu>
-      </div>
-    );
+      );
+    } else {
+      return <div id="shutdown"></div>
+    }
   }
 }
 

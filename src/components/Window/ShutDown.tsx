@@ -1,23 +1,26 @@
 import React from "react";
 
 interface IState {
-  shutdownChoice: string | null;
+  shutdownChoice: string;
 }
 
-interface IProps {}
+interface IProps {
+  shutDownSystem: Function
+
+}
 
 class ShutDown extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
-    this.state = { shutdownChoice: null };
+    this.state = { shutdownChoice: "shutdown" };
     this.handleChange = this.handleChange.bind(this);
     this.okButtonHandler = this.okButtonHandler.bind(this);
   }
 
   okButtonHandler() {
     if (this.state.shutdownChoice === "shutdown") {
-      console.log("shutting down");
+      this.props.shutDownSystem();
     } else if (this.state.shutdownChoice === "restart") {
       console.log("restarting");
     }
@@ -39,7 +42,7 @@ class ShutDown extends React.Component<IProps, IState> {
         </div>
         <div id="shut-down-main-container">
           <div id="shut-down-are-you-sure-wrapper">
-            <div id="shut-down-are-you-sure"></div>
+            <div id="shut-down-are-you-sure">Are you sure you want to:</div>
           </div>
           <form id="shut-down-choices-wrapper">
             <div className="shut-down-choice">
@@ -48,6 +51,7 @@ class ShutDown extends React.Component<IProps, IState> {
                   type="radio"
                   value="shutdown"
                   name="shutdownChoice"
+                  checked={true}
                   onChange={this.handleChange}
                 />
                 <u>S</u>hut down the computer?
@@ -71,12 +75,12 @@ class ShutDown extends React.Component<IProps, IState> {
               onClick={this.okButtonHandler}
             >
               <div id="shut-down-ok-button" className="shut-down-button">
-                Ok
+                Yes
               </div>
             </div>
             <div className="shut-down-button-wrapper">
               <div id="shut-down-cancel-button" className="shut-down-button">
-                Cancel
+                No
               </div>
             </div>
           </div>

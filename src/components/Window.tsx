@@ -20,6 +20,7 @@ interface IProps {
   zIndex: number;
   windowStackLength: number;
   resize: boolean;
+  size?: [number, number];
 }
 
 interface IState {
@@ -47,6 +48,11 @@ class Window extends React.Component<IProps, IState> {
           ? "title-bar-focused"
           : "title-bar-unfocused";
 
+
+
+      let [width, height] = this.props.size ? this.props.size : [700, 650];
+
+
       let resizeHandle = <div></div>;
       let handleElement = <span></span>;
       if (this.props.resize === true) {
@@ -64,8 +70,8 @@ class Window extends React.Component<IProps, IState> {
         >
           <ResizableBox
             {...{
-              width: 700,
-              height: 650,
+              width: width,
+              height: height,
               handleSize: [35, 35],
               minConstraints: [700, 650],
               resizeHandles: ["se"],

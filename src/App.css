@@ -695,16 +695,74 @@ a:visited {
   margin-left: 20px;
 }
 
+#shut-down-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+}
+
+#shut-down-icon-wrapper {
+  width: 20%;
+  margin: 5%;
+}
+
+#shut-down-icon {
+  height: 100%;
+  width: 100%;
+  background-image: url(./image/icons/shutdown.png);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: crisp-edges;
+}
+
+#shut-down-main-container {
+  width: 100%;
+  margin: 5%;
+}
+
+#shut-down-button-container {
+  width: 100%;
+  height: 20%;
+  margin-top: 20%;
+}
+
 .shut-down-button-wrapper {
   width: 60px;
   height: 20px;
 }
 
 .shut-down-button {
-  height: 100%;
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 100px;
+  border-top: 1px solid var(--border-light);
+  border-left: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-dark);
+  border-right: 2px solid var(--border-dark);
+}
+
+.shut-down-button:active {
   border-bottom: 1px solid var(--border-light);
   border-right: 1px solid var(--border-light);
   border-top: 2px solid var(--border-dark);
   border-left: 2px solid var(--border-dark);
+}
+
+#shutdown {
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+}
+
+#shut-down-choices-wrapper {
+  margin: 5%;
+}
+
+#shut-down-button-container {
+  display: flex;
+  justify-content: space-evenly;
 }
