@@ -12,6 +12,7 @@ class ShutDown extends React.Component<IProps, IState> {
 
     this.state = { shutdownChoice: null };
     this.handleChange = this.handleChange.bind(this);
+    this.okButtonHandler = this.okButtonHandler.bind(this);
   }
 
   okButtonHandler() {
@@ -69,13 +70,14 @@ class ShutDown extends React.Component<IProps, IState> {
               className="shut-down-button-wrapper"
               onClick={this.okButtonHandler}
             >
-              <div id="shut-down-ok-button" className="shut-down-button"></div>
+              <div id="shut-down-ok-button" className="shut-down-button">
+                Ok
+              </div>
             </div>
             <div className="shut-down-button-wrapper">
-              <div
-                id="shut-down-cancel-button"
-                className="shut-down-button"
-              ></div>
+              <div id="shut-down-cancel-button" className="shut-down-button">
+                Cancel
+              </div>
             </div>
           </div>
         </div>
