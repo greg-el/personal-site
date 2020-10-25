@@ -6,6 +6,19 @@ export enum WindowStateEnum {
   CLOSED = "closed",
 }
 
+export enum ScreenStateEnum {
+  BOOT = "boot",
+  DESKTOP = "desktop",
+  SHUTDOWN = "shutdown",
+  RESTART = "restart",
+}
+
+export enum CursorStateEnum {
+  POINTER = "cursor.svg",
+  RESIZE = "resize-cursor.svg",
+  LOADING = "hourglass-cursor.svg",
+}
+
 export class WindowObject {
   index: number;
   name: string;

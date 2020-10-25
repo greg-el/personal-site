@@ -48,10 +48,7 @@ class Window extends React.Component<IProps, IState> {
           ? "title-bar-focused"
           : "title-bar-unfocused";
 
-
-
       let [width, height] = this.props.size ? this.props.size : [700, 650];
-
 
       let resizeHandle = <div></div>;
       let handleElement = <span></span>;

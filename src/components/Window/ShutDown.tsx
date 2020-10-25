@@ -1,12 +1,13 @@
 import React from "react";
+import { ScreenStateEnum, CursorStateEnum } from "../../constants/index";
 
 interface IState {
   shutdownChoice: string;
 }
 
 interface IProps {
-  shutDownSystem: Function
-
+  setScreenState: Function;
+  setCursor: Function;
 }
 
 class ShutDown extends React.Component<IProps, IState> {
@@ -20,15 +21,21 @@ class ShutDown extends React.Component<IProps, IState> {
 
   okButtonHandler() {
     if (this.state.shutdownChoice === "shutdown") {
-      this.props.shutDownSystem();
+      this.props.setCursor(CursorStateEnum.LOADING);
+      setTimeout(
+        () => this.props.setScreenState(ScreenStateEnum.SHUTDOWN),
+        1000
+      );
     } else if (this.state.shutdownChoice === "restart") {
-      console.log("restarting");
+      setTimeout(
+        () => this.props.setScreenState(ScreenStateEnum.RESTART),
+        1000
+      );
     }
   }
 
   handleChange(e: any) {
     let { value } = e.target;
-
     this.setState({
       shutdownChoice: value,
     });
@@ -36,7 +43,7 @@ class ShutDown extends React.Component<IProps, IState> {
 
   render() {
     return (
-      <div id="shut-down-container">
+      <div id="shut-down-window-container">
         <div id="shut-down-icon-wrapper">
           <div id="shut-down-icon"></div>
         </div>
@@ -44,29 +51,38 @@ class ShutDown extends React.Component<IProps, IState> {
           <div id="shut-down-are-you-sure-wrapper">
             <div id="shut-down-are-you-sure">Are you sure you want to:</div>
           </div>
-          <form id="shut-down-choices-wrapper">
-            <div className="shut-down-choice">
-              <label>
-                <input
-                  type="radio"
-                  value="shutdown"
-                  name="shutdownChoice"
-                  checked={true}
-                  onChange={this.handleChange}
-                />
-                <u>S</u>hut down the computer?
-              </label>
+          <form id="shut-down-choices-container">
+            <div className="shut-down-choice-wrapper">
+              <div className="shut-down-choice">
+                <label className="container">
+                  <input
+                    type="radio"
+                    value="shutdown"
+                    name="shutdownChoice"
+                    onChange={this.handleChange}
+                    checked={this.state.shutdownChoice === "shutdown"}
+                  />
+                  <span className="checkmark"></span>
+                  <div className="shut-down-choice-label">
+                    <u>S</u>hut down the computer?
+                  </div>
+                </label>
+              </div>
             </div>
-            <div className="shut-down-choice">
-              <label>
-                <input
-                  type="radio"
-                  value="restart"
-                  name="shutdownChoice"
-                  onChange={this.handleChange}
-                />
-                <u>R</u>estart the computer?
-              </label>
+            <div className="shut-down-choice-wrapper">
+              <div className="shut-down-choice">
+                <label className="container">
+                  <input
+                    type="radio"
+                    value="restart"
+                    name="shutdownChoice"
+                    onChange={this.handleChange}
+                    checked={this.state.shutdownChoice === "restart"}
+                  />
+                  <span className="checkmark"></span>
+                  <u>R</u>estart the computer?
+                </label>
+              </div>
             </div>
           </form>
           <div id="shut-down-button-container">
@@ -75,12 +91,12 @@ class ShutDown extends React.Component<IProps, IState> {
               onClick={this.okButtonHandler}
             >
               <div id="shut-down-ok-button" className="shut-down-button">
-                Yes
+                <u>Y</u>es
               </div>
             </div>
             <div className="shut-down-button-wrapper">
               <div id="shut-down-cancel-button" className="shut-down-button">
-                No
+                <u>N</u>o
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@ interface IProps {
   moveToFront: Function;
   addToTaskbarStack: Function;
   setMenuClosed: Function;
+  style?: React.CSSProperties;
 }
 
 interface IState {
@@ -42,6 +43,7 @@ class StartMenuItem extends React.Component<IProps, IState> {
   render() {
     return (
       <div
+        style={this.props.style}
         onClick={() => {
           this.props.addToStack(this.props.id);
           this.props.addToTaskbarStack(this.props.id);

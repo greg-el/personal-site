@@ -14,6 +14,7 @@
   --menubar-blue: #010479;
   --border-light: #ffffff;
   --border-dark: #6d6d6d;
+  --px-sans: font-face("PX Sans");
 }
 
 html,
@@ -22,11 +23,6 @@ body {
   width: 100vw;
   height: 100vh;
   font-size: 16px;
-  cursor: url("./image/cursor.svg"), auto;
-}
-
-button {
-  cursor: url("./image/cursor.svg"), auto;
 }
 
 a:visited {
@@ -695,11 +691,12 @@ a:visited {
   margin-left: 20px;
 }
 
-#shut-down-container {
+#shut-down-window-container {
+  font-family: "PX Sans";
+  font-size: 75%;
   height: 100%;
   width: 100%;
   display: flex;
-
 }
 
 #shut-down-icon-wrapper {
@@ -719,30 +716,44 @@ a:visited {
 
 #shut-down-main-container {
   width: 100%;
-  margin: 5%;
+  margin: 5% 5% 5% 0%;
+}
+
+#shut-down-are-you-sure-wrapper {
+  height: 20%;
+  width: 100%;
+}
+
+#shut-down-choices-container {
+  height: 60%;
+  width: 100%;
 }
 
 #shut-down-button-container {
-  width: 100%;
   height: 20%;
-  margin-top: 20%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: flex-start;
 }
 
 .shut-down-button-wrapper {
-  width: 60px;
-  height: 20px;
+  width: 100px;
+  height: 30px;
+  margin-right: 40px;
 }
 
 .shut-down-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
-  width: 100px;
-  border-top: 1px solid var(--border-light);
-  border-left: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-dark);
-  border-right: 2px solid var(--border-dark);
+  height: 100%;
+  width: 100%;
+  border-top: 2px solid var(--border-light);
+  border-left: 2px solid var(--border-light);
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .shut-down-button:active {
@@ -752,17 +763,85 @@ a:visited {
   border-left: 2px solid var(--border-dark);
 }
 
-#shutdown {
+#shut-down-window-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+#shut-down-container {
   height: 100vh;
   width: 100vw;
   background-color: black;
-}
-
-#shut-down-choices-wrapper {
-  margin: 5%;
-}
-
-#shut-down-button-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
+}
+
+#shut-down-safe {
+  color: white;
+  font-size: 200%;
+  text-align: center;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+form,
+label {
+  cursor: url(./image/cursor.svg), auto;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkmark {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 14px;
+  width: 14px;
+  background-color: white;
+  border-radius: 50%;
+  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light);
+  border-top: 2px solid var(--border-dark);
+  border-left: 2px solid var(--border-dark);
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: white;
+  outline: 1px black;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+  top: 3px;
+  left: 3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: black;
 }
