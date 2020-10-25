@@ -1,6 +1,7 @@
 import React from "react";
 import BootLine from "./BootLine";
 import ScreenHandler from "./ScreenHandler";
+import LogoShutDown from "./LogoShutDown";
 import ShutDownScreen from "./ShutDownScreen";
 import { CursorStateEnum, ScreenStateEnum } from "../constants/index";
 
@@ -48,6 +49,7 @@ class ViewHandler extends React.Component<IProps, IState> {
   }
 
   render() {
+    console.log();
     if (this.state.screenState === ScreenStateEnum.BOOT) {
       return (
         <div id="boot-wrapper">
@@ -68,6 +70,8 @@ class ViewHandler extends React.Component<IProps, IState> {
           setScreenState={this.setScreenState}
         />
       );
+    } else if (this.state.screenState === ScreenStateEnum.LOGOSHUTDOWN) {
+      return <LogoShutDown />;
     } else if (this.state.screenState === ScreenStateEnum.SHUTDOWN) {
       return <ShutDownScreen />;
     }

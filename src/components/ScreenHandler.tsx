@@ -297,6 +297,12 @@ class ScreenHandler extends React.Component<IProps, IState> {
           <ShutDown
             setCursor={this.props.setCursor}
             setScreenState={this.props.setScreenState}
+            id="shutDown"
+            taskbarStateName="shutDownTaskbarState"
+            windowStateName="shutDownWindowState"
+            setWindowState={this.setWindowState}
+            removeWindowFromStack={this.removeFromWindowStack}
+            removeFromTaskbarStack={this.removeFromTaskbarStack}
           />
         }
         resize={false}
@@ -444,7 +450,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             style={{
               marginTop: "auto",
               borderTop: "1px solid grey",
-              boxShadow: "0px -4px 3px rgba(50, 50, 50, 0.75);",
+              boxShadow: "0px -1px 1px rgba(255, 255, 255, 1)",
             }}
             label="Shut Down..."
             setWindowState={this.setWindowState}

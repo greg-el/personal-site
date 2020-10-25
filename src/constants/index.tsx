@@ -9,6 +9,7 @@ export enum WindowStateEnum {
 export enum ScreenStateEnum {
   BOOT = "boot",
   DESKTOP = "desktop",
+  LOGOSHUTDOWN = "logoshutdown",
   SHUTDOWN = "shutdown",
   RESTART = "restart",
 }

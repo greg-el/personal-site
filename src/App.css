@@ -784,6 +784,21 @@ a:visited {
   text-align: center;
 }
 
+#logo-shut-down-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+#logo-shut-down {
+  height: 100%;
+  width: 100%;
+  background-image: url(./image/shutdown-wallpaper.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  image-rendering: crisp-edges;
+}
+
 input[type="radio"] {
   display: none;
 }

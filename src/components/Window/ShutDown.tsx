@@ -1,13 +1,23 @@
 import React from "react";
-import { ScreenStateEnum, CursorStateEnum } from "../../constants/index";
+import {
+  ScreenStateEnum,
+  CursorStateEnum,
+  WindowStateEnum,
+} from "../../constants/index";
 
 interface IState {
   shutdownChoice: string;
 }
 
 interface IProps {
+  id: string;
   setScreenState: Function;
   setCursor: Function;
+  setWindowState: Function;
+  windowStateName: string;
+  taskbarStateName: string;
+  removeWindowFromStack: Function;
+  removeFromTaskbarStack: Function;
 }
 
 class ShutDown extends React.Component<IProps, IState> {
@@ -23,8 +33,12 @@ class ShutDown extends React.Component<IProps, IState> {
     if (this.state.shutdownChoice === "shutdown") {
       this.props.setCursor(CursorStateEnum.LOADING);
       setTimeout(
+        () => this.props.setScreenState(ScreenStateEnum.LOGOSHUTDOWN),
+        3000
+      );
+      setTimeout(
         () => this.props.setScreenState(ScreenStateEnum.SHUTDOWN),
-        1000
+        6000
       );
     } else if (this.state.shutdownChoice === "restart") {
       setTimeout(
@@ -88,7 +102,16 @@ class ShutDown extends React.Component<IProps, IState> {
           <div id="shut-down-button-container">
             <div
               className="shut-down-button-wrapper"
-              onClick={this.okButtonHandler}
+              onClick={() => {
+                this.okButtonHandler();
+                this.props.removeWindowFromStack(this.props.id);
+                this.props.removeFromTaskbarStack(this.props.id);
+                this.props.setWindowState(
+                  this.props.taskbarStateName,
+                  this.props.windowStateName,
+                  WindowStateEnum.CLOSED
+                );
+              }}
             >
               <div id="shut-down-ok-button" className="shut-down-button">
                 <u>Y</u>es
