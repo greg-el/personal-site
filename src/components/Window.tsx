@@ -21,6 +21,8 @@ interface IProps {
   windowStackLength: number;
   resize: boolean;
   size?: [number, number];
+  top: string;
+  left: string;
 }
 
 interface IState {
@@ -70,10 +72,12 @@ class Window extends React.Component<IProps, IState> {
               width: width,
               height: height,
               handleSize: [35, 35],
-              minConstraints: [700, 650],
+              minConstraints: [width, height],
               resizeHandles: ["se"],
               className: "window-wrapper " + windowClass,
-              style: { zIndex: this.props.zIndex },
+              style: {
+                zIndex: this.props.zIndex,
+              },
               handle: (h: any) => handleElement,
             }}
           >
@@ -82,6 +86,10 @@ class Window extends React.Component<IProps, IState> {
               className="window"
               onMouseDown={(e) => {
                 this.props.moveToFront();
+              }}
+              style={{
+                top: this.props.top,
+                left: this.props.left,
               }}
             >
               {resizeHandle}

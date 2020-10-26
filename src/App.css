@@ -306,8 +306,8 @@ a:visited {
 }
 
 .window-wrapper {
-  top: 40px;
-  left: 40px;
+  top: 20%;
+  left: 20%;
   position: absolute;
   flex-direction: column;
   padding: 4px;

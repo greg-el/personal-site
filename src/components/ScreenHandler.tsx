@@ -22,9 +22,26 @@ import ShutDownIcon from "../image/icons/shutdown.png";
 import DidYouKnow from "./Window/DidYouKnow";
 import SystemProperties from "./Window/SystemProperties";
 import ShutDown from "./Window/ShutDown";
-
 import Cursor from "../image/cursor.svg";
 import HourglassCursor from "../image/hourglass-cursor.svg";
+
+class WindowPosGen {
+  pos: [number, number];
+
+  constructor() {
+    this.pos = [0, 0];
+    this.getNextX = this.getNextX.bind(this);
+    this.getNextY = this.getNextY.bind(this);
+  }
+
+  getNextX() {
+    return (this.pos[0] += 20);
+  }
+
+  getNextY() {
+    return (this.pos[1] += 20);
+  }
+}
 
 interface IState {
   isStartMenuOpen: boolean;
@@ -45,6 +62,7 @@ interface IState {
   taskbarStack: Array<string>;
   [key: string]: any;
   shutdown: boolean;
+  windowPos: any;
 }
 
 interface IProps {
@@ -73,6 +91,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
       windowStack: [],
       taskbarStack: [],
       shutdown: false,
+      windowPos: new WindowPosGen(),
     };
     this.setMenuOpen = this.setMenuOpen.bind(this);
     this.setMenuClosed = this.setMenuClosed.bind(this);
@@ -189,6 +208,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
         windowStackLength={this.state.windowStack.length}
         insideElement={<DidYouKnow />}
         resize={false}
+        top={this.state.windowPos.getNextX()}
+        left={this.state.windowPos.getNextY()}
         close={
           <Close
             id="welcome"
@@ -226,6 +247,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
         zIndex={this.state.aboutMeWindowZIndex}
         windowStackLength={this.state.windowStack.length}
         resize={true}
+        top={"20px"}
+        left={"20px"}
         close={
           <Close
             id="aboutMe"
@@ -262,6 +285,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
         windowStackLength={this.state.windowStack.length}
         insideElement={<SystemProperties />}
         resize={true}
+        top={"40px"}
+        left={"40px"}
         close={
           <Close
             id="systemProperties"
@@ -293,6 +318,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
         moveToFront={() => this.moveWindowToFront("shutDown")}
         zIndex={this.state.shutDownWindowZIndex}
         windowStackLength={this.state.windowStack.length}
+        top="60px"
+        left="60px"
         insideElement={
           <ShutDown
             setCursor={this.props.setCursor}
