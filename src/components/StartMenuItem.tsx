@@ -4,7 +4,7 @@ import { WindowStateEnum } from "../constants";
 interface IProps {
   id: string;
   image: React.CSSProperties;
-  label: string;
+  label: ReactElement;
   setWindowState: Function;
   windowStateName: string;
   taskbarStateName: string;
@@ -14,53 +14,64 @@ interface IProps {
   addToTaskbarStack: Function;
   setMenuClosed: Function;
   style?: React.CSSProperties;
+  hotkey: string;
+  isStartMenuOpen: boolean;
 }
 
 interface IState {
   windowExists: boolean;
-  underlinedLabel: ReactElement;
+  startMenuOpen: boolean;
 }
 
 class StartMenuItem extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-
     this.state = {
       windowExists: false,
-      underlinedLabel: this.underlineFirstLetter(),
+      startMenuOpen: true,
     };
   }
 
-  underlineFirstLetter() {
-    return (
-      <span>
-        <u>{this.props.label.slice(0, 1)}</u>
-        {this.props.label.slice(1)}
-      </span>
-    );
+  openWindow() {
+    if (this.state.startMenuOpen === true) {
+      this.props.addToStack(this.props.id);
+      this.props.addToTaskbarStack(this.props.id);
+      this.props.setWindowState(
+        this.props.taskbarStateName,
+        this.props.windowStateName,
+        WindowStateEnum.OPEN
+      );
+      this.props.setMenuClosed();
+    }
+  }
+
+  isWindowHotkey(e: KeyboardEvent) {
+    return e.key === this.props.hotkey;
+  }
+
+  componentDidMount() {
+    // Hacky workaround for keydown detection to get around focus issues
+    document.addEventListener("keydown", (e) => {
+      if (this.isWindowHotkey(e)) {
+        this.openWindow();
+      }
+    });
   }
 
   render() {
     return (
       <div
         style={this.props.style}
-        onClick={() => {
-          this.props.addToStack(this.props.id);
-          this.props.addToTaskbarStack(this.props.id);
-          this.props.setWindowState(
-            this.props.taskbarStateName,
-            this.props.windowStateName,
-            WindowStateEnum.OPEN
-          );
-          this.props.setMenuClosed();
+        tabIndex={0}
+        onKeyDown={(e) => {
+          console.log(e);
         }}
+        onClick={this.openWindow}
         className="start-menu-item-wrapper"
       >
         <div className="start-menu-item">
           <div style={this.props.image} className="start-menu-item-image"></div>
-          <div className="start-menu-item-label">
-            {this.state.underlinedLabel}
-          </div>
+          {this.props.label}
         </div>
       </div>
     );

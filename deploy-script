@@ -1,0 +1,3 @@
+git checkout deploy
+git rebase master
+git push

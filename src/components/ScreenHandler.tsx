@@ -345,15 +345,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
       grilleStyle.backgroundImage = `url(.${ShutDownGrille})`;
       grilleStyle.display = "block";
     }
-    let background =
-      this.state.shutDownWindowState === WindowStateEnum.OPEN
-        ? ShutDownGrille
-        : "";
     let cursor = Cursor;
     if (this.state.cursor === CursorStateEnum.LOADING) {
       cursor = HourglassCursor;
     }
-    console.log(background);
     return (
       <div id="screen-container" style={{ cursor: `url(.${cursor}), auto` }}>
         <div id="shut-down-cover" style={grilleStyle}></div>
@@ -436,11 +431,16 @@ class ScreenHandler extends React.Component<IProps, IState> {
             <SystemTray />
           </Taskbar>
         </div>
-        <StartMenu startMenuOpen={this.state.isStartMenuOpen}>
+        <StartMenu isStartMenuOpen={this.state.isStartMenuOpen}>
           <StartMenuItem
             id="welcome"
             image={{ backgroundImage: `url( ${Book4Icon})` }}
-            label="Welcome"
+            label={
+              <div className="start-menu-item-label">
+                <u>W</u>elcome
+              </div>
+            }
+            hotkey="w"
             setWindowState={this.setWindowState}
             windowStateName="welcomeWindowState"
             taskbarStateName="welcomeTaskbarState"
@@ -449,11 +449,17 @@ class ScreenHandler extends React.Component<IProps, IState> {
             moveToFront={this.moveWindowToFront}
             addToTaskbarStack={this.addToTaskbarStack}
             setMenuClosed={this.setMenuClosed}
+            isStartMenuOpen={this.state.isStartMenuOpen}
           ></StartMenuItem>
           <StartMenuItem
             id="aboutMe"
             image={{ backgroundImage: `url( ${UserWithComputerIcon})` }}
-            label="About Me"
+            label={
+              <div className="start-menu-item-label">
+                <u>A</u>bout Me
+              </div>
+            }
+            hotkey="a"
             setWindowState={this.setWindowState}
             windowStateName="aboutMeWindowState"
             taskbarStateName="aboutMeTaskbarState"
@@ -462,11 +468,17 @@ class ScreenHandler extends React.Component<IProps, IState> {
             moveToFront={this.moveWindowToFront}
             addToTaskbarStack={this.addToTaskbarStack}
             setMenuClosed={this.setMenuClosed}
+            isStartMenuOpen={this.state.isStartMenuOpen}
           ></StartMenuItem>
           <StartMenuItem
             id="systemProperties"
             image={{ backgroundImage: `url( ${SettingsIcon})` }}
-            label="System Properties"
+            label={
+              <div className="start-menu-item-label">
+                <u>S</u>ystem Properties
+              </div>
+            }
+            hotkey="s"
             setWindowState={this.setWindowState}
             windowStateName="systemPropertiesWindowState"
             taskbarStateName="systemPropertiesTaskbarState"
@@ -475,6 +487,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             moveToFront={this.moveWindowToFront}
             addToTaskbarStack={this.addToTaskbarStack}
             setMenuClosed={this.setMenuClosed}
+            isStartMenuOpen={this.state.isStartMenuOpen}
           ></StartMenuItem>
           <StartMenuItem
             id="shutDown"
@@ -484,7 +497,12 @@ class ScreenHandler extends React.Component<IProps, IState> {
               borderTop: "1px solid grey",
               boxShadow: "0px -1px 1px rgba(255, 255, 255, 1)",
             }}
-            label="Shut Down..."
+            label={
+              <div className="start-menu-item-label">
+                Sh<u>u</u>t Down...
+              </div>
+            }
+            hotkey="u"
             setWindowState={this.setWindowState}
             windowStateName="shutDownWindowState"
             taskbarStateName="shutDownTaskbarState"
@@ -493,6 +511,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             moveToFront={this.moveWindowToFront}
             addToTaskbarStack={this.addToTaskbarStack}
             setMenuClosed={this.setMenuClosed}
+            isStartMenuOpen={this.state.isStartMenuOpen}
           ></StartMenuItem>
         </StartMenu>
       </div>
