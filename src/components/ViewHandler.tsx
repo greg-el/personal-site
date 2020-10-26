@@ -49,7 +49,6 @@ class ViewHandler extends React.Component<IProps, IState> {
   }
 
   render() {
-    console.log();
     if (this.state.screenState === ScreenStateEnum.BOOT) {
       return (
         <div id="boot-wrapper">

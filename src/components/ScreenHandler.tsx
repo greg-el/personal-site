@@ -360,6 +360,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
                 id="welcome"
                 state={this.state.welcomeTaskbarState}
                 label="Welcome"
+                icon={{ backgroundImage: `url( ${Book4Icon})` }}
                 taskbarStateName="welcomeTaskbarState"
                 windowStateName="welcomeWindowState"
                 setWindowState={this.setWindowState}
@@ -371,6 +372,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
                 id="aboutMe"
                 state={this.state.aboutMeTaskbarState}
                 label="About Me"
+                icon={{ backgroundImage: `url( ${UserWithComputerIcon})` }}
                 taskbarStateName="aboutMeTaskbarState"
                 windowStateName="aboutMeWindowState"
                 setWindowState={this.setWindowState}
@@ -381,6 +383,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
               <TaskbarWindow
                 id="systemProperties"
                 state={this.state.systemPropertiesTaskbarState}
+                icon={{ backgroundImage: `url( ${SettingsIcon})` }}
                 label="System Properties"
                 taskbarStateName="systemPropertiesTaskbarState"
                 windowStateName="systemPropertiesWindowState"
@@ -392,6 +395,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
               <TaskbarWindow
                 id="shutDown"
                 state={this.state.shutDownTaskbarState}
+                icon={{ backgroundImage: `url( ${ShutDownIcon})` }}
                 label="Shut Down Windows"
                 taskbarStateName="shutDownTaskbarState"
                 windowStateName="shutDownWindowState"

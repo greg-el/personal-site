@@ -5,7 +5,7 @@ interface IProps {
   id: string;
   state: WindowStateEnum;
   label: string;
-  icon?: ReactElement;
+  icon?: React.CSSProperties;
   setWindowState: Function;
   windowStateName: string;
   taskbarStateName: string;
@@ -40,6 +40,12 @@ class TaskbarWindow extends React.Component<IProps, IState> {
           }}
         >
           <div className={"taskbar-window " + style}>
+            <div className="taskbar-window-icon-wrapper">
+              <div
+                className="taskbar-window-icon"
+                style={this.props.icon}
+              ></div>
+            </div>
             <div className="taskbar-window-label-wrapper">
               <div className="taskbar-window-label">{this.props.label}</div>
             </div>
