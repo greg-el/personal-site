@@ -15,6 +15,7 @@
   --border-light: #ffffff;
   --border-dark: #6d6d6d;
   --px-sans: font-face("PX Sans");
+  user-select: none;
 }
 
 html,
