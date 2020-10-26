@@ -34,12 +34,12 @@ class ShutDown extends React.Component<IProps, IState> {
       this.props.setCursor(CursorStateEnum.LOADING);
       setTimeout(
         () => this.props.setScreenState(ScreenStateEnum.LOGOSHUTDOWN),
-        3000
+        0
       );
-      setTimeout(
-        () => this.props.setScreenState(ScreenStateEnum.SHUTDOWN),
-        6000
-      );
+      //setTimeout(
+      //  () => this.props.setScreenState(ScreenStateEnum.SHUTDOWN),
+      //  10000
+      //);
     } else if (this.state.shutdownChoice === "restart") {
       setTimeout(
         () => this.props.setScreenState(ScreenStateEnum.RESTART),
