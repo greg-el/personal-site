@@ -14,7 +14,7 @@
   --menubar-blue: #010479;
   --border-light: #ffffff;
   --border-dark: #6d6d6d;
-  --px-sans: font-face("PX Sans");
+  --px-sans: "PX Sans";
   user-select: none;
 }
 
@@ -303,6 +303,8 @@ a:visited {
 }
 
 #clock-wrapper {
+  font-family: var(--px-sans);
+  font-size: 70%;
   height: 100%;
   width: 100%;
   display: flex;
@@ -574,6 +576,7 @@ a:visited {
   border-right: 1px solid var(--border-light);
   border-top: 2px solid var(--border-dark);
   border-left: 2px solid var(--border-dark);
+  background: url(./image/taskbar-selected-background.svg);
 }
 
 .taskbar-window-minimised {
