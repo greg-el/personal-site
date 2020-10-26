@@ -13,7 +13,7 @@ function boxShadows(max: number) {
   for (let i = 0; i < max; ++i) {
     ret.push(`
       ${rn(1, 100)}vw ${rn(1, 100)}vh ${rn(20, 40)}vmin ${rn(1, 20)}vmin
-      ${rs(["#66A7FF", "#FFFFFF"])}
+      ${rs(["#77ACD4", "#FFFFFF"])}
     `);
   }
   return ret.join(",");
@@ -34,7 +34,7 @@ function LogoShutDown() {
             baseFrequency=".01"
             numOctaves="10"
           />
-          <feDisplacementMap in="SourceGraphic" scale="240" />
+          <feDisplacementMap in="SourceGraphic" scale="400" />
         </filter>
       </svg>
     </div>
