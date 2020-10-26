@@ -15,6 +15,7 @@ export enum ScreenStateEnum {
 }
 
 export enum CursorStateEnum {
+  DEFAULT = "",
   POINTER = "cursor.svg",
   RESIZE = "resize-cursor.svg",
   LOADING = "hourglass-cursor.svg",

@@ -22,11 +22,12 @@ import ShutDownIcon from "../image/icons/shutdown.png";
 import DidYouKnow from "./Window/DidYouKnow";
 import SystemProperties from "./Window/SystemProperties";
 import ShutDown from "./Window/ShutDown";
-
 import Cursor from "../image/cursor.svg";
 import HourglassCursor from "../image/hourglass-cursor.svg";
+import ShutDownGrille from "../image/shutdown-grille.svg";
 
 interface IState {
+  cursor: CursorStateEnum;
   isStartMenuOpen: boolean;
   welcomeWindowState: WindowStateEnum;
   welcomeTaskbarState: WindowStateEnum;
@@ -49,14 +50,13 @@ interface IState {
 
 interface IProps {
   setScreenState: Function;
-  setCursor: Function;
-  cursor: CursorStateEnum;
 }
 
 class ScreenHandler extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
+      cursor: CursorStateEnum.POINTER,
       isStartMenuOpen: false,
       welcomeWindowState: WindowStateEnum.CLOSED,
       welcomeTaskbarState: WindowStateEnum.CLOSED,
@@ -88,6 +88,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
       this
     );
     this.setShutDownTrue = this.setShutDownTrue.bind(this);
+    this.setCursor = this.setCursor.bind(this);
   }
 
   getTopWindowId() {
@@ -173,6 +174,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
 
   setShutDownTrue() {
     this.setState({ shutdown: true });
+  }
+
+  setCursor(val: CursorStateEnum) {
+    this.setState({ cursor: val });
   }
 
   WelcomeWindow() {
@@ -291,11 +296,16 @@ class ScreenHandler extends React.Component<IProps, IState> {
         name={"shutDown"}
         titlebarLabel={<TitlebarLabel labelText="Shut Down Windows" />}
         moveToFront={() => this.moveWindowToFront("shutDown")}
-        zIndex={this.state.shutDownWindowZIndex}
-        windowStackLength={this.state.windowStack.length}
+        zIndex={99} // Needs to appear in front of everything when opened
+        windowStackLength={100} // To make it focused on open
+        openingPos={{
+          x: window.innerWidth / 2 - 450 / 2,
+          y: window.innerHeight / 2 - 250 / 2,
+        }}
+        dragBounds={"#screen-container"}
         insideElement={
           <ShutDown
-            setCursor={this.props.setCursor}
+            setCursor={this.setCursor}
             setScreenState={this.props.setScreenState}
             id="shutDown"
             taskbarStateName="shutDownTaskbarState"
@@ -322,13 +332,31 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
   }
 
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
+
   render() {
+    let grilleStyle = { backgroundImage: "", display: "none" };
+    if (this.state.shutDownWindowState === WindowStateEnum.OPEN) {
+      grilleStyle.backgroundImage = `url(.${ShutDownGrille})`;
+      grilleStyle.display = "block";
+    }
+    let background =
+      this.state.shutDownWindowState === WindowStateEnum.OPEN
+        ? ShutDownGrille
+        : "";
     let cursor = Cursor;
-    if (this.props.cursor === CursorStateEnum.LOADING) {
+    if (this.state.cursor === CursorStateEnum.LOADING) {
       cursor = HourglassCursor;
     }
+    console.log(background);
     return (
       <div id="screen-container" style={{ cursor: `url(.${cursor}), auto` }}>
+        <div id="shut-down-cover" style={grilleStyle}></div>
         <Desktop>
           <Icon
             iconStyle={{ backgroundImage: `url( ${GitLabLogo})` }}

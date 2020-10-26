@@ -24,13 +24,11 @@ body {
   width: 100vw;
   height: 100vh;
   font-size: 16px;
-  cursor: url(./image/cursor.svg), auto;
 }
 
 form,
 input,
 button {
-  cursor: url(./image/cursor.svg), auto;
 }
 
 a:visited {
@@ -53,6 +51,14 @@ a:visited {
   height: 50px;
 }
 
+#shut-down-cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  image-rendering: crisp-edges;
+  z-index: 98;
+}
+
 #screen-container {
   display: flex;
   flex-direction: column;
@@ -62,14 +68,14 @@ a:visited {
 
 #desktop-wrapper {
   width: 100vw;
+  display: flex;
   background-color: var(--desktop-colour);
   flex-grow: 1;
 }
 
 #desktop {
-  height: 98%;
-  width: 98%;
-  padding: 1%;
+  height: 100%;
+  width: 100%;
 }
 
 #taskbar-wrapper {
@@ -306,8 +312,8 @@ a:visited {
 }
 
 .window-wrapper {
-  top: 40px;
-  left: 40px;
+  top: 0;
+  left: 0;
   position: absolute;
   flex-direction: column;
   padding: 4px;
@@ -886,8 +892,8 @@ label {
 
 /* Style the indicator (dot/circle) */
 .container .checkmark:after {
-  top: 3px;
-  left: 3px;
+  top: 4px;
+  left: 4px;
   width: 7px;
   height: 7px;
   border-radius: 50%;

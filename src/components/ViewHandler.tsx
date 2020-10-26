@@ -3,7 +3,7 @@ import BootLine from "./BootLine";
 import ScreenHandler from "./ScreenHandler";
 import LogoShutDown from "./LogoShutDown";
 import ShutDownScreen from "./ShutDownScreen";
-import { CursorStateEnum, ScreenStateEnum } from "../constants/index";
+import { ScreenStateEnum } from "../constants/index";
 
 interface IProps {
   baseWait: number;
@@ -13,20 +13,17 @@ interface IProps {
 interface IState {
   screenState: ScreenStateEnum;
   endWait: number;
-  cursor: CursorStateEnum;
 }
 
 class ViewHandler extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      cursor: CursorStateEnum.POINTER,
       screenState: ScreenStateEnum.BOOT,
       endWait: this.props.baseWait * this.props.bootText.length + 200 - 1,
     };
 
     this.setScreenState = this.setScreenState.bind(this);
-    this.setCursor = this.setCursor.bind(this);
   }
 
   _setEndWait() {
@@ -44,10 +41,6 @@ class ViewHandler extends React.Component<IProps, IState> {
     this.setState({ screenState: val });
   }
 
-  setCursor(val: CursorStateEnum) {
-    this.setState({ cursor: val });
-  }
-
   render() {
     if (this.state.screenState === ScreenStateEnum.BOOT) {
       return (
@@ -62,13 +55,7 @@ class ViewHandler extends React.Component<IProps, IState> {
         </div>
       );
     } else if (this.state.screenState === ScreenStateEnum.DESKTOP) {
-      return (
-        <ScreenHandler
-          cursor={this.state.cursor}
-          setCursor={this.setCursor}
-          setScreenState={this.setScreenState}
-        />
-      );
+      return <ScreenHandler setScreenState={this.setScreenState} />;
     } else if (this.state.screenState === ScreenStateEnum.LOGOSHUTDOWN) {
       return <LogoShutDown />;
     } else if (this.state.screenState === ScreenStateEnum.SHUTDOWN) {

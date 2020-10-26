@@ -30,20 +30,19 @@ class ShutDown extends React.Component<IProps, IState> {
   }
 
   okButtonHandler() {
+    this.props.setCursor(CursorStateEnum.LOADING);
+    setTimeout(() => {
+      this.props.setScreenState(ScreenStateEnum.LOGOSHUTDOWN);
+    }, 2000);
     if (this.state.shutdownChoice === "shutdown") {
-      this.props.setCursor(CursorStateEnum.LOADING);
-      setTimeout(
-        () => this.props.setScreenState(ScreenStateEnum.LOGOSHUTDOWN),
-        2000
-      );
       setTimeout(
         () => this.props.setScreenState(ScreenStateEnum.SHUTDOWN),
         8000
       );
     } else if (this.state.shutdownChoice === "restart") {
       setTimeout(
-        () => this.props.setScreenState(ScreenStateEnum.RESTART),
-        1000
+        () => this.props.setScreenState(ScreenStateEnum.DESKTOP),
+        8000
       );
     }
   }
@@ -113,12 +112,23 @@ class ShutDown extends React.Component<IProps, IState> {
                 );
               }}
             >
-              <div id="shut-down-ok-button" className="shut-down-button">
+              <div id="shut-down-yes-button" className="shut-down-button">
                 <u>Y</u>es
               </div>
             </div>
-            <div className="shut-down-button-wrapper">
-              <div id="shut-down-cancel-button" className="shut-down-button">
+            <div
+              className="shut-down-button-wrapper"
+              onClick={() => {
+                this.props.removeWindowFromStack(this.props.id);
+                this.props.removeFromTaskbarStack(this.props.id);
+                this.props.setWindowState(
+                  this.props.taskbarStateName,
+                  this.props.windowStateName,
+                  WindowStateEnum.CLOSED
+                );
+              }}
+            >
+              <div id="shut-down-no-button" className="shut-down-button">
                 <u>N</u>o
               </div>
             </div>

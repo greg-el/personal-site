@@ -21,6 +21,8 @@ interface IProps {
   windowStackLength: number;
   resize: boolean;
   size?: [number, number];
+  openingPos?: { x: number; y: number };
+  dragBounds?: string;
 }
 
 interface IState {
@@ -49,6 +51,13 @@ class Window extends React.Component<IProps, IState> {
           : "title-bar-unfocused";
 
       let [width, height] = this.props.size ? this.props.size : [700, 650];
+      let windowPos = this.props.openingPos
+        ? this.props.openingPos
+        : { x: 0, y: 0 };
+
+      let dragBounds = this.props.dragBounds
+        ? this.props.dragBounds
+        : "#desktop";
 
       let resizeHandle = <div></div>;
       let handleElement = <span></span>;
@@ -60,7 +69,8 @@ class Window extends React.Component<IProps, IState> {
       return (
         <Draggable
           handle=".window-title-bar-draggable"
-          bounds="#desktop"
+          bounds={dragBounds}
+          defaultPosition={windowPos}
           onDrag={() => {
             this.props.moveToFront();
           }}
