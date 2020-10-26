@@ -23,6 +23,13 @@ body {
   width: 100vw;
   height: 100vh;
   font-size: 16px;
+  cursor: url(./image/cursor.svg), auto;
+}
+
+form,
+input,
+button {
+  cursor: url(./image/cursor.svg), auto;
 }
 
 a:visited {
