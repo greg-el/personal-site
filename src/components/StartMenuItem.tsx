@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
 import { WindowStateEnum } from "../constants";
+import { GlobalHotKeys } from "react-hotkeys";
 
 interface IProps {
   id: string;
@@ -20,7 +21,8 @@ interface IProps {
 
 interface IState {
   windowExists: boolean;
-  startMenuOpen: boolean;
+  keymap: any;
+  handler: any;
 }
 
 class StartMenuItem extends React.Component<IProps, IState> {
@@ -28,52 +30,52 @@ class StartMenuItem extends React.Component<IProps, IState> {
     super(props);
     this.state = {
       windowExists: false,
-      startMenuOpen: true,
+      keymap: {
+        [this.props.id + "Open"]: this.props.hotkey,
+      },
+      handler: {
+        [this.props.id + "Open"]: () => this.openWindow(),
+      },
     };
+    this.openWindow = this.openWindow.bind(this);
   }
 
   openWindow() {
-    if (this.state.startMenuOpen === true) {
-      this.props.addToStack(this.props.id);
-      this.props.addToTaskbarStack(this.props.id);
-      this.props.setWindowState(
-        this.props.taskbarStateName,
-        this.props.windowStateName,
-        WindowStateEnum.OPEN
-      );
-      this.props.setMenuClosed();
-    }
-  }
-
-  isWindowHotkey(e: KeyboardEvent) {
-    return e.key === this.props.hotkey;
-  }
-
-  componentDidMount() {
-    // Hacky workaround for keydown detection to get around focus issues
-    document.addEventListener("keydown", (e) => {
-      if (this.isWindowHotkey(e)) {
-        this.openWindow();
-      }
-    });
+    this.props.addToStack(this.props.id);
+    this.props.addToTaskbarStack(this.props.id);
+    this.props.setWindowState(
+      this.props.taskbarStateName,
+      this.props.windowStateName,
+      WindowStateEnum.OPEN
+    );
+    this.props.setMenuClosed();
   }
 
   render() {
     return (
-      <div
-        style={this.props.style}
-        tabIndex={0}
-        onKeyDown={(e) => {
-          console.log(e);
-        }}
-        onClick={this.openWindow}
-        className="start-menu-item-wrapper"
+      <GlobalHotKeys
+        allowChanges={true}
+        keyMap={this.state.keymap}
+        handlers={this.state.handler}
       >
-        <div className="start-menu-item">
-          <div style={this.props.image} className="start-menu-item-image"></div>
-          {this.props.label}
+        <div
+          style={this.props.style}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            console.log(e);
+          }}
+          onClick={() => this.openWindow()}
+          className="start-menu-item-wrapper"
+        >
+          <div className="start-menu-item">
+            <div
+              style={this.props.image}
+              className="start-menu-item-image"
+            ></div>
+            {this.props.label}
+          </div>
         </div>
-      </div>
+      </GlobalHotKeys>
     );
   }
 }
