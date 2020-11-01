@@ -20,6 +20,7 @@ interface IProps {
   zIndex: number;
   windowStackLength: number;
   resize: boolean;
+  resizeHandle?: boolean;
   size?: [number, number];
   openingPos?: { x: number; y: number };
   dragBounds?: string;
@@ -59,10 +60,14 @@ class Window extends React.Component<IProps, IState> {
         ? this.props.dragBounds
         : "#desktop";
 
-      let resizeHandle = <div></div>;
       let handleElement = <span></span>;
+      let resizeHandle = <div></div>;
+
       if (this.props.resize === true) {
         handleElement = <span className={"resize-handle"} />;
+      }
+
+      if (this.props.resizeHandle === true) {
         resizeHandle = <div className="window-resize-handle"></div>;
       }
 
@@ -109,9 +114,6 @@ class Window extends React.Component<IProps, IState> {
                 </div>
               </div>
               {this.props.insideElement}
-              {this.props.toolbar}
-              {this.props.fileContainer}
-              {this.props.detailsPane}
             </div>
           </ResizableBox>
         </Draggable>
