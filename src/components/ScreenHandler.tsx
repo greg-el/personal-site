@@ -25,6 +25,8 @@ import ShutDown from "./Window/ShutDown";
 import Cursor from "../image/cursor.svg";
 import HourglassCursor from "../image/hourglass-cursor.svg";
 import ShutDownGrille from "../image/shutdown-grille.svg";
+import InternetExplorer from "./Window/InternetExplorer";
+import GitHub from "./Window/GitHub";
 
 interface IState {
   cursor: CursorStateEnum;
@@ -33,15 +35,23 @@ interface IState {
   welcomeTaskbarState: WindowStateEnum;
   welcomeWindow?: ReactElement;
   welcomeWindowZIndex: number;
+
   aboutMeWindowState: WindowStateEnum;
-  aboutMeWindow?: ReactElement;
+  aboutMeTaskbarState: WindowStateEnum;
   aboutMeWindowZIndex: number;
+
   systemPropertiesWindowState: WindowStateEnum;
-  systemPropertiesWindow?: ReactElement;
+  systemPropertiesTaskbarState: WindowStateEnum;
   systemPropertiesWindowZIndex: number;
+
   shutDownWindowState: WindowStateEnum;
   shutDownTaskbarState: WindowStateEnum;
   shutDownWindowZIndex: number;
+
+  internetExplorerWindowState: WindowStateEnum;
+  internetExplorerTaskbarState: WindowStateEnum;
+  internetExplorerWindowZIndex: number;
+
   windowStack: Array<string>;
   taskbarStack: Array<string>;
   [key: string]: any;
@@ -70,6 +80,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
       shutDownWindowState: WindowStateEnum.CLOSED,
       shutDownTaskbarState: WindowStateEnum.CLOSED,
       shutDownWindowZIndex: 0,
+      internetExplorerWindowState: WindowStateEnum.CLOSED,
+      internetExplorerTaskbarState: WindowStateEnum.CLOSED,
+      internetExplorerWindowZIndex: 0,
       windowStack: [],
       taskbarStack: [],
       shutdown: false,
@@ -322,12 +335,55 @@ class ScreenHandler extends React.Component<IProps, IState> {
             id="shutDown"
             taskbarStateName="shutDownTaskbarState"
             windowStateName="shutDownWindowState"
+            removeWindowFromStack={this.removeFromWindowStack}
+            removeFromTaskbarStack={this.removeFromTaskbarStack}
+            setWindowState={this.setWindowState}
+          />
+        }
+        windowState={this.state.shutDownWindowState}
+        minimise={
+          <Minimise
+            taskbarStateName="shutDownTaskbarState"
+            windowStateName="shutDownWindowState"
+            setWindowState={this.setWindowState}
+          />
+        }
+      ></Window>
+    );
+  }
+
+  InternetExplorer() {
+    return (
+      <Window
+        id="internetExplorer"
+        name={"Internet Explorer"}
+        titlebarIcon={
+          <TitlebarIcon icon={{ backgroundImage: `url( ${SettingsIcon})` }} />
+        }
+        titlebarLabel={<TitlebarLabel labelText="Internet Explorer" />}
+        moveToFront={() => this.moveWindowToFront("internetExplorer")}
+        zIndex={this.state.internetExplorerWindowZIndex}
+        windowStackLength={this.state.windowStack.length}
+        insideElement={<InternetExplorer page={<GitHub />} />}
+        resize={true}
+        close={
+          <Close
+            id="internetExplorer"
+            taskbarStateName="internetExplorerTaskbarState"
+            windowStateName="internetExplorerWindowState"
             setWindowState={this.setWindowState}
             removeWindowFromStack={this.removeFromWindowStack}
             removeFromTaskbarStack={this.removeFromTaskbarStack}
           />
         }
-        windowState={this.state.shutDownWindowState}
+        windowState={this.state.internetExplorerWindowState}
+        minimise={
+          <Minimise
+            taskbarStateName="internetExplorerTaskbarState"
+            windowStateName="internetExplorerWindowState"
+            setWindowState={this.setWindowState}
+          />
+        }
       ></Window>
     );
   }
@@ -358,17 +414,32 @@ class ScreenHandler extends React.Component<IProps, IState> {
             label="GitLab"
             url="https://gitlab.com/greg-el"
             id="gitlab-icon"
+            setWindowState={this.setWindowState}
+            windowStateName="internetExplorerWindowState"
+            taskbarStateName="internetExplorerTaskbarState"
+            addToStack={this.addToWindowStack}
+            removeFromStack={this.removeFromWindowStack}
+            moveToFront={this.moveWindowToFront}
+            addToTaskbarStack={this.addToTaskbarStack}
           />
           <Icon
             iconStyle={{ backgroundImage: `url( ${GitHubLogo})` }}
             label="GitHub"
             url="https://github.com/greg-el"
             id="github-icon"
+            setWindowState={this.setWindowState}
+            windowStateName="internetExplorerWindowState"
+            taskbarStateName="internetExplorerTaskbarState"
+            addToStack={this.addToWindowStack}
+            removeFromStack={this.removeFromWindowStack}
+            moveToFront={this.moveWindowToFront}
+            addToTaskbarStack={this.addToTaskbarStack}
           />
           {this.AboutMeWindow()}
           {this.WelcomeWindow()}
           {this.SystemProperties()}
           {this.shutDown()}
+          {this.InternetExplorer()}
         </Desktop>
         <div id="taskbar-wrapper">
           <Taskbar>

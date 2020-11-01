@@ -902,3 +902,109 @@ label {
   border-radius: 50%;
   background: black;
 }
+
+.ie-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ie-icons-container {
+  height: 40px;
+}
+
+.ie-url-container {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ie-url-bar {
+  display: flex;
+  flex: 1;
+}
+
+.ie-content-wrapper {
+  display: flex;
+  flex: 1;
+  overflow-y: scroll;
+  background-color: white;
+}
+
+#github-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+#github-header-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+  width: 100%;
+}
+
+#github-header-icon-wrapper {
+  display: flex;
+  height: 100%;
+  width: 10%;
+}
+
+#github-header-icon {
+  height: 80%;
+  width: 100%;
+  background-image: url(./image/GitHubLogoPixelNoShortcut.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: crisp-edges;
+}
+
+#github-header-label-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+}
+
+#github-header-label {
+  font-size: 450%;
+}
+
+#github-repos-container {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.repo-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  width: 25%;
+  height: 20%;
+  border: 1px solid grey;
+  background-color: whitesmoke;
+  padding: 10px;
+  margin: 10px;
+}
+
+.repo-title-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 20%;
+  font-size: 140%;
+}
+
+.repo-description-wrapper {
+  display: flex;
+  flex: 1;
+}

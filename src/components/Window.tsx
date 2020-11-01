@@ -109,9 +109,6 @@ class Window extends React.Component<IProps, IState> {
                 </div>
               </div>
               {this.props.insideElement}
-              {this.props.toolbar}
-              {this.props.fileContainer}
-              {this.props.detailsPane}
             </div>
           </ResizableBox>
         </Draggable>
