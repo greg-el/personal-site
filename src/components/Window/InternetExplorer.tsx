@@ -4,6 +4,7 @@ import IEIcons from "./IE-Components/IEIcons";
 
 interface IProps {
   page: ReactElement;
+  url: string;
 }
 
 function InternetExplorer(props: IProps) {
@@ -13,7 +14,9 @@ function InternetExplorer(props: IProps) {
       <IEIcons />
       <div className="ie-url-container">
         <div className="ie-url-address-label">Address:</div>
-        <input type="text" className="ie-url-bar"></input>
+        <div className="ie-url-bar-wrapper">
+          <input type="text" className="ie-url-bar" value={props.url}></input>
+        </div>
       </div>
       <div className="ie-content-wrapper">{props.page}</div>
     </div>

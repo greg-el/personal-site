@@ -364,8 +364,14 @@ class ScreenHandler extends React.Component<IProps, IState> {
         moveToFront={() => this.moveWindowToFront("internetExplorer")}
         zIndex={this.state.internetExplorerWindowZIndex}
         windowStackLength={this.state.windowStack.length}
-        insideElement={<InternetExplorer page={<GitHub />} />}
+        insideElement={
+          <InternetExplorer
+            page={<GitHub />}
+            url="https://github.com/user/greg-el"
+          />
+        }
         resize={true}
+        resizeHandle={false}
         close={
           <Close
             id="internetExplorer"

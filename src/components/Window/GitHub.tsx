@@ -62,10 +62,16 @@ class GitHubEmbed extends React.Component<IProps, IState> {
     return (
       <div id="github-page-wrapper">
         <div id="github-header-wrapper">
-          <div id="github-header-icon-wrapper">
+          <div
+            id="github-header-icon-wrapper"
+            className="github-header-element-wrapper"
+          >
             <div id="github-header-icon"></div>
           </div>
-          <div id="github-header-label-wrapper">
+          <div
+            id="github-header-label-wrapper"
+            className="github-header-element-wrapper"
+          >
             <div id="github-header-label">GitHub</div>
           </div>
         </div>
