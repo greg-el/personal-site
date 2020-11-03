@@ -1,7 +1,5 @@
 image: node:14.13.1
 
-baseurl: "/personal-site"
-
 pages:
   cache:
     paths:
