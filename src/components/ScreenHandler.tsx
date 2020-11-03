@@ -22,7 +22,7 @@ import ShutDownIcon from "../image/icons/shutdown.png";
 import DidYouKnow from "./Window/DidYouKnow";
 import SystemProperties from "./Window/SystemProperties";
 import ShutDown from "./Window/ShutDown";
-import Cursor from "../image/cursor.svg";
+import Cursor from "../image/cursor.png";
 import HourglassCursor from "../image/hourglass-cursor.svg";
 import ShutDownGrille from "../image/shutdown-grille.svg";
 import InternetExplorer from "./Window/InternetExplorer";
