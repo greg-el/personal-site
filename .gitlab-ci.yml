@@ -1,4 +1,6 @@
-image: node:14.13.1 # can be upgraded, depending on your node version used
+image: node:14.13.1
+
+baseurl: "/personal-site"
 
 pages:
   cache:
@@ -13,6 +15,6 @@ pages:
     - mv build public
   artifacts:
     paths:
-      - public # mandatory, other folder won't work
+      - public
   only:
-    - deploy # or dev, the branch you want to publish
+    - deploy
