@@ -1,8 +1,5 @@
 image: node:14.13.1
 
-variables:
-  PUBLIC_URL: "/personal-site"
-
 pages:
   cache:
     paths:
