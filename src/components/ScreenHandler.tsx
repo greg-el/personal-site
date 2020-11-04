@@ -404,7 +404,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
   render() {
     let grilleStyle = { backgroundImage: "", display: "none" };
     if (this.state.shutDownWindowState === WindowStateEnum.OPEN) {
-      grilleStyle.backgroundImage = `url(.${ShutDownGrille})`;
+      grilleStyle.backgroundImage = `url(${ShutDownGrille})`;
       grilleStyle.display = "block";
     }
     let cursor = Cursor;
@@ -412,7 +412,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
       cursor = HourglassCursor;
     }
     return (
-      <div id="screen-container" style={{ cursor: `url(.${cursor}), auto` }}>
+      <div id="screen-container" style={{ cursor: `url(${cursor}), auto` }}>
         <div id="shut-down-cover" style={grilleStyle}></div>
         <Desktop>
           <Icon
