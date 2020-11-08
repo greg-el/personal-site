@@ -414,13 +414,15 @@ a:visited {
 }
 
 .window-control {
-  height: 100%;
   width: 100%;
   background-color: var(--windows-grey);
   border-top: 1px solid var(--border-light);
   border-left: 1px solid var(--border-light);
   border-bottom: 2px solid var(--border-dark);
   border-right: 2px solid var(--border-dark);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .window-control:active {
@@ -432,23 +434,14 @@ a:visited {
 
 .window-min {
   background-image: url(./image/minimise.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .window-max {
   background-image: url(./image/maximise.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .window-close {
   background-image: url(./image/close.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .window-toolbar-container {

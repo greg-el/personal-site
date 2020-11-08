@@ -22,7 +22,7 @@ class Minimise extends React.Component<IProps, IState> {
         }
         className="window-control-wrapper window-min-wrapper"
       >
-        <button className="window-control window-min"></button>
+        <div className="window-control window-min"></div>
       </div>
     );
   }

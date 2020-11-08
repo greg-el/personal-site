@@ -27,7 +27,7 @@ class Close extends React.Component<IProps, IState> {
         }}
         className="window-control-wrapper window-close-wrapper"
       >
-        <button className="window-control window-close"></button>
+        <div className="window-control window-close"></div>
       </div>
     );
   }
