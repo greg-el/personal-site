@@ -39,3 +39,13 @@ export class WindowObject {
     this.element = element;
   }
 }
+
+export interface Dimensions {
+  width: number;
+  height: number;
+}
+
+export interface Position {
+  right: number;
+  bottom: number;
+}

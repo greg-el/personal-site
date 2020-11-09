@@ -16,7 +16,11 @@ import TitlebarLabel from "./Window/TitlebarLabel";
 import Close from "./Window/Close";
 import Minimise from "./Window/Minimise";
 import TaskbarWindow from "./TaskbarWindow";
-import { WindowStateEnum, CursorStateEnum } from "../constants/index";
+import {
+  WindowStateEnum,
+  CursorStateEnum,
+  Dimensions,
+} from "../constants/index";
 import TitlebarIcon from "./Window/TitlebarIcon";
 import ShutDownIcon from "../image/icons/shutdown.png";
 import DidYouKnow from "./Window/DidYouKnow";
@@ -27,6 +31,7 @@ import HourglassCursor from "../image/hourglass-cursor.svg";
 import ShutDownGrille from "../image/shutdown-grille.svg";
 import InternetExplorer from "./Window/InternetExplorer";
 import GitHub from "./Window/GitHub";
+import Maximise from "./Window/Maximise";
 
 interface IState {
   cursor: CursorStateEnum;
@@ -54,6 +59,10 @@ interface IState {
 
   windowStack: Array<string>;
   taskbarStack: Array<string>;
+
+  screenSize: Dimensions;
+  desktopSize: Dimensions;
+
   [key: string]: any;
   shutdown: boolean;
 }
@@ -86,6 +95,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
       windowStack: [],
       taskbarStack: [],
       shutdown: false,
+      screenSize: { width: 0, height: 0 },
+      desktopSize: { width: 0, height: 0 },
     };
     this.setMenuOpen = this.setMenuOpen.bind(this);
     this.setMenuClosed = this.setMenuClosed.bind(this);
@@ -102,11 +113,21 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
     this.setShutDownTrue = this.setShutDownTrue.bind(this);
     this.setCursor = this.setCursor.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+
+    window.addEventListener("resize", this.handleResize);
   }
 
+  // For styling the titlebar of the front most window
   getTopWindowId() {
     return this.state.windowStack[this.state.windowStack.length - 1];
   }
+
+  /* 
+  -----------------------------------------
+  Window/Taskbar Stack/State Functions
+  -----------------------------------------
+  */
 
   setWindowState(taskbar: string, window: string, state: WindowStateEnum) {
     this.setState({ [window]: state });
@@ -177,6 +198,12 @@ class ScreenHandler extends React.Component<IProps, IState> {
     }
   }
 
+  /* 
+  -----------------------------------------
+  Menu Functions
+  -----------------------------------------
+  */
+
   setMenuOpen() {
     this.setState({ isStartMenuOpen: true });
   }
@@ -193,6 +220,12 @@ class ScreenHandler extends React.Component<IProps, IState> {
     this.setState({ cursor: val });
   }
 
+  /* 
+  -----------------------------------------
+  Window Definitions
+  -----------------------------------------
+  */
+
   WelcomeWindow() {
     return (
       <Window
@@ -207,6 +240,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         windowStackLength={this.state.windowStack.length}
         insideElement={<DidYouKnow />}
         resize={false}
+        desktopSize={this.state.desktopSize}
         close={
           <Close
             id="welcome"
@@ -244,6 +278,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         zIndex={this.state.aboutMeWindowZIndex}
         windowStackLength={this.state.windowStack.length}
         resize={true}
+        desktopSize={this.state.desktopSize}
         close={
           <Close
             id="aboutMe"
@@ -280,6 +315,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         windowStackLength={this.state.windowStack.length}
         insideElement={<SystemProperties />}
         resize={true}
+        desktopSize={this.state.desktopSize}
         close={
           <Close
             id="systemProperties"
@@ -329,6 +365,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
           />
         }
         resize={false}
+        desktopSize={this.state.desktopSize}
         size={[450, 250]}
         close={
           <Close
@@ -372,6 +409,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         }
         resize={true}
         resizeHandle={false}
+        desktopSize={this.state.desktopSize}
         close={
           <Close
             id="internetExplorer"
@@ -394,11 +432,60 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
   }
 
+  /* 
+  -----------------------------------------
+  Fix Warning: Can't perform a React state update on an unmounted component
+  -----------------------------------------
+  */
+
   componentWillUnmount() {
-    // fix Warning: Can't perform a React state update on an unmounted component
     this.setState = (state, callback) => {
       return;
     };
+  }
+
+  componentDidMount() {
+    let x = window.innerWidth;
+    let y = window.innerHeight;
+
+    // Height/Width difference between full screen size and desktop space
+    let screenWidthDifference = 8;
+    let screenHeightDifference = 47;
+
+    this.setState({
+      screenSize: { width: x, height: y },
+      desktopSize: {
+        width: x - screenWidthDifference,
+        height: y - screenHeightDifference,
+      },
+    });
+  }
+
+  /* 
+  -----------------------------------------
+  Detecting Window Size on Resize 
+  -----------------------------------------
+  */
+
+  handleResize() {
+    // Height/Width difference between full screen size and desktop space
+    let screenWidthDifference = 8;
+    let screenHeightDifference = 47;
+
+    let x = window.innerWidth;
+    let y = window.innerHeight;
+    if (
+      this.state.screenSize.width !== x ||
+      this.state.screenSize.height !== y
+    ) {
+      this.setState({
+        screenSize: { width: x, height: y },
+        desktopSize: {
+          width: x - screenWidthDifference,
+          height: y - screenHeightDifference,
+        },
+      });
+    }
   }
 
   render() {

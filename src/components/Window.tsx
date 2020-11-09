@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
-import { WindowStateEnum } from "../constants/index";
+import { WindowStateEnum, Dimensions, Position } from "../constants/index";
 
 interface IProps {
   name: string;
@@ -24,19 +24,51 @@ interface IProps {
   size?: [number, number];
   openingPos?: { x: number; y: number };
   dragBounds?: string;
+  desktopSize: Dimensions;
 }
 
 interface IState {
   focused: boolean;
+  dimensions: Dimensions;
+  position: Position;
+}
+
+interface Window {
+  element: any;
 }
 
 class Window extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-
+    this.element = React.createRef();
     this.state = {
       focused: true,
+      dimensions: { width: 0, height: 0 },
+      position: { right: 0, bottom: 0 },
     };
+    this.setWindowDimensions = this.setWindowDimensions.bind(this);
+  }
+
+  setWindowDimensions() {
+    let rect = this.element.current.getBoundingClientRect();
+    if (
+      rect.width !== this.state.dimensions.width &&
+      rect.hight !== this.state.dimensions.height
+    ) {
+      this.setState({ dimensions: { width: rect.width, height: rect.height } });
+    }
+    if (
+      rect.right !== this.state.position.right ||
+      rect.bottom !== this.state.position.bottom
+    ) {
+      this.setState({ position: { right: rect.right, bottom: rect.bottom } });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.windowState !== WindowStateEnum.CLOSED) {
+      this.setWindowDimensions();
+    }
   }
 
   render() {
@@ -71,6 +103,14 @@ class Window extends React.Component<IProps, IState> {
         resizeHandle = <div className="window-resize-handle"></div>;
       }
 
+      let maxRight =
+        this.state.dimensions.width +
+        (this.props.desktopSize.width - this.state.position.right);
+      let maxBottom =
+        this.state.dimensions.height +
+        (this.props.desktopSize.height - this.state.position.bottom);
+      console.log(maxRight, maxBottom);
+
       return (
         <Draggable
           handle=".window-title-bar-draggable"
@@ -86,6 +126,7 @@ class Window extends React.Component<IProps, IState> {
               height: height,
               handleSize: [35, 35],
               minConstraints: [700, 650],
+              maxConstraints: [maxRight, maxBottom],
               resizeHandles: ["se"],
               className: "window-wrapper " + windowClass,
               style: { zIndex: this.props.zIndex },
@@ -93,6 +134,7 @@ class Window extends React.Component<IProps, IState> {
             }}
           >
             <div
+              ref={this.element}
               id={this.props.name}
               className="window"
               onMouseDown={(e) => {
