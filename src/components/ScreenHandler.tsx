@@ -31,7 +31,6 @@ import HourglassCursor from "../image/hourglass-cursor.svg";
 import ShutDownGrille from "../image/shutdown-grille.svg";
 import InternetExplorer from "./Window/InternetExplorer";
 import GitHub from "./Window/GitHub";
-import Maximise from "./Window/Maximise";
 
 interface IState {
   cursor: CursorStateEnum;
@@ -56,6 +55,10 @@ interface IState {
   internetExplorerWindowState: WindowStateEnum;
   internetExplorerTaskbarState: WindowStateEnum;
   internetExplorerWindowZIndex: number;
+
+  gitHubWindowState: WindowStateEnum;
+  gitHubTaskbarState: WindowStateEnum;
+  gitHubWindowZIndex: number;
 
   windowStack: Array<string>;
   taskbarStack: Array<string>;
@@ -92,6 +95,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
       internetExplorerWindowState: WindowStateEnum.CLOSED,
       internetExplorerTaskbarState: WindowStateEnum.CLOSED,
       internetExplorerWindowZIndex: 0,
+      gitHubWindowState: WindowStateEnum.CLOSED,
+      gitHubTaskbarState: WindowStateEnum.CLOSED,
+      gitHubWindowZIndex: 0,
       windowStack: [],
       taskbarStack: [],
       shutdown: false,
@@ -389,17 +395,19 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
   }
 
-  InternetExplorer() {
+  GitHub() {
     return (
       <Window
-        id="internetExplorer"
-        name={"Internet Explorer"}
+        id="gitHub"
+        name={"gitHub"}
         titlebarIcon={
           <TitlebarIcon icon={{ backgroundImage: `url( ${SettingsIcon})` }} />
         }
-        titlebarLabel={<TitlebarLabel labelText="Internet Explorer" />}
-        moveToFront={() => this.moveWindowToFront("internetExplorer")}
-        zIndex={this.state.internetExplorerWindowZIndex}
+        titlebarLabel={
+          <TitlebarLabel labelText="Internet Explorer - GitHub // greg-el" />
+        }
+        moveToFront={() => this.moveWindowToFront("gitHub")}
+        zIndex={this.state.gitHubWindowZIndex}
         windowStackLength={this.state.windowStack.length}
         insideElement={
           <InternetExplorer
@@ -412,19 +420,19 @@ class ScreenHandler extends React.Component<IProps, IState> {
         desktopSize={this.state.desktopSize}
         close={
           <Close
-            id="internetExplorer"
-            taskbarStateName="internetExplorerTaskbarState"
-            windowStateName="internetExplorerWindowState"
+            id="gitHub"
+            taskbarStateName="gitHubTaskbarState"
+            windowStateName="gitHubWindowState"
             setWindowState={this.setWindowState}
             removeWindowFromStack={this.removeFromWindowStack}
             removeFromTaskbarStack={this.removeFromTaskbarStack}
           />
         }
-        windowState={this.state.internetExplorerWindowState}
+        windowState={this.state.gitHubWindowState}
         minimise={
           <Minimise
-            taskbarStateName="internetExplorerTaskbarState"
-            windowStateName="internetExplorerWindowState"
+            taskbarStateName="gitHubTaskbarState"
+            windowStateName="gitHubWindowState"
             setWindowState={this.setWindowState}
           />
         }
@@ -521,8 +529,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
             url="https://github.com/greg-el"
             id="github-icon"
             setWindowState={this.setWindowState}
-            windowStateName="internetExplorerWindowState"
-            taskbarStateName="internetExplorerTaskbarState"
+            windowStateName="gitHubWindowState"
+            taskbarStateName="gitHubTaskbarState"
             addToStack={this.addToWindowStack}
             removeFromStack={this.removeFromWindowStack}
             moveToFront={this.moveWindowToFront}
@@ -532,7 +540,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
           {this.WelcomeWindow()}
           {this.SystemProperties()}
           {this.shutDown()}
-          {this.InternetExplorer()}
+          {this.GitHub()}
         </Desktop>
         <div id="taskbar-wrapper">
           <Taskbar>
@@ -586,6 +594,18 @@ class ScreenHandler extends React.Component<IProps, IState> {
                 label="Shut Down Windows"
                 taskbarStateName="shutDownTaskbarState"
                 windowStateName="shutDownWindowState"
+                setWindowState={this.setWindowState}
+                getTopWindowId={this.getTopWindowId}
+                moveToFront={this.moveWindowToFront}
+                order={this.getTaskbarElementStackOrder}
+              ></TaskbarWindow>
+              <TaskbarWindow
+                id="gitHub"
+                state={this.state.gitHubTaskbarState}
+                icon={{ backgroundImage: `url( ${SettingsIcon})` }}
+                label="Internet Explorer"
+                taskbarStateName="gitHubTaskbarState"
+                windowStateName="gitHubWindowState"
                 setWindowState={this.setWindowState}
                 getTopWindowId={this.getTopWindowId}
                 moveToFront={this.moveWindowToFront}

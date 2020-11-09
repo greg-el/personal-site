@@ -103,13 +103,13 @@ class Window extends React.Component<IProps, IState> {
         resizeHandle = <div className="window-resize-handle"></div>;
       }
 
+      // Sets constrains so a window can't be dragged outside the desktop space
       let maxRight =
         this.state.dimensions.width +
         (this.props.desktopSize.width - this.state.position.right);
       let maxBottom =
         this.state.dimensions.height +
         (this.props.desktopSize.height - this.state.position.bottom);
-      console.log(maxRight, maxBottom);
 
       return (
         <Draggable
@@ -117,6 +117,7 @@ class Window extends React.Component<IProps, IState> {
           bounds={dragBounds}
           defaultPosition={windowPos}
           onDrag={() => {
+            console.log(this.props.id);
             this.props.moveToFront();
           }}
         >
