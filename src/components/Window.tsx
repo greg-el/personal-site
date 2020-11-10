@@ -117,7 +117,6 @@ class Window extends React.Component<IProps, IState> {
           bounds={dragBounds}
           defaultPosition={windowPos}
           onDrag={() => {
-            console.log(this.props.id);
             this.props.moveToFront();
           }}
         >

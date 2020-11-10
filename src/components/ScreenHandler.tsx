@@ -567,7 +567,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             iconStyle={{ backgroundImage: `url( ${GitLabLogo})` }}
             label="GitLab"
             url="https://gitlab.com/greg-el"
-            id="gitlab-icon"
+            id="gitLab"
             setWindowState={this.setWindowState}
             windowStateName="gitLabWindowState"
             taskbarStateName="gitLabTaskbarState"
@@ -580,7 +580,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
             iconStyle={{ backgroundImage: `url( ${GitHubLogo})` }}
             label="GitHub"
             url="https://github.com/greg-el"
-            id="github-icon"
+            id="gitHub"
             setWindowState={this.setWindowState}
             windowStateName="gitHubWindowState"
             taskbarStateName="gitHubTaskbarState"
@@ -660,6 +660,18 @@ class ScreenHandler extends React.Component<IProps, IState> {
                 label="Internet Explorer"
                 taskbarStateName="gitHubTaskbarState"
                 windowStateName="gitHubWindowState"
+                setWindowState={this.setWindowState}
+                getTopWindowId={this.getTopWindowId}
+                moveToFront={this.moveWindowToFront}
+                order={this.getTaskbarElementStackOrder}
+              ></TaskbarWindow>
+              <TaskbarWindow
+                id="gitLab"
+                state={this.state.gitLabTaskbarState}
+                icon={{ backgroundImage: `url( ${SettingsIcon})` }}
+                label="Internet Explorer"
+                taskbarStateName="gitLabTaskbarState"
+                windowStateName="gitLabWindowState"
                 setWindowState={this.setWindowState}
                 getTopWindowId={this.getTopWindowId}
                 moveToFront={this.moveWindowToFront}
