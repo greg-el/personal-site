@@ -31,6 +31,7 @@ import HourglassCursor from "../image/hourglass-cursor.svg";
 import ShutDownGrille from "../image/shutdown-grille.svg";
 import InternetExplorer from "./Window/InternetExplorer";
 import GitHub from "./Window/GitHub";
+import GitLab from "./Window/GitLab";
 
 interface IState {
   cursor: CursorStateEnum;
@@ -59,6 +60,10 @@ interface IState {
   gitHubWindowState: WindowStateEnum;
   gitHubTaskbarState: WindowStateEnum;
   gitHubWindowZIndex: number;
+
+  gitLabWindowState: WindowStateEnum;
+  gitLabTaskbarState: WindowStateEnum;
+  gitLabWindowZIndex: number;
 
   windowStack: Array<string>;
   taskbarStack: Array<string>;
@@ -98,6 +103,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
       gitHubWindowState: WindowStateEnum.CLOSED,
       gitHubTaskbarState: WindowStateEnum.CLOSED,
       gitHubWindowZIndex: 0,
+      gitLabWindowState: WindowStateEnum.CLOSED,
+      gitLabTaskbarState: WindowStateEnum.CLOSED,
+      gitLabWindowZIndex: 0,
       windowStack: [],
       taskbarStack: [],
       shutdown: false,
@@ -440,6 +448,51 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
   }
 
+  GitLab() {
+    return (
+      <Window
+        id="gitLab"
+        name={"gitLab"}
+        titlebarIcon={
+          <TitlebarIcon icon={{ backgroundImage: `url( ${SettingsIcon})` }} />
+        }
+        titlebarLabel={
+          <TitlebarLabel labelText="Internet Explorer - GitLab // greg-el" />
+        }
+        moveToFront={() => this.moveWindowToFront("gitLab")}
+        zIndex={this.state.gitLabWindowZIndex}
+        windowStackLength={this.state.windowStack.length}
+        insideElement={
+          <InternetExplorer
+            page={<GitLab />}
+            url="https://gitlab.com/greg-el"
+          />
+        }
+        resize={true}
+        resizeHandle={false}
+        desktopSize={this.state.desktopSize}
+        close={
+          <Close
+            id="gitLab"
+            taskbarStateName="gitLabTaskbarState"
+            windowStateName="gitLabWindowState"
+            setWindowState={this.setWindowState}
+            removeWindowFromStack={this.removeFromWindowStack}
+            removeFromTaskbarStack={this.removeFromTaskbarStack}
+          />
+        }
+        windowState={this.state.gitLabWindowState}
+        minimise={
+          <Minimise
+            taskbarStateName="gitLabTaskbarState"
+            windowStateName="gitLabWindowState"
+            setWindowState={this.setWindowState}
+          />
+        }
+      ></Window>
+    );
+  }
+
   /* 
   -----------------------------------------
   Fix Warning: Can't perform a React state update on an unmounted component
@@ -457,7 +510,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
     let y = window.innerHeight;
 
     // Height/Width difference between full screen size and desktop space
-    let screenWidthDifference = 8;
+    let screenWidthDifference = 7;
     let screenHeightDifference = 47;
 
     this.setState({
@@ -477,7 +530,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
 
   handleResize() {
     // Height/Width difference between full screen size and desktop space
-    let screenWidthDifference = 8;
+    let screenWidthDifference = 7;
     let screenHeightDifference = 47;
 
     let x = window.innerWidth;
@@ -516,8 +569,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
             url="https://gitlab.com/greg-el"
             id="gitlab-icon"
             setWindowState={this.setWindowState}
-            windowStateName="internetExplorerWindowState"
-            taskbarStateName="internetExplorerTaskbarState"
+            windowStateName="gitLabWindowState"
+            taskbarStateName="gitLabTaskbarState"
             addToStack={this.addToWindowStack}
             removeFromStack={this.removeFromWindowStack}
             moveToFront={this.moveWindowToFront}
@@ -541,6 +594,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
           {this.SystemProperties()}
           {this.shutDown()}
           {this.GitHub()}
+          {this.GitLab()}
         </Desktop>
         <div id="taskbar-wrapper">
           <Taskbar>

@@ -23,7 +23,7 @@ interface ILangColours {
   [key: string]: string;
 }
 
-class GitHubRepo extends React.Component<IProps, IState> {
+class GitLabRepo extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -32,6 +32,20 @@ class GitHubRepo extends React.Component<IProps, IState> {
       languages: null,
       gotLanguages: false,
     };
+  }
+
+  async getGitLabRepoLanguages(repoId: any) {
+    let out: [string, any][] = [];
+    await fetch(`https://gitlab.com/api/v4/projects/${repoId}/languages`, {
+      method: "GET",
+    }).then(async (data) => {
+      await data.json().then((result) => {
+        for (let lang of Object.entries(result)) {
+          out.push([lang[0], lang[1]]);
+        }
+      });
+    });
+    return out;
   }
 
   getLanguageColour(name: string) {
@@ -43,31 +57,8 @@ class GitHubRepo extends React.Component<IProps, IState> {
       Python: "#3572a5",
       Rust: "#dea584",
       Ruby: "#ff0103",
-      Mako: "#cccccc",
-      Shell: "#89e051",
-      "C++": "#f34b7d",
-      Java: "#b07219",
-      C: "#555555",
-      PowerShell: "#012456",
     };
     return colours[name];
-  }
-
-  async getGitHubRepoLanguages(repoName: string) {
-    let out: [string, any][] = [];
-    await fetch(`https://api.github.com/repos/greg-el/${repoName}/languages`, {
-      method: "GET",
-      headers: new Headers({
-        Authorization: `${process.env.REACT_APP_GITHUB_TOKEN}`,
-      }),
-    }).then(async (data) => {
-      await data.json().then(async (result) => {
-        for (let lang of Object.entries(result)) {
-          out.push([lang[0], lang[1]]);
-        }
-      });
-    });
-    return out;
   }
 
   createBarDivs(languages: any): JSX.Element[] {
@@ -108,7 +99,7 @@ class GitHubRepo extends React.Component<IProps, IState> {
   async getLanguages() {
     this.setState(
       {
-        languages: await this.getGitHubRepoLanguages(this.props.data["name"]),
+        languages: await this.getGitLabRepoLanguages(this.props.data.id),
         gotLanguages: true,
       },
       () => {
@@ -121,10 +112,9 @@ class GitHubRepo extends React.Component<IProps, IState> {
   }
 
   render() {
-    if (!this.state.gotLanguages) {
+    if (!this.state.gotLanguages && this.props.isLoaded) {
       this.getLanguages();
     }
-
     return (
       <div
         className="repo-wrapper"
@@ -146,13 +136,10 @@ class GitHubRepo extends React.Component<IProps, IState> {
           <div className="repo-language-keys-container">
             {this.state.languageKeys}
           </div>
-          <div className="repo-language-label-wrapper">
-            <div className="repo-language-label"></div>
-          </div>
         </div>
       </div>
     );
   }
 }
 
-export default GitHubRepo;
+export default GitLabRepo;

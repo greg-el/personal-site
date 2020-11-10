@@ -5,16 +5,15 @@ require("dotenv").config();
 
 interface IProps {}
 
-interface IState {
-  repos: Array<GitHubData> | null;
-  isLoaded: boolean;
-}
-
 interface GitHubData {
   name: string;
   url: string;
   description: string;
-  language: string;
+}
+
+interface IState {
+  repos: Array<GitHubData> | null;
+  isLoaded: boolean;
 }
 
 class GitHubEmbed extends React.Component<IProps, IState> {
@@ -34,7 +33,6 @@ class GitHubEmbed extends React.Component<IProps, IState> {
         name: repo["name"],
         url: repo["html_url"],
         description: repo["description"],
-        language: repo["language"],
       });
     }
     return output;
@@ -48,9 +46,9 @@ class GitHubEmbed extends React.Component<IProps, IState> {
           Authorization: `${process.env.REACT_APP_GITHUB_TOKEN}`,
         }),
       }).then((_) =>
-        _.json().then((result) =>
+        _.json().then(async (result) =>
           this.setState({
-            repos: this.parseGitHubApiResult(result),
+            repos: await this.parseGitHubApiResult(result),
             isLoaded: true,
           })
         )
@@ -60,24 +58,18 @@ class GitHubEmbed extends React.Component<IProps, IState> {
 
   render() {
     return (
-      <div id="github-page-wrapper">
-        <div id="github-header-wrapper">
-          <div
-            id="github-header-icon-wrapper"
-            className="github-header-element-wrapper"
-          >
-            <div id="github-header-icon"></div>
+      <div className="git-page-wrapper">
+        <div className="git-header-wrapper">
+          <div className="git-header-icon-wrapper">
+            <div id="github-header-icon" className="git-header-icon"></div>
           </div>
-          <div
-            id="github-header-label-wrapper"
-            className="github-header-element-wrapper"
-          >
-            <div id="github-header-label">GitHub</div>
+          <div className="git-header-label-wrapper">
+            <div className="git-header-label">GitHub</div>
           </div>
         </div>
-        <div id="github-repos-container">
-          {this.state.repos?.map((repo) => (
-            <GitHubRepo data={repo} />
+        <div className="git-repos-container">
+          {this.state.repos?.map((repoData) => (
+            <GitHubRepo data={repoData} isLoaded={this.state.isLoaded} />
           ))}
         </div>
       </div>
