@@ -28,6 +28,26 @@ body {
   font-size: 16px;
 }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-dark) var(--windows-grey);
+}
+
+/* Works on Chrome/Edge/Safari */
+::-webkit-scrollbar {
+  width: 12px;
+  cursor: url(./image/cursor.svg), auto;
+}
+::-webkit-scrollbar-track {
+  background: var(--border-dark);
+  cursor: url(./image/cursor.svg), auto;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--windows-grey);
+  cursor: url(./image/cursor.svg), auto;
+  cursor: url(./image/cursor.svg), auto;
+}
+
 form,
 input,
 button {
@@ -992,7 +1012,11 @@ label {
   border-bottom: 1px solid #828282;
   border-top: 2px solid white;
   border-left: 2px solid white;
-  cursor: url(./image/pointer-cursor.svg);
+  cursor: url(./image/pointer-cursor.svg) 6 0, auto;
+}
+
+.open-in-browser-button-wrapper:hover {
+  background-color: #a5a5a5;
 }
 
 .open-in-browser-button-wrapper:active {
@@ -1112,7 +1136,7 @@ label {
   background-color: whitesmoke;
   padding: 10px;
   margin: 10px;
-  cursor: pointer;
+  cursor: url(./image/pointer-cursor.svg) 6 0, auto;
 }
 
 .repo-wrapper:hover {
@@ -1135,6 +1159,7 @@ label {
   flex: 1;
   margin-top: 10px;
   margin-bottom: 10px;
+  cursor: ;
 }
 
 .repo-language-bar {

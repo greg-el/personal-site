@@ -71,13 +71,19 @@ class GitHubRepo extends React.Component<IProps, IState> {
   }
 
   createBarDivs(languages: any): JSX.Element[] {
+    let total: number = 0;
+    for (let byte of languages) {
+      total = total + parseInt(byte[1]);
+    }
+
+    console.log(total);
     return languages.map((elem: any, i: number) => {
       return (
         <div
           key={i}
           className="language-bar-elem"
           style={{
-            width: elem[1] + "%",
+            width: (elem[1] / total) * 100 + "%",
             backgroundColor: this.getLanguageColour(elem[0]),
           }}
         ></div>
