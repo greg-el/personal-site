@@ -37,14 +37,15 @@ html {
 ::-webkit-scrollbar {
   width: 12px;
   cursor: url(./image/cursor.svg), auto;
+  background-color: var(--windows-grey);
 }
+
 ::-webkit-scrollbar-track {
   background: var(--border-dark);
   cursor: url(./image/cursor.svg), auto;
 }
 ::-webkit-scrollbar-thumb {
   background-color: var(--windows-grey);
-  cursor: url(./image/cursor.svg), auto;
   cursor: url(./image/cursor.svg), auto;
 }
 
