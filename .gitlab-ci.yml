@@ -5,10 +5,6 @@ pages:
     paths:
       - node_modules/
 
-  stage: build
-  script:
-    - export REACT_APP_GA_ID=$REACT_APP_GA_ID
-
   stage: deploy
   variables:
     REACT_APP_GA_ID: $GA_ID
@@ -17,6 +13,7 @@ pages:
     - echo $REACT_APP_GA_ID
     - printenv
     - npm install
+    - export REACT_APP_GA_ID=$REACT_APP_GA_ID
     - npm run build
     - rm -rf public
     - mv build public
