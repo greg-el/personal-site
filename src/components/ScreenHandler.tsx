@@ -32,6 +32,7 @@ import ShutDownGrille from "../image/shutdown-grille.svg";
 import InternetExplorer from "./Window/InternetExplorer";
 import GitHub from "./Window/GitHub";
 import GitLab from "./Window/GitLab";
+import GitHubIconNoShortcut from "../image/GitHubLogoPixelNoShortcut.png";
 
 interface IState {
   cursor: CursorStateEnum;
@@ -409,7 +410,9 @@ class ScreenHandler extends React.Component<IProps, IState> {
         id="gitHub"
         name={"gitHub"}
         titlebarIcon={
-          <TitlebarIcon icon={{ backgroundImage: `url( ${SettingsIcon})` }} />
+          <TitlebarIcon
+            icon={{ backgroundImage: `url( ${GitHubIconNoShortcut})` }}
+          />
         }
         titlebarLabel={
           <TitlebarLabel labelText="Internet Explorer - GitHub // greg-el" />
@@ -454,7 +457,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         id="gitLab"
         name={"gitLab"}
         titlebarIcon={
-          <TitlebarIcon icon={{ backgroundImage: `url( ${SettingsIcon})` }} />
+          <TitlebarIcon icon={{ backgroundImage: `url( ${GitLabLogo})` }} />
         }
         titlebarLabel={
           <TitlebarLabel labelText="Internet Explorer - GitLab // greg-el" />
@@ -656,7 +659,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
               <TaskbarWindow
                 id="gitHub"
                 state={this.state.gitHubTaskbarState}
-                icon={{ backgroundImage: `url( ${SettingsIcon})` }}
+                icon={{ backgroundImage: `url( ${GitHubIconNoShortcut})` }}
                 label="Internet Explorer"
                 taskbarStateName="gitHubTaskbarState"
                 windowStateName="gitHubWindowState"
@@ -668,7 +671,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
               <TaskbarWindow
                 id="gitLab"
                 state={this.state.gitLabTaskbarState}
-                icon={{ backgroundImage: `url( ${SettingsIcon})` }}
+                icon={{ backgroundImage: `url( ${GitLabLogo})` }}
                 label="Internet Explorer"
                 taskbarStateName="gitLabTaskbarState"
                 windowStateName="gitLabWindowState"
