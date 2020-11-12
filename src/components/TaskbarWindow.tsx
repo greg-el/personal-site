@@ -29,9 +29,7 @@ class TaskbarWindow extends React.Component<IProps, IState> {
           style={{ order: this.props.order(this.props.id) }}
           className="taskbar-window-wrapper"
           onClick={() => {
-            if (this.props.state === WindowStateEnum.MINIMISED) {
-              this.props.moveToFront(this.props.id);
-            }
+            this.props.moveToFront(this.props.id);
             this.props.setWindowState(
               this.props.taskbarStateName,
               this.props.windowStateName,
