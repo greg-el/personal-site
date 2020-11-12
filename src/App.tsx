@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga';
 import React from "react";
 import "./App.css";
 import ViewHandler from "./components/ViewHandler";
@@ -9,6 +10,11 @@ interface IProps { }
 interface IState { }
 
 class App extends React.Component<IProps, IState> {
+  componentDidMount() {
+    ReactGA.initialize("G-TLFKH9ZPYS");
+    ReactGA.pageview(window.location.pathname + window.location.search)
+  }
+
   render() {
     return (
       <ViewHandler
