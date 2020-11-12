@@ -5,6 +5,10 @@ pages:
     paths:
       - node_modules/
 
+  stage: build
+  script:
+    - export REACT_APP_GA_ID=$REACT_APP_GA_ID
+
   stage: deploy
   variables:
     REACT_APP_GA_ID: $GA_ID
