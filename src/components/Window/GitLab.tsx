@@ -65,7 +65,7 @@ class GitLabEmbed extends React.Component<IProps, IState> {
           <div className="git-header-icon-wrapper">
             <div id="gitlab-header-icon" className="git-header-icon"></div>
           </div>
-          <div className="git-header-element-wrapper">
+          <div className="git-header-label-wrapper">
             <div className="git-header-label" style={{ color: "#fc6d26" }}>
               GitLab
             </div>
