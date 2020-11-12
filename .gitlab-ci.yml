@@ -9,11 +9,7 @@ pages:
   variables:
     REACT_APP_GA_ID: $GA_ID
   script:
-    - echo $CI_JOB_STAGE
-    - echo $REACT_APP_GA_ID
-    - printenv
     - npm install
-    - export REACT_APP_GA_ID=$REACT_APP_GA_ID
     - npm run build
     - rm -rf public
     - mv build public
