@@ -76,7 +76,6 @@ class GitHubRepo extends React.Component<IProps, IState> {
       total = total + parseInt(byte[1]);
     }
 
-    console.log(total);
     return languages.map((elem: any, i: number) => {
       return (
         <div

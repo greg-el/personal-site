@@ -1,18 +1,18 @@
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga";
 import React from "react";
 import "./App.css";
 import ViewHandler from "./components/ViewHandler";
 
+require("dotenv").config();
 
+interface IProps {}
 
-interface IProps { }
-
-interface IState { }
+interface IState {}
 
 class App extends React.Component<IProps, IState> {
   componentDidMount() {
-    ReactGA.initialize("G-TLFKH9ZPYS");
-    ReactGA.pageview(window.location.pathname + window.location.search)
+    ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
   render() {

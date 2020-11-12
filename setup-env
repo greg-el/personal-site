@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo REACT_APP_GA_ID=$GA_ID >> .env
+cat .env

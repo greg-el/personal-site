@@ -6,7 +6,12 @@ pages:
       - node_modules/
 
   stage: deploy
+  variables:
+    REACT_APP_GA_ID: $GA_ID
   script:
+    - echo $CI_JOB_STAGE
+    - echo $REACT_APP_GA_ID
+    - printenv
     - npm install
     - npm run build
     - rm -rf public
@@ -14,5 +19,6 @@ pages:
   artifacts:
     paths:
       - public
+
   only:
     - deploy
