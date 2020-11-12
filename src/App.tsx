@@ -4,7 +4,7 @@ import ViewHandler from "./components/ViewHandler";
 
 import ReactGA from 'react-ga';
 
-ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
+ReactGA.initialize("G-TLFKH9ZPYS");
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 interface IProps { }
