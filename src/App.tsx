@@ -2,9 +2,14 @@ import React from "react";
 import "./App.css";
 import ViewHandler from "./components/ViewHandler";
 
-interface IProps {}
+import ReactGA from 'react-ga';
 
-interface IState {}
+ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
+ReactGA.pageview(window.location.pathname + window.location.search);
+
+interface IProps { }
+
+interface IState { }
 
 class App extends React.Component<IProps, IState> {
   render() {
