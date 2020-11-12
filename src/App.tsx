@@ -2,10 +2,7 @@ import React from "react";
 import "./App.css";
 import ViewHandler from "./components/ViewHandler";
 
-import ReactGA from 'react-ga';
 
-ReactGA.initialize("G-TLFKH9ZPYS");
-ReactGA.pageview(window.location.pathname + window.location.search);
 
 interface IProps { }
 

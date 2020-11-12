@@ -4,6 +4,11 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+import ReactGA from 'react-ga';
+
+ReactGA.initialize("G-TLFKH9ZPYS");
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
