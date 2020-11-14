@@ -36,6 +36,7 @@ import GitLabLogo from "../image/desktop-icons/GitLabLogoPixelShortcut.png";
 import GitHubLogo from "../image/desktop-icons/GitHubLogoShortcut.png";
 import LinkedInLogo from "../image/desktop-icons/LinkedInIcon.png";
 import GitHubIconNoShortcut from "../image/desktop-icons/GitHubLogo.png";
+import CandidShortcut from "../image/desktop-icons/CandidShortcut.png";
 
 /* ------------ Start Menu Icons ------------ */
 import Book4Icon from "../image/system-icons/Book-4.png";
@@ -600,6 +601,12 @@ class ScreenHandler extends React.Component<IProps, IState> {
             label="LinkedIn"
             url="https://www.linkedin.com/in/gregory-leonard-ab3bbb191/"
             id="linkedIn"
+          />
+          <LinkIcon
+            iconStyle={{ backgroundImage: `url( ${CandidShortcut})` }}
+            label="Candid"
+            url="https://candid.hr"
+            id="candid"
           />
           {this.AboutMeWindow()}
           {this.WelcomeWindow()}
