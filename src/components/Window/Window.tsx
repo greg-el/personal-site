@@ -34,7 +34,7 @@ interface IState {
 }
 
 interface Window {
-  element: any;
+  element: React.RefObject<HTMLDivElement>;
 }
 
 class Window extends React.Component<IProps, IState> {
@@ -50,18 +50,22 @@ class Window extends React.Component<IProps, IState> {
   }
 
   setWindowDimensions() {
-    let rect = this.element.current.getBoundingClientRect();
-    if (
-      rect.width !== this.state.dimensions.width &&
-      rect.hight !== this.state.dimensions.height
-    ) {
-      this.setState({ dimensions: { width: rect.width, height: rect.height } });
-    }
-    if (
-      rect.right !== this.state.position.right ||
-      rect.bottom !== this.state.position.bottom
-    ) {
-      this.setState({ position: { right: rect.right, bottom: rect.bottom } });
+    let rect = this.element.current?.getBoundingClientRect();
+    if (rect !== undefined) {
+      if (
+        rect.width !== this.state.dimensions.width &&
+        rect.height !== this.state.dimensions.height
+      ) {
+        this.setState({
+          dimensions: { width: rect.width, height: rect.height },
+        });
+      }
+      if (
+        rect.right !== this.state.position.right ||
+        rect.bottom !== this.state.position.bottom
+      ) {
+        this.setState({ position: { right: rect.right, bottom: rect.bottom } });
+      }
     }
   }
 

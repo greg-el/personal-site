@@ -11,7 +11,9 @@ interface IState {}
 
 class App extends React.Component<IProps, IState> {
   componentDidMount() {
-    ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
+    ReactGA.initialize(process.env.REACT_APP_GA_ID || "", {
+      gaOptions: { cookieFlags: "max-age=7200;secure;samesite=none" },
+    });
     ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
