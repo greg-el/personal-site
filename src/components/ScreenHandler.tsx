@@ -6,6 +6,7 @@ import StartMenu from "./StartMenu";
 import StartButton from "./StartButton";
 import Desktop from "./Desktop";
 import Icon from "./Icon";
+import LinkIcon from "./LinkIcon";
 import SystemTray from "./SystemTray";
 import StartMenuItem from "./StartMenuItem";
 import TaskbarWindow from "./TaskbarWindow";
@@ -39,6 +40,7 @@ import NotepadIcon from "../image/icons/notepad.png";
 import TitlebarIcon from "./Window/TitlebarIcon";
 import ShutDownIcon from "../image/icons/shutdown.png";
 import GitHubIconNoShortcut from "../image/GitHubLogoPixelNoShortcut.png";
+import LinkedInLogo from "../image/LinkedInIcon.png";
 
 /* ------------ Constants ------------ */
 import {
@@ -360,7 +362,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
   }
 
-  shutDown() {
+  ShutDown() {
     return (
       <Window
         id="shutDown"
@@ -591,10 +593,16 @@ class ScreenHandler extends React.Component<IProps, IState> {
             moveToFront={this.moveWindowToFront}
             addToTaskbarStack={this.addToTaskbarStack}
           />
+          <LinkIcon
+            iconStyle={{ backgroundImage: `url( ${LinkedInLogo})` }}
+            label="LinkedIn"
+            url="https://www.linkedin.com/in/gregory-leonard-ab3bbb191/"
+            id="linkedIn"
+          />
           {this.AboutMeWindow()}
           {this.WelcomeWindow()}
           {this.SystemProperties()}
-          {this.shutDown()}
+          {this.ShutDown()}
           {this.GitHub()}
           {this.GitLab()}
         </Desktop>

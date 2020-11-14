@@ -27,9 +27,9 @@ class Notepad extends React.Component<IProps, IState> {
             <a href="https://ac-guide.herokuapp.com">
               Animal Crossing: New Horizons Assistant
             </a>{" "}
-            started out from me having to search through the wiki regularly to
-            find out what I could currently do in the game. I created this as my
-            first full stack project.
+            I created this as my first full stack project. Its main purpose was
+            to condense information from the wiki into a visual, up-to-date view
+            on what activities are currently available within the game.
           </p>
           <p>
             I'm always interested in learning new technologies/concepts. At the
