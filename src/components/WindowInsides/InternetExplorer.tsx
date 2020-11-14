@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
-import IEToolbar from "./IE-Components/IEToolbar";
-import IEIcons from "./IE-Components/IEIcons";
+import IEToolbar from "../Window/InternetExplorer/IEToolbar";
+import IEIcons from "../Window/InternetExplorer/IEIcons";
 
 interface IProps {
   page: ReactElement;

@@ -1,7 +1,7 @@
 import React from "react";
 import Draggable from "react-draggable";
 import onClickOutside from "react-onclickoutside";
-import { WindowStateEnum } from "../constants";
+import { WindowStateEnum } from "../../constants";
 
 interface IState {
   focused: boolean;

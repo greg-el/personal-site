@@ -36,13 +36,13 @@ html {
 /* Works on Chrome/Edge/Safari */
 ::-webkit-scrollbar {
   width: 15px;
-  cursor: url(./image/cursor.svg), auto;
-  background: url(./image/scrollbar-background.svg);
+  cursor: url(./image/cursors/cursor.svg), auto;
+  background: url(./image/windows/scrollbar-background.svg);
 }
 
 ::-webkit-scrollbar-track {
-  background: url(./image/scrollbar-background.svg);
-  cursor: url(./image/cursor.svg), auto;
+  background: url(./image/windows/scrollbar-background.svg);
+  cursor: url(./image/cursors/cursor.svg), auto;
 }
 ::-webkit-scrollbar-thumb {
   border-top: 1px solid var(--border-light);
@@ -50,7 +50,7 @@ html {
   border-bottom: 2px solid var(--border-dark);
   border-right: 2px solid var(--border-dark);
   background-color: var(--windows-grey);
-  cursor: url(./image/cursor.svg), auto;
+  cursor: url(./image/cursors/cursor.svg), auto;
 }
 
 form,
@@ -176,7 +176,7 @@ a:visited {
 #start-button-icon {
   width: 100%;
   height: 100%;
-  background-image: url(./image/icons/windows-logo.png);
+  background-image: url(./image/system-icons/windows-logo.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -238,7 +238,7 @@ a:visited {
   margin-bottom: 20%;
   width: 80%;
   height: 100%;
-  background-image: url("./image/start-menu-logo.svg");
+  background-image: url("./image/desktop/start-menu-logo.svg");
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: contain;
@@ -459,15 +459,15 @@ a:visited {
 }
 
 .window-min {
-  background-image: url(./image/minimise.svg);
+  background-image: url(./image/windows/minimise.svg);
 }
 
 .window-max {
-  background-image: url(./image/maximise.svg);
+  background-image: url(./image/windows/maximise.svg);
 }
 
 .window-close {
-  background-image: url(./image/close.svg);
+  background-image: url(./image/windows/close.svg);
 }
 
 .window-toolbar-container {
@@ -546,7 +546,7 @@ a:visited {
 .window-resize-handle {
   width: 20px;
   height: 20px;
-  background-image: url("./image/resize-handle.svg");
+  background-image: url("./image/windows/resize-handle.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -568,7 +568,7 @@ a:visited {
 }
 
 .resize-handle:hover {
-  cursor: url("./image/resize-cursor.svg"), auto;
+  cursor: url("./image/cursors/resize-cursor.svg"), auto;
 }
 
 #taskbar-windows-container {
@@ -599,7 +599,7 @@ a:visited {
   border-right: 1px solid var(--border-light);
   border-top: 2px solid var(--border-dark);
   border-left: 2px solid var(--border-dark);
-  background: url(./image/taskbar-selected-background.svg);
+  background: url(./image/windows/taskbar-selected-background.svg);
 }
 
 .taskbar-window-minimised {
@@ -641,7 +641,7 @@ a:visited {
 }
 
 #dyk-container {
-  background-image: url(./image/pc-background.svg);
+  background-image: url(./image/windows/pc-background.svg);
   display: flex;
   flex-direction: row;
   font-family: "PX Sans";
@@ -664,7 +664,7 @@ a:visited {
 #dyk-icon {
   width: 100%;
   height: 100%;
-  background-image: url(./image/icons/tip-of-the-day.png);
+  background-image: url(./image/windows/tip-of-the-day.png);
   background-position: top;
   background-repeat: no-repeat;
   background-size: contain;
@@ -690,7 +690,7 @@ a:visited {
 #dyk-pc {
   height: 100%;
   width: 100%;
-  background-image: url(./image/did-you-know-pc.svg);
+  background-image: url(./image/windows/did-you-know-pc.svg);
   background-position: top;
   background-repeat: no-repeat;
   background-size: contain;
@@ -726,7 +726,7 @@ a:visited {
 #sp-pc {
   height: 100%;
   width: 100%;
-  background-image: url(./image/pc-windows-logo.svg);
+  background-image: url(./image/windows/pc-windows-logo.svg);
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -763,7 +763,7 @@ a:visited {
 #shut-down-icon {
   height: 100%;
   width: 100%;
-  background-image: url(./image/icons/shutdown.png);
+  background-image: url(./image/system-icons/shutdown.png);
   background-position: top;
   background-repeat: no-repeat;
   background-size: contain;
@@ -836,7 +836,7 @@ a:visited {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-image: url(./image/shutdown-logo.svg);
+  background-image: url(./image/desktop/shutdown-logo.svg);
   height: 60%;
   width: 60%;
   background-position: center;
@@ -874,7 +874,7 @@ input[type="radio"] {
 
 form,
 label {
-  cursor: url(./image/cursor.svg), auto;
+  cursor: url(./image/cursors/cursor.svg), auto;
 }
 
 .container {
@@ -1022,7 +1022,7 @@ label {
   border-bottom: 1px solid #828282;
   border-top: 2px solid white;
   border-left: 2px solid white;
-  cursor: url(./image/pointer-cursor.svg) 6 0, auto;
+  cursor: url(./image/cursors/cursor.svg) 6 0, auto;
 }
 
 .open-in-browser-button-wrapper:hover {
@@ -1108,11 +1108,11 @@ label {
 }
 
 #gitlab-header-icon {
-  background-image: url(./image/GitLabLogoPixel.png);
+  background-image: url(./image/desktop-icons/GitLabLogo.svg);
 }
 
 #github-header-icon {
-  background-image: url(./image/GitHubLogoPixelNoShortcutInvert.png);
+  background-image: url(./image/desktop-icons/GitHubLogoInvert.png);
 }
 
 .git-header-label-wrapper {
@@ -1146,7 +1146,7 @@ label {
   background-color: whitesmoke;
   padding: 10px;
   margin: 10px;
-  cursor: url(./image/pointer-cursor.svg) 6 0, auto;
+  cursor: url(./image/cursors/cursor.svg) 6 0, auto;
 }
 
 .repo-wrapper:hover {
@@ -1206,8 +1206,6 @@ label {
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 
 #notepad-text-wrapper {
@@ -1220,6 +1218,8 @@ label {
   border-bottom: 2px solid white;
   border-top: 2px solid black;
   border-left: 2px solid black;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 #notepad-text {

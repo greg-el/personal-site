@@ -1,46 +1,48 @@
 import React, { ReactElement } from "react";
 
 /* ------------ Desktop Components ------------ */
-import Taskbar from "./Taskbar";
-import StartMenu from "./StartMenu";
-import StartButton from "./StartButton";
-import Desktop from "./Desktop";
-import Icon from "./Icon";
-import LinkIcon from "./LinkIcon";
-import SystemTray from "./SystemTray";
-import StartMenuItem from "./StartMenuItem";
-import TaskbarWindow from "./TaskbarWindow";
+import Taskbar from "./Taskbar/Taskbar";
+import StartMenu from "./StartMenu/StartMenu";
+import StartButton from "./Taskbar/StartButton";
+import Desktop from "./Views/Desktop";
+import Icon from "./Desktop/Icon";
+import LinkIcon from "./Desktop/LinkIcon";
+import SystemTray from "./Taskbar/SystemTray";
+import StartMenuItem from "./StartMenu/StartMenuItem";
+import TaskbarWindow from "./Taskbar/TaskbarWindow";
 
 /* ------------ Window Components ------------ */
-import Window from "./Window";
-import TitlebarLabel from "./Window/TitlebarLabel";
-import Close from "./Window/Close";
-import Minimise from "./Window/Minimise";
-import ShutDownGrille from "../image/shutdown-grille.svg";
+import Window from "./Window/Window";
+import TitlebarLabel from "./Window/TitleBar/TitlebarLabel";
+import Close from "./Window/Window-Decoration/Close";
+import Minimise from "./Window/Window-Decoration/Minimise";
+import ShutDownGrille from "../image/desktop/shutdown-grille.svg";
 
 /* ------------ Windows ------------ */
-import DidYouKnow from "./Window/DidYouKnow";
-import SystemProperties from "./Window/SystemProperties";
-import ShutDown from "./Window/ShutDown";
-import InternetExplorer from "./Window/InternetExplorer";
-import GitHub from "./Window/GitHub";
-import GitLab from "./Window/GitLab";
+import DidYouKnow from "./WindowInsides/DidYouKnow";
+import SystemProperties from "./WindowInsides/SystemProperties";
+import ShutDown from "./WindowInsides/ShutDown";
+import InternetExplorer from "./WindowInsides/InternetExplorer";
+import GitHub from "./WindowInsides/GitHub";
+import GitLab from "./WindowInsides/GitLab";
 import AboutMe from "./Window/Notepad/NotepadMain";
 
 /* ------------ Cursors ------------ */
-import Cursor from "../image/cursor.svg";
-import HourglassCursor from "../image/hourglass-cursor.svg";
+import Cursor from "../image/cursors/cursor.svg";
+import HourglassCursor from "../image/cursors/hourglass-cursor.svg";
 
-/* ------------ Icons ------------ */
-import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
-import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
-import Book4Icon from "../image/icons/Book-4.png";
-import SettingsIcon from "../image/icons/settings.png";
-import NotepadIcon from "../image/icons/notepad.png";
-import TitlebarIcon from "./Window/TitlebarIcon";
-import ShutDownIcon from "../image/icons/shutdown.png";
-import GitHubIconNoShortcut from "../image/GitHubLogoPixelNoShortcut.png";
-import LinkedInLogo from "../image/LinkedInIcon.png";
+/* ------------ Desktop Icons ------------ */
+import GitLabLogo from "../image/desktop-icons/GitLabLogoPixelShortcut.png";
+import GitHubLogo from "../image/desktop-icons/GitHubLogoShortcut.png";
+import LinkedInLogo from "../image/desktop-icons/LinkedInIcon.png";
+import GitHubIconNoShortcut from "../image/desktop-icons/GitHubLogo.png";
+
+/* ------------ Start Menu Icons ------------ */
+import Book4Icon from "../image/system-icons/Book-4.png";
+import SettingsIcon from "../image/system-icons/settings.png";
+import NotepadIcon from "../image/system-icons/notepad.png";
+import TitlebarIcon from "./Window/TitleBar/TitlebarIcon";
+import ShutDownIcon from "../image/system-icons/shutdown.png";
 
 /* ------------ Constants ------------ */
 import {

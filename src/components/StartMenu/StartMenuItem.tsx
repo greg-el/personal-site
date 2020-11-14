@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { WindowStateEnum } from "../constants";
+import { WindowStateEnum } from "../../constants";
 import { GlobalHotKeys } from "react-hotkeys";
 
 interface IProps {

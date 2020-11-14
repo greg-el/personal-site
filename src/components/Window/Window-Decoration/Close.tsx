@@ -1,5 +1,5 @@
 import React from "react";
-import { WindowStateEnum } from "../../constants/index";
+import { WindowStateEnum } from "../../../constants/index";
 
 interface IProps {
   id: string;

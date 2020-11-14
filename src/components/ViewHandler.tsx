@@ -1,8 +1,8 @@
 import React from "react";
-import BootLine from "./BootLine";
+import BootLine from "./Views/BootLine";
 import ScreenHandler from "./ScreenHandler";
-import LogoShutDown from "./LogoShutDown";
-import ShutDownScreen from "./ShutDownScreen";
+import LogoShutDown from "./Views/LogoShutDown";
+import ShutDownScreen from "./Views/ShutDownScreen";
 import { ScreenStateEnum } from "../constants/index";
 
 interface IProps {

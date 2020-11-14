@@ -4,7 +4,7 @@ interface IProps {
   url: string;
 }
 
-function IeIcon(props: IProps) {
+function IEIcon(props: IProps) {
   return (
     <div className="ie-icon-wrapper">
       <div
@@ -15,4 +15,4 @@ function IeIcon(props: IProps) {
   );
 }
 
-export default IeIcon;
+export default IEIcon;
