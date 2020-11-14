@@ -115,7 +115,7 @@ class Window extends React.Component<IProps, IState> {
         <Draggable
           handle=".window-title-bar-draggable"
           bounds={dragBounds}
-          defaultPosition={windowPos}
+          defaultPosition={{ x: windowPos.x, y: windowPos.y }}
           onDrag={() => {
             this.props.moveToFront();
           }}
@@ -125,7 +125,7 @@ class Window extends React.Component<IProps, IState> {
               width: width,
               height: height,
               handleSize: [35, 35],
-              minConstraints: [700, 650],
+              minConstraints: [600, 550],
               maxConstraints: [maxRight, maxBottom],
               resizeHandles: ["se"],
               className: "window-wrapper " + windowClass,

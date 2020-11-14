@@ -1,4 +1,6 @@
 import React, { ReactElement } from "react";
+
+/* ------------ Desktop Components ------------ */
 import Taskbar from "./Taskbar";
 import StartMenu from "./StartMenu";
 import StartButton from "./StartButton";
@@ -6,33 +8,44 @@ import Desktop from "./Desktop";
 import Icon from "./Icon";
 import SystemTray from "./SystemTray";
 import StartMenuItem from "./StartMenuItem";
+import TaskbarWindow from "./TaskbarWindow";
+
+/* ------------ Window Components ------------ */
 import Window from "./Window";
-import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
-import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
-import UserWithComputerIcon from "../image/icons/User-with-computer.png";
-import Book4Icon from "../image/icons/Book-4.png";
-import SettingsIcon from "../image/icons/settings.png";
 import TitlebarLabel from "./Window/TitlebarLabel";
 import Close from "./Window/Close";
 import Minimise from "./Window/Minimise";
-import TaskbarWindow from "./TaskbarWindow";
+import ShutDownGrille from "../image/shutdown-grille.svg";
+
+/* ------------ Windows ------------ */
+import DidYouKnow from "./Window/DidYouKnow";
+import SystemProperties from "./Window/SystemProperties";
+import ShutDown from "./Window/ShutDown";
+import InternetExplorer from "./Window/InternetExplorer";
+import GitHub from "./Window/GitHub";
+import GitLab from "./Window/GitLab";
+import AboutMe from "./Window/Notepad/NotepadMain";
+
+/* ------------ Cursors ------------ */
+import Cursor from "../image/cursor.svg";
+import HourglassCursor from "../image/hourglass-cursor.svg";
+
+/* ------------ Icons ------------ */
+import GitLabLogo from "../image/GitLabLogoPixelShortcut.png";
+import GitHubLogo from "../image/GitHubLogoPixelShortcut.png";
+import Book4Icon from "../image/icons/Book-4.png";
+import SettingsIcon from "../image/icons/settings.png";
+import NotepadIcon from "../image/icons/notepad.png";
+import TitlebarIcon from "./Window/TitlebarIcon";
+import ShutDownIcon from "../image/icons/shutdown.png";
+import GitHubIconNoShortcut from "../image/GitHubLogoPixelNoShortcut.png";
+
+/* ------------ Constants ------------ */
 import {
   WindowStateEnum,
   CursorStateEnum,
   Dimensions,
 } from "../constants/index";
-import TitlebarIcon from "./Window/TitlebarIcon";
-import ShutDownIcon from "../image/icons/shutdown.png";
-import DidYouKnow from "./Window/DidYouKnow";
-import SystemProperties from "./Window/SystemProperties";
-import ShutDown from "./Window/ShutDown";
-import Cursor from "../image/cursor.svg";
-import HourglassCursor from "../image/hourglass-cursor.svg";
-import ShutDownGrille from "../image/shutdown-grille.svg";
-import InternetExplorer from "./Window/InternetExplorer";
-import GitHub from "./Window/GitHub";
-import GitLab from "./Window/GitLab";
-import GitHubIconNoShortcut from "../image/GitHubLogoPixelNoShortcut.png";
 
 interface IState {
   cursor: CursorStateEnum;
@@ -89,8 +102,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
       welcomeWindowState: WindowStateEnum.CLOSED,
       welcomeTaskbarState: WindowStateEnum.CLOSED,
       welcomeWindowZIndex: 0,
-      aboutMeWindowState: WindowStateEnum.CLOSED,
-      aboutMeTaskbarState: WindowStateEnum.CLOSED,
+      aboutMeWindowState: WindowStateEnum.OPEN,
+      aboutMeTaskbarState: WindowStateEnum.OPEN,
       aboutMeWindowZIndex: 0,
       systemPropertiesWindowState: WindowStateEnum.CLOSED,
       systemPropertiesTaskbarState: WindowStateEnum.CLOSED,
@@ -107,8 +120,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
       gitLabWindowState: WindowStateEnum.CLOSED,
       gitLabTaskbarState: WindowStateEnum.CLOSED,
       gitLabWindowZIndex: 0,
-      windowStack: [],
-      taskbarStack: [],
+      windowStack: ["aboutMe"],
+      taskbarStack: ["aboutMe"],
       shutdown: false,
       screenSize: { width: 0, height: 0 },
       desktopSize: { width: 0, height: 0 },
@@ -138,11 +151,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
     return this.state.windowStack[this.state.windowStack.length - 1];
   }
 
-  /* 
-  -----------------------------------------
-  Window/Taskbar Stack/State Functions
-  -----------------------------------------
-  */
+  /* ------------ Window/Taskbar Stack/State Functions ------------ */
 
   setWindowState(taskbar: string, window: string, state: WindowStateEnum) {
     this.setState({ [window]: state });
@@ -213,11 +222,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
     }
   }
 
-  /* 
-  -----------------------------------------
-  Menu Functions
-  -----------------------------------------
-  */
+  /* ------------ Menu Functions ------------ */
 
   setMenuOpen() {
     this.setState({ isStartMenuOpen: true });
@@ -235,11 +240,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
     this.setState({ cursor: val });
   }
 
-  /* 
-  -----------------------------------------
-  Window Definitions
-  -----------------------------------------
-  */
+  /* ------------ Window Definitions ------------ */
 
   WelcomeWindow() {
     return (
@@ -284,16 +285,22 @@ class ScreenHandler extends React.Component<IProps, IState> {
         id="aboutMe"
         name={"About Me"}
         titlebarIcon={
-          <TitlebarIcon
-            icon={{ backgroundImage: `url( ${UserWithComputerIcon})` }}
-          />
+          <TitlebarIcon icon={{ backgroundImage: `url( ${NotepadIcon})` }} />
         }
-        titlebarLabel={<TitlebarLabel labelText="About Me" />}
+        titlebarLabel={
+          <TitlebarLabel labelText="About Me (Read Only) - Notepad" />
+        }
         moveToFront={() => this.moveWindowToFront("aboutMe")}
         zIndex={this.state.aboutMeWindowZIndex}
         windowStackLength={this.state.windowStack.length}
+        insideElement={<AboutMe />}
         resize={true}
         desktopSize={this.state.desktopSize}
+        openingPos={{
+          x: 110,
+          y: 60,
+        }}
+        size={[800, 500]}
         close={
           <Close
             id="aboutMe"
@@ -496,11 +503,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
     );
   }
 
-  /* 
-  -----------------------------------------
-  Fix Warning: Can't perform a React state update on an unmounted component
-  -----------------------------------------
-  */
+  /* ------------ Fix Warning: Can't perform a React state update on an unmounted component ------------ */
 
   componentWillUnmount() {
     this.setState = (state, callback) => {
@@ -525,11 +528,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
     });
   }
 
-  /* 
-  -----------------------------------------
-  Detecting Window Size on Resize 
-  -----------------------------------------
-  */
+  /* ------------ Detecting Window Size on Resize ------------ */
 
   handleResize() {
     // Height/Width difference between full screen size and desktop space
@@ -623,8 +622,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
               <TaskbarWindow
                 id="aboutMe"
                 state={this.state.aboutMeTaskbarState}
-                label="About Me"
-                icon={{ backgroundImage: `url( ${UserWithComputerIcon})` }}
+                label="About Me (Read Only)"
+                icon={{ backgroundImage: `url( ${NotepadIcon})` }}
                 taskbarStateName="aboutMeTaskbarState"
                 windowStateName="aboutMeWindowState"
                 setWindowState={this.setWindowState}
@@ -706,7 +705,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
           ></StartMenuItem>
           <StartMenuItem
             id="aboutMe"
-            image={{ backgroundImage: `url( ${UserWithComputerIcon})` }}
+            image={{ backgroundImage: `url( ${NotepadIcon})` }}
             label={
               <div className="start-menu-item-label">
                 <u>A</u>bout Me

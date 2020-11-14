@@ -30,21 +30,25 @@ body {
 
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--border-dark) var(--windows-grey);
+  scrollbar-color: #a8a8a8 #e1e1e1;
 }
 
 /* Works on Chrome/Edge/Safari */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 15px;
   cursor: url(./image/cursor.svg), auto;
-  background-color: var(--windows-grey);
+  background: url(./image/scrollbar-background.svg);
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--border-dark);
+  background: url(./image/scrollbar-background.svg);
   cursor: url(./image/cursor.svg), auto;
 }
 ::-webkit-scrollbar-thumb {
+  border-top: 1px solid var(--border-light);
+  border-left: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-dark);
+  border-right: 2px solid var(--border-dark);
   background-color: var(--windows-grey);
   cursor: url(./image/cursor.svg), auto;
 }
@@ -614,22 +618,26 @@ a:visited {
 }
 
 .taskbar-window-icon {
-  height: 80%;
-  width: 80%;
-  background-position: centre;
+  height: 100%;
+  width: 100%;
+  margin: 5%;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  image-rendering: crisp-edges;
 }
 
 .taskbar-window-label-wrapper {
   display: flex;
   align-items: center;
   flex: 1;
+  overflow: hidden;
 }
 
 .taskbar-window-label {
   margin-left: 2.5%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: "..";
 }
 
 #dyk-container {
@@ -1190,4 +1198,31 @@ label {
 .language-key-colour {
   height: 100%;
   width: 100%;
+}
+
+/* ------------ Notepad Window ------------ */
+
+#notepad-component-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#notepad-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 2px;
+  background-color: white;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+}
+
+#notepad-text {
+  height: 100%;
+  overflow: hidden;
 }
