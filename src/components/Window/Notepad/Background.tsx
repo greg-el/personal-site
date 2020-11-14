@@ -17,23 +17,24 @@ class Notepad extends React.Component<IProps, IState> {
           </p>
           <p>
             <a href="https://candid.hr">Candid</a> is a small startup I've been
-            working on with some friends, with the goal of showing candidates
-            what it'll really be like to work at a company and how they'll
-            actually be compensated. Powered by verified and anonymous insights
-            from current and former employees.
+            working on with some friends, using FastAPI for rapid development,
+            along with the Typing package for type hints to reduce code
+            ambiguity, and Alembic for migration creation. This project set out
+            with the goal of showing candidates what it'll really be like to
+            work at a company, by utilising verified and anonymous insights from
+            current and former employees.
           </p>
           <p>
-            My{" "}
-            <a href="https://ac-guide.herokuapp.com">
-              Animal Crossing: New Horizons Assistant
-            </a>{" "}
-            I created this as my first full stack project. Its main purpose was
-            to condense information from the wiki into a visual, up-to-date view
-            on what activities are currently available within the game.
+            I created the{" "}
+            <a href="https://ac-guide.herokuapp.com">New Horizons Guide</a> to
+            get a more in-depth understanding of a full stack environment. Its
+            main purpose was to condense information from the wiki into a
+            visual, up-to-date view on what activities are currently available
+            within the game.
           </p>
           <p>
             I'm always interested in learning new technologies/concepts. At the
-            moment I'm learning Rust! Most of the languages I'm familiar with
+            moment I'm learning Rust. Most of the languages I'm familiar with
             are quite high level, so I've set out to learn a lower level
             language, to get a deeper understanding of what is happening behind
             the scenes.

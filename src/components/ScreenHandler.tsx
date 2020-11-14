@@ -302,7 +302,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
           x: 110,
           y: 60,
         }}
-        size={[800, 500]}
+        size={[800, 550]}
         close={
           <Close
             id="aboutMe"
