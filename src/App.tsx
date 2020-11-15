@@ -1,5 +1,3 @@
-import ReactGA from "react-ga";
-import { hotjar } from "react-hotjar";
 import React from "react";
 import "./App.css";
 import ViewHandler from "./components/ViewHandler";
@@ -11,6 +9,7 @@ interface IProps {}
 interface IState {}
 
 class App extends React.Component<IProps, IState> {
+  /*
   componentDidMount() {
     ReactGA.initialize(process.env.REACT_APP_GA_ID || "", {
       gaOptions: { cookieFlags: "max-age=7200;secure;samesite=none" },
@@ -19,6 +18,7 @@ class App extends React.Component<IProps, IState> {
 
     hotjar.initialize(2099322, 0);
   }
+  */
 
   render() {
     return (
