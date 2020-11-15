@@ -1,4 +1,5 @@
 import ReactGA from "react-ga";
+import { hotjar } from "react-hotjar";
 import React from "react";
 import "./App.css";
 import ViewHandler from "./components/ViewHandler";
@@ -15,6 +16,8 @@ class App extends React.Component<IProps, IState> {
       gaOptions: { cookieFlags: "max-age=7200;secure;samesite=none" },
     });
     ReactGA.pageview(window.location.pathname + window.location.search);
+
+    hotjar.initialize(2099322, 0);
   }
 
   render() {

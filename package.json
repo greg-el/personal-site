@@ -17,6 +17,7 @@
     "react-dom": "^16.14.0",
     "react-draggable": "^4.4.3",
     "react-ga": "^3.2.1",
+    "react-hotjar": "^2.2.1",
     "react-hotkeys": "^2.0.0",
     "react-onclickoutside": "^6.9.0",
     "react-resizable": "^1.11.0",
