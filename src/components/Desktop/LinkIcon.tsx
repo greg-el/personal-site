@@ -1,6 +1,7 @@
 import React from "react";
 import Draggable from "react-draggable";
 import onClickOutside from "react-onclickoutside";
+import { isMobile } from "react-device-detect";
 
 interface IState {
   focused: boolean;
@@ -33,7 +34,7 @@ class Icon extends React.Component<IProps, IState> {
     let setClassName =
       this.state.focused === true ? "icon-focused" : "icon-not-focused";
     return (
-      <Draggable bounds="parent">
+      <Draggable bounds="parent" disabled={isMobile}>
         <div
           id={this.props.id}
           className={"icon-wrapper " + setClassName}

@@ -536,7 +536,6 @@ class ScreenHandler extends React.Component<IProps, IState> {
       return;
     };
   }
-
   componentDidMount() {
     let x = window.innerWidth;
     let y = window.innerHeight;
