@@ -262,6 +262,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
         insideElement={<DidYouKnow />}
         resize={false}
         desktopSize={this.state.desktopSize}
+        mobileSize={[
+          this.state.desktopSize.width,
+          this.state.desktopSize.height,
+        ]}
         close={
           <Close
             id="welcome"
@@ -306,6 +310,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
           y: 60,
         }}
         size={[800, 550]}
+        mobileSize={[
+          this.state.desktopSize.width,
+          this.state.desktopSize.height,
+        ]}
         close={
           <Close
             id="aboutMe"
@@ -343,6 +351,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
         insideElement={<SystemProperties />}
         resize={true}
         desktopSize={this.state.desktopSize}
+        mobileSize={[
+          this.state.desktopSize.width,
+          this.state.desktopSize.height,
+        ]}
         close={
           <Close
             id="systemProperties"
@@ -394,6 +406,7 @@ class ScreenHandler extends React.Component<IProps, IState> {
         resize={false}
         desktopSize={this.state.desktopSize}
         size={[450, 250]}
+        mobileSize={[450, 250]}
         close={
           <Close
             id="shutDown"
@@ -441,6 +454,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
         resize={true}
         resizeHandle={false}
         desktopSize={this.state.desktopSize}
+        mobileSize={[
+          this.state.desktopSize.width,
+          this.state.desktopSize.height,
+        ]}
         close={
           <Close
             id="gitHub"
@@ -486,6 +503,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
         resize={true}
         resizeHandle={false}
         desktopSize={this.state.desktopSize}
+        mobileSize={[
+          this.state.desktopSize.width,
+          this.state.desktopSize.height,
+        ]}
         close={
           <Close
             id="gitLab"

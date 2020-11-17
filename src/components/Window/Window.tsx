@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
 import { WindowStateEnum, Dimensions, Position } from "../../constants/index";
+import { isMobile } from "react-device-detect";
 
 interface IProps {
   name: string;
@@ -22,6 +23,7 @@ interface IProps {
   resize: boolean;
   resizeHandle?: boolean;
   size?: [number, number];
+  mobileSize?: [number, number];
   openingPos?: { x: number; y: number };
   dragBounds?: string;
   desktopSize: Dimensions;
@@ -87,10 +89,20 @@ class Window extends React.Component<IProps, IState> {
           ? "title-bar-focused"
           : "title-bar-unfocused";
 
-      let [width, height] = this.props.size ? this.props.size : [700, 650];
-      let windowPos = this.props.openingPos
-        ? this.props.openingPos
-        : { x: 0, y: 0 };
+      let [width, height] = [700, 650];
+      if (isMobile && this.props.mobileSize) {
+        [width, height] = [
+          this.props.mobileSize[0] - 7,
+          this.props.mobileSize[1] - 7,
+        ];
+      } else if (this.props.size) {
+        [width, height] = this.props.size;
+      }
+
+      let windowPos = { x: 0, y: 0 };
+      if (!isMobile && this.props.openingPos) {
+        windowPos = this.props.openingPos;
+      }
 
       let dragBounds = this.props.dragBounds
         ? this.props.dragBounds
