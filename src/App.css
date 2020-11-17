@@ -1239,6 +1239,14 @@ label {
   overflow-y: scroll;
 }
 
+/* ------------ -Mobile ------------ */
+
+@media only screen and (max-width: 320px) {
+  .icon-wrapper {
+    margin: 7.5px;
+  }
+}
+
 @media only screen and (max-width: 62em) {
   html,
   body {
