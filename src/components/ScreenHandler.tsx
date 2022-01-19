@@ -45,6 +45,14 @@ import NotepadIcon from "../image/system-icons/notepad.png";
 import TitlebarIcon from "./Window/TitleBar/TitlebarIcon";
 import ShutDownIcon from "../image/system-icons/shutdown.png";
 
+/* Snowplow */
+
+import { newTracker } from "@snowplow/browser-tracker";
+import {
+  YouTubeTrackingPlugin,
+  enableYouTubeTracking,
+} from "@snowplow/browser-plugin-youtube-tracking";
+
 /* ------------ Constants ------------ */
 import {
   WindowStateEnum,
@@ -141,9 +149,8 @@ class ScreenHandler extends React.Component<IProps, IState> {
     this.removeFromWindowStack = this.removeFromWindowStack.bind(this);
     this.addToTaskbarStack = this.addToTaskbarStack.bind(this);
     this.removeFromTaskbarStack = this.removeFromTaskbarStack.bind(this);
-    this.getTaskbarElementStackOrder = this.getTaskbarElementStackOrder.bind(
-      this
-    );
+    this.getTaskbarElementStackOrder =
+      this.getTaskbarElementStackOrder.bind(this);
     this.setShutDownTrue = this.setShutDownTrue.bind(this);
     this.setCursor = this.setCursor.bind(this);
     this.handleResize = this.handleResize.bind(this);
@@ -517,6 +524,10 @@ class ScreenHandler extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
+    newTracker("yt-test", "http://632c-86-8-161-81.ngrok.io", {
+      plugins: [YouTubeTrackingPlugin()],
+    });
+    enableYouTubeTracking({id: "yt-test"});
     let x = window.innerWidth;
     let y = window.innerHeight;
 
@@ -614,6 +625,14 @@ class ScreenHandler extends React.Component<IProps, IState> {
           {this.ShutDown()}
           {this.GitHub()}
           {this.GitLab()}
+          <iframe
+            id="yt-test"
+            src="https://www.youtube.com/embed/H6Q-dtQ7xdM?enablejsapi=1"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            width="560"
+            height="315"
+          ></iframe>
         </Desktop>
         <div id="taskbar-wrapper">
           <Taskbar>
